@@ -2,7 +2,13 @@
   "name": "hetic-saline-royale-academy",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "lint": "nx workspace-lint && nx run-many --all --target=lint  --maxWarnings=0",
+    "test": "nx test",
+    "test:all": "npx nx run-many --all --target=test --parallel",
+    "build": "nx build",
+    "build:all": "npx nx run-many --all --target=build --parallel --with-deps"
+  },
   "private": true,
   "dependencies": {
     "@nestjs/common": "^9.1.1",
