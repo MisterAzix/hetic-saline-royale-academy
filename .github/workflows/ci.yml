@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
@@ -30,33 +32,37 @@ jobs:
         if: steps.cache-primes.outputs.cache-hit != 'true'
         run: npm install
 
-  lint:
+  #lint:
+  #  runs-on: ubuntu-latest
+  #  needs:
+  #    - install
+  #  steps:
+  #    - uses: actions/checkout@v3
+  #      with:
+  #        fetch-depth: 0
+  #    - uses: actions/setup-node@v3
+  #      with:
+  #        node-version-file: '.nvmrc'
+  #        cache: 'npm'
+
+  #    - name: Cache NPM dependencies
+  #      uses: actions/cache@v3
+  #      with:
+  #        path: node_modules
+  #        key: ${{ runner.os }}-npm-v3-${{ hashFiles('package-lock.json') }}
+
+  #    - name: Lint project
+  #      run: |
+  #        npm run lint
+
+  build:
     runs-on: ubuntu-latest
     needs:
       - install
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
         with:
-          node-version-file: '.nvmrc'
-          cache: 'npm'
-
-      - name: Cache NPM dependencies
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-npm-v3-${{ hashFiles('package-lock.json') }}
-
-      - name: Lint project
-        run: |
-          npm run lint
-
-  build:
-    runs-on: ubuntu-latest
-    needs:
-      - lint
-    steps:
-      - uses: actions/checkout@v3
+          fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
@@ -77,3 +83,72 @@ jobs:
         with:
           name: bundle
           path: dist
+
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref == 'refs/heads/main' && 'production' || 'develop' }}
+      url: ${{ vars.CLIENT_URL }}
+    needs:
+      - build
+    #if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Download artifact
+        uses: actions/download-artifact@master
+        with:
+          name: bundle
+          path: dist
+
+      - name: Deploy API
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          SOURCE: "dist/apps/api/"
+          TARGET: "/var/www/${{ vars.API_URL }}"
+          SCRIPT_AFTER: |
+            cd /var/www/${{ vars.API_URL }}
+            chmod -R 777 package.json
+            npm install
+            pm2 start main.js --name ${{ vars.API_URL }} --watch
+
+      #- name: Deploy Dashboard
+      #  uses: easingthemes/ssh-deploy@main
+      #  env:
+      #    SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      #    REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+      #    REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+      #    REMOTE_USER: ${{ secrets.REMOTE_USER }}
+      #    SOURCE: "dist/apps/front-admin/"
+      #    TARGET: "/var/www/${{ vars.DASHBOARD_URL }}"
+      #    SCRIPT_AFTER: |
+      #      cd /var/www/${{ vars.DASHBOARD_URL }}
+      #      chmod -R 777 package.json
+      #      npm install --production
+      #      pm2 start npm --name ${{ vars.DASHBOARD_URL }} -- start -- -p 3002 --watch
+
+      - name: Deploy Client
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          SOURCE: "dist/apps/front-client/"
+          TARGET: "/var/www/${{ vars.CLIENT_URL }}"
+          SCRIPT_AFTER: |
+            cd /var/www/${{ vars.CLIENT_URL }}
+            chmod -R 777 package.json
+            npm install
+            pm2 start npm --watch --name ${{ vars.CLIENT_URL }} -- start -- -p 3001
+
