@@ -122,20 +122,20 @@ jobs:
             npm install
             pm2 start main.js --name ${{ vars.API_URL }} --watch
 
-      #- name: Deploy Dashboard
-      #  uses: easingthemes/ssh-deploy@main
-      #  env:
-      #    SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      #    REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-      #    REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
-      #    REMOTE_USER: ${{ secrets.REMOTE_USER }}
-      #    SOURCE: "dist/apps/front-admin/"
-      #    TARGET: "/var/www/${{ vars.DASHBOARD_URL }}"
-      #    SCRIPT_AFTER: |
-      #      cd /var/www/${{ vars.DASHBOARD_URL }}
-      #      chmod -R 777 package.json
-      #      npm install --production
-      #      pm2 start npm --name ${{ vars.DASHBOARD_URL }} -- start -- -p 3002 --watch
+      - name: Deploy Dashboard
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          SOURCE: "dist/apps/front-admin/"
+          TARGET: "/var/www/${{ vars.DASHBOARD_URL }}"
+          SCRIPT_AFTER: |
+            cd /var/www/${{ vars.DASHBOARD_URL }}
+            chmod -R 777 package.json
+            npm install
+            pm2 start npm --watch --name ${{ vars.DASHBOARD_URL }} -- start -- -p 3002
 
       - name: Deploy Client
         uses: easingthemes/ssh-deploy@main
