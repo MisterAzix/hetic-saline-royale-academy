@@ -32,33 +32,33 @@ jobs:
         if: steps.cache-primes.outputs.cache-hit != 'true'
         run: npm install
 
-  #lint:
-  #  runs-on: ubuntu-latest
-  #  needs:
-  #    - install
-  #  steps:
-  #    - uses: actions/checkout@v3
-  #      with:
-  #        fetch-depth: 0
-  #    - uses: actions/setup-node@v3
-  #      with:
-  #        node-version-file: '.nvmrc'
-  #        cache: 'npm'
+  lint:
+    runs-on: ubuntu-latest
+    needs:
+      - install
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
 
-  #    - name: Cache NPM dependencies
-  #      uses: actions/cache@v3
-  #      with:
-  #        path: node_modules
-  #        key: ${{ runner.os }}-npm-v3-${{ hashFiles('package-lock.json') }}
+      - name: Cache NPM dependencies
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('package-lock.json') }}
 
-  #    - name: Lint project
-  #      run: |
-  #        npm run lint
+      - name: Lint project
+        run: |
+          npm run lint
 
   build:
     runs-on: ubuntu-latest
     needs:
-      - install
+      - lint
     steps:
       - uses: actions/checkout@v3
         with:
@@ -91,7 +91,7 @@ jobs:
       url: ${{ vars.CLIENT_URL }}
     needs:
       - build
-    #if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' }}
+    if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' }}
     steps:
       - uses: actions/checkout@v3
         with:
