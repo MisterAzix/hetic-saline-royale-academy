@@ -91,7 +91,7 @@ jobs:
       url: ${{ vars.CLIENT_URL }}
     needs:
       - build
-    if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' }}
+    #if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -116,11 +116,6 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           SOURCE: "dist/apps/api/"
           TARGET: "/var/www/${{ vars.API_URL }}"
-          SCRIPT_AFTER: |
-            cd /var/www/${{ vars.API_URL }}
-            chmod -R 777 package.json
-            npm install
-            pm2 start main.js --name ${{ vars.API_URL }} --watch
 
       - name: Deploy Dashboard
         uses: easingthemes/ssh-deploy@main
@@ -131,11 +126,6 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           SOURCE: "dist/apps/front-admin/"
           TARGET: "/var/www/${{ vars.DASHBOARD_URL }}"
-          SCRIPT_AFTER: |
-            cd /var/www/${{ vars.DASHBOARD_URL }}
-            chmod -R 777 package.json
-            npm install
-            pm2 start npm --watch --name ${{ vars.DASHBOARD_URL }} -- start -- -p 3002
 
       - name: Deploy Client
         uses: easingthemes/ssh-deploy@main
@@ -146,9 +136,20 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           SOURCE: "dist/apps/front-client/"
           TARGET: "/var/www/${{ vars.CLIENT_URL }}"
+
+      - name: Restart Apps
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
           SCRIPT_AFTER: |
-            cd /var/www/${{ vars.CLIENT_URL }}
-            chmod -R 777 package.json
-            npm install
-            pm2 start npm --watch --name ${{ vars.CLIENT_URL }} -- start -- -p 3001
+            cd /var/www/${{ vars.API_URL }} && npm install
+            [[ $((pm2 info ${{ vars.API_URL }} || echo 'status|stopped') | grep status) =~ 'stopped' ]] && pm2 start main.js --name ${{ vars.API_URL }} || pm2 restart ${{ vars.API_URL }}
+            cd /var/www/${{ vars.DASHBOARD_URL }} && npm install
+            [[ $((pm2 info ${{ vars.DASHBOARD_URL }} || echo 'status|stopped') | grep status) =~ 'stopped' ]] && pm2 start npm --name ${{ vars.DASHBOARD_URL }} -- start -- -p 3002 || pm2 restart ${{ vars.DASHBOARD_URL }}
+            cd /var/www/${{ vars.CLIENT_URL }} && npm install
+            [[ $((pm2 info ${{ vars.CLIENT_URL }} || echo 'status|stopped') | grep status) =~ 'stopped' ]] && pm2 start npm --name ${{ vars.CLIENT_URL }} -- start -- -p 3001 || pm2 restart ${{ vars.CLIENT_URL }}
+
 
