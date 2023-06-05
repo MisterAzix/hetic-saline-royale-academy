@@ -14,7 +14,7 @@
       },
       "configurations": {
         "development": {
-          "outputPath": "apps/front-admin"
+          "outputPath": "dist/apps/front-admin"
         },
         "production": {}
       }
@@ -29,11 +29,13 @@
       "configurations": {
         "development": {
           "buildTarget": "front-admin:build:development",
-          "dev": true
+          "dev": true,
+          "port": 8081
         },
         "production": {
           "buildTarget": "front-admin:build:production",
-          "dev": false
+          "dev": false,
+          "port": 8081
         }
       }
     },

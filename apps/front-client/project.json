@@ -14,7 +14,7 @@
       },
       "configurations": {
         "development": {
-          "outputPath": "apps/front-client"
+          "outputPath": "dist/apps/front-client"
         },
         "production": {}
       }
@@ -29,11 +29,13 @@
       "configurations": {
         "development": {
           "buildTarget": "front-client:build:development",
-          "dev": true
+          "dev": true,
+          "port": 8080
         },
         "production": {
           "buildTarget": "front-client:build:production",
-          "dev": false
+          "dev": false,
+          "port": 8080
         }
       }
     },
