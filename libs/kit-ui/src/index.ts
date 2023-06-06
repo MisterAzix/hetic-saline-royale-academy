@@ -1,1 +1,1 @@
-export * from './lib/kit-ui';
+export * from './lib';

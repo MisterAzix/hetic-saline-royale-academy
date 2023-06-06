@@ -1,1 +1,1 @@
-export * from './kit-ui';
+export * from './components';
