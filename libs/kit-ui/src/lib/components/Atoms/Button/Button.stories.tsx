@@ -12,6 +12,12 @@ const meta: Meta<typeof Button> = {
       },
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
     },
+    color: {
+      control: {
+        type: 'select',
+      },
+      options: ['primary', 'secondary'],
+    },
   },
 };
 export default meta;
@@ -20,6 +26,7 @@ type Story = StoryObj<typeof Button>;
 export const Playground: Story = {
   args: {
     size: 'md',
+    color: 'primary',
     children: 'Click Me!',
   },
 };
