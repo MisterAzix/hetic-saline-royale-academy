@@ -14,7 +14,7 @@ import { Prisma, User as UserModel } from '@prisma/client';
 import { UserSignDto } from '../users/dto/signin-user.dto';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
-import { Public } from './decorators/public.decorator';
+import { Public } from '../decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
