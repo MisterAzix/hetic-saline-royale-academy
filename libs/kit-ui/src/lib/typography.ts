@@ -1,6 +1,6 @@
-import { css } from 'styled-components';
-
 // xs: 12px
+import { css } from '@emotion/react';
+
 const textXsBase = css`
   font-family: 'Inter', sans-serif;
   font-style: normal;

@@ -1,7 +1,8 @@
-import styled, { css } from 'styled-components';
+import { PropsWithChildren } from 'react';
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { from, getColumnConfig, getTheme } from '../../../../../styles/mixins';
 import { MAX } from '../../../../../styles/theme';
-import { PropsWithChildren } from 'react';
 
 const GridComponent = styled.section`
   display: grid;

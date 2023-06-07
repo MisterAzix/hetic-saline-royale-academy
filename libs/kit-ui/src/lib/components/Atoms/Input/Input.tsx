@@ -1,7 +1,7 @@
-import styled from 'styled-components';
 import Input, { inputClasses } from '@mui/base/Input';
-import { palette } from '../../../palette';
 import { useFormControlContext } from '@mui/base';
+import styled from '@emotion/styled';
+import { palette } from '../../../palette';
 import { ComponentProps, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { typography } from '../../../typography';

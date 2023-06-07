@@ -1,6 +1,6 @@
 import { PropsWithChildren, useEffect, useState } from 'react';
 import { useFormControlContext } from '@mui/base';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import clsx from 'clsx';
 import { palette } from '../../../palette';
 import { typography } from '../../../typography';

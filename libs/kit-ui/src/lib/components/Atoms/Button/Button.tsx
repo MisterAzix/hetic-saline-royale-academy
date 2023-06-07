@@ -1,5 +1,6 @@
 import { Button, buttonClasses } from '@mui/base';
-import styled, { css } from 'styled-components';
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { palette } from '../../../palette';
 import { typography } from '../../../typography';
 
