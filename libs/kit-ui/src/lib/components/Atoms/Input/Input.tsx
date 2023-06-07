@@ -4,6 +4,7 @@ import { palette } from '../../../palette';
 import { useFormControlContext } from '@mui/base';
 import { ComponentProps, useEffect, useState } from 'react';
 import clsx from 'clsx';
+import { typography } from '../../../typography';
 
 const StyledInput = styled(Input)`
   &.${inputClasses.root}.${inputClasses.error} {
@@ -26,11 +27,8 @@ const StyledInput = styled(Input)`
   }
 
   .${inputClasses.input} {
+    ${typography.md.regular};
     width: 320px;
-    font-size: 0.875rem;
-    font-family: Inter, sans-serif;
-    font-weight: 400;
-    line-height: 1.5;
     color: ${palette.gray[900]};
     background: ${palette.white};
     border: 1px solid ${palette.gray[300]};
