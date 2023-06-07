@@ -3,10 +3,10 @@ import { useFormControlContext } from '@mui/base';
 import styled from 'styled-components';
 import clsx from 'clsx';
 import { palette } from '../../../palette';
+import { typography } from '../../../typography';
 
 const StyledP = styled.p`
-  font-family: Inter, sans-serif;
-  font-size: 0.875rem;
+  ${typography.sm.regular};
   margin: 6px 0 0;
 
   &.error {
