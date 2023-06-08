@@ -48,15 +48,15 @@ const GUTTERS = {
   MOBILE: 3,
   TABLET: 5,
   DESKTOP: 11,
-  MOBILE_SPACING: 16,
-  TABLET_SPACING: 32,
-  DESKTOP_SPACING: 32,
+  MOBILE_SPACING: "16px",
+  TABLET_SPACING: "32px",
+  DESKTOP_SPACING: "32px",
 };
 
 const MARGINS = {
-  MOBILE: 16,
-  TABLET: 32,
-  DESKTOP: 32,
+  MOBILE: '16px',
+  TABLET: '32px',
+  DESKTOP: '32px',
 };
 
 const MOBILE = {
