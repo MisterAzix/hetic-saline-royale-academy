@@ -10,7 +10,7 @@ export const getColumnConfig = (config: ColumnConfig, withDebug?: boolean) => {
         grid-template-columns: repeat(${getTheme(MOBILE, 'columns')}, 1fr);
         column-gap: ${getTheme(MOBILE, 'gutter')}px;
         grid-template-rows: 1fr;
-        ${withDebug && `background: yellow;`}
+        ${withDebug ? `background: yellow;` : ''}
       `;
 
     case 'tablet':
@@ -19,7 +19,7 @@ export const getColumnConfig = (config: ColumnConfig, withDebug?: boolean) => {
         grid-template-columns: repeat(${getTheme(TABLET, 'columns')}, 1fr);
         column-gap: ${getTheme(TABLET, 'gutter')}px;
         grid-template-rows: 1fr;
-        ${withDebug && `background: red;`}
+        ${withDebug ? `background: red;` : ''}
       `;
 
     case 'desktop':
@@ -28,7 +28,7 @@ export const getColumnConfig = (config: ColumnConfig, withDebug?: boolean) => {
         grid-template-columns: repeat(${getTheme(DESKTOP, 'columns')}, 1fr);
         column-gap: ${getTheme(DESKTOP, 'gutter')}px;
         grid-template-rows: 1fr;
-        ${withDebug && `background: blue;`}
+        ${withDebug ? `background: red;` : ''}
       `;
 
     default:
