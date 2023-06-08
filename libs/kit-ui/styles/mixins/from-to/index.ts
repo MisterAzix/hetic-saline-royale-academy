@@ -6,6 +6,7 @@ const from = (
   breakpoint: Breakpoint,
   content: string | FlattenSimpleInterpolation | undefined
 ) => {
+  console.log(content)
   return `@media screen and (min-width: ${getTheme(SCREENS, breakpoint)}) {
     ${content}
   }`;

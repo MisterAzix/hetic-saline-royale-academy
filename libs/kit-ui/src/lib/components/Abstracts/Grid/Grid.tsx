@@ -7,6 +7,7 @@ const GridComponent = styled.section<{ isLarge?: boolean }>`
   display: grid;
   width: 100vw;
   max-width: 100%;
+  height: 100vh;
   margin-inline: auto;
   ${getColumnConfig('mobile')};
   ${from('md', getColumnConfig('tablet'))}
