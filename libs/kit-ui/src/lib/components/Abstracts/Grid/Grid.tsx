@@ -3,7 +3,7 @@ import { from, getColumnConfig, getTheme } from '../../../../../styles/mixins';
 import { MAX } from '../../../../../styles/theme';
 import { PropsWithChildren } from 'react';
 
-const GridComponent = styled.section<{ isLarge?: boolean }>`
+const GridComponent = styled.section`
   display: grid;
   width: 100vw;
   max-width: 100%;
