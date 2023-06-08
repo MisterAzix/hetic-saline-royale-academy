@@ -1,9 +1,4 @@
 import { withThemeFromJSXProvider } from '@storybook/addon-styling';
-import { createGlobalStyle } from 'styled-components';
+import { GlobalStyles } from '../styles/global-style';
 
-const GlobalStyles = createGlobalStyle`
-  body {
-    background: blue;
-    font-family: sans-serif;
-  }`;
 export const decorators = [withThemeFromJSXProvider({ GlobalStyles })];
