@@ -23,4 +23,6 @@ type Breakpoint = keyof typeof SCREENS;
 
 type ColumnConfig = 'mobile' | 'tablet' | 'desktop';
 
-export type { Breakpoint, Theme, ColumnConfig };
+type ScreenSize = typeof MOBILE | typeof TABLET | typeof DESKTOP;
+
+export type { Breakpoint, Theme, ColumnConfig, ScreenSize };
