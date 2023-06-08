@@ -1,5 +1,4 @@
 import { INestApplication, Injectable, OnModuleInit } from '@nestjs/common';
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import { PrismaClient } from '@prisma/client';
 
 //Permet d'instancier PrismaClient et la connexion à la base de données.

@@ -1,6 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import { Prisma } from '@prisma/client';
 import { generateRandomPassword } from '../../helper/helper.services';
 import { UsersService } from '../users/users.service';

@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { PrismaService } from '../../prisma.service';
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import { Prisma, User } from '@prisma/client';
+import { PrismaService } from '../../prisma.service';
 
 @Injectable()
 export class UsersService {

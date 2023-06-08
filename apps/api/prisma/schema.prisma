@@ -1,24 +1,248 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
   output   = "../../../node_modules/.prisma/client"
 }
 
-// Configure Database Connection
 datasource db {
   provider = "postgresql"
   url      = "postgresql://postgres:password@localhost:5555/saline?schema=public"
-  // TODO:  env variable does not working should work
-  // url      = env("DATABASE_URL")
 }
 
-// Create User database table
-model User {
-  id        String  @id @default(uuid())
-  email     String  @unique
-  firstName String
-  lastName  String?
-  password  String
+model achievement {
+  id              Int            @id @default(autoincrement())
+  title           String         @db.VarChar(100)
+  description     String?        @db.VarChar(100)
+  created_at      DateTime?      @default(now()) @db.Timestamp(6)
+  last_updated_at DateTime?      @default(now()) @db.Timestamp(6)
+  last_updated_by String?        @db.VarChar(100)
+  created_by      String?        @db.VarChar(100)
+  criteria        String?        @db.VarChar(100)
+  unlock_date     DateTime?      @db.Timestamp(6)
+  visible         Boolean?       @default(false)
+  deleted         Boolean?       @default(false)
+  reward_id       Int?
+  badge_id        Int?
+  category_id     Int?
+  badge           badge?         @relation(fields: [badge_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_achievement_badge_id")
+  category        category?      @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_achievement_category_id")
+  rewards         rewards?       @relation(fields: [reward_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_achievement_reward_id")
+  gamification    gamification[]
+}
+
+model badge {
+  id                 Int           @id @default(autoincrement())
+  title              String        @db.VarChar(100)
+  description        String?       @db.VarChar(100)
+  criteria           String?       @db.VarChar(100)
+  level              String?       @db.VarChar(100)
+  unlock_date        DateTime?     @db.Timestamp(6)
+  created_at         DateTime?     @default(now()) @db.Timestamp(6)
+  last_updated_at    DateTime?     @default(now()) @db.Timestamp(6)
+  created_by         String?       @db.VarChar(100)
+  last_updated_by    String?       @db.VarChar(100)
+  visible            Boolean?      @default(false)
+  hidden_description String?       @db.VarChar(100)
+  deleted            Boolean?      @default(false)
+  category_id        Int?
+  achievement        achievement[]
+  category           category?     @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_badge_category_id")
+}
+
+model category {
+  id              Int           @id @default(autoincrement())
+  name            String        @db.VarChar(100)
+  created_at      DateTime?     @default(now()) @db.Timestamp(6)
+  last_updated_at DateTime?     @default(now()) @db.Timestamp(6)
+  deleted         Boolean?      @default(false)
+  achievement     achievement[]
+  badge           badge[]
+  course          course[]
+  rewards         rewards[]
+}
+
+model chapter {
+  id              Int       @id @default(autoincrement())
+  title           String?   @db.VarChar(100)
+  description     String?   @db.VarChar(100)
+  created_at      DateTime? @default(now()) @db.Timestamp(6)
+  last_updated_at DateTime? @default(now()) @db.Timestamp(6)
+  deleted         Boolean?  @default(false)
+  lesson_id       Int?
+  lesson          lesson?   @relation(fields: [lesson_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_chapter_lesson_id")
+  course          course[]
+}
+
+model course {
+  id                            Int                @id @default(autoincrement())
+  title                         String?            @db.VarChar(200)
+  description                   String?            @db.VarChar(700)
+  created_at                    DateTime?          @default(now()) @db.Timestamp(6)
+  last_updated_at               DateTime?          @default(now()) @db.Timestamp(6)
+  created_by                    String?            @db.VarChar(100)
+  last_updated_by               String?            @db.VarChar(100)
+  deleted                       Boolean?           @default(false)
+  user_id                       Int?
+  chapter_id                    Int?
+  tag_id                        Int?
+  ressource_id                  Int?
+  category_id                   Int?
+  category                      category?          @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_course_category_id")
+  chapter                       chapter?           @relation(fields: [chapter_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_course_chapter_id")
+  ressource                     ressource?         @relation(fields: [ressource_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_course_ressource_id")
+  tag                           tag?               @relation(fields: [tag_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_course_tag_id")
+  users_course_user_idTousers   users?             @relation("course_user_idTousers", fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_course_user_id")
+  progress_tracker              progress_tracker[]
+  users_users_course_idTocourse users[]            @relation("users_course_idTocourse")
+}
+
+model gamification {
+  id                                        Int          @id @default(autoincrement())
+  user_id                                   Int?
+  achievement_id                            Int?
+  created_at                                DateTime?    @default(now()) @db.Timestamp(6)
+  last_updated_at                           DateTime?    @default(now()) @db.Timestamp(6)
+  deleted                                   Boolean?     @default(false)
+  achievement                               achievement? @relation(fields: [achievement_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_gamification_achievement_id")
+  users_gamification_user_idTousers         users?       @relation("gamification_user_idTousers", fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_gamification_user_id")
+  users_users_gamification_idTogamification users[]      @relation("users_gamification_idTogamification")
+}
+
+model image {
+  id              Int       @id @default(autoincrement())
+  url             String    @db.VarChar(100)
+  created_at      DateTime? @default(now()) @db.Timestamp(6)
+  last_updated_at DateTime? @default(now()) @db.Timestamp(6)
+  deleted         Boolean?  @default(false)
+  lesson          lesson[]
+  users           users[]
+}
+
+model lesson {
+  id              Int       @id @default(autoincrement())
+  title           String?   @db.VarChar(100)
+  description     String?   @db.VarChar(100)
+  created_at      DateTime? @default(now()) @db.Timestamp(6)
+  last_updated_at DateTime? @default(now()) @db.Timestamp(6)
+  deleted         Boolean?  @default(false)
+  image_id        Int?
+  video_id        Int?
+  tag_id          Int?
+  chapter         chapter[]
+  image           image?    @relation(fields: [image_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_lesson_image_id")
+  tag             tag?      @relation(fields: [tag_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_lesson_tag_id")
+  video           video?    @relation(fields: [video_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_lesson_video_id")
+}
+
+model notification {
+  id              Int       @id @default(autoincrement())
+  message         String    @db.VarChar(100)
+  created_at      DateTime? @default(now()) @db.Timestamp(6)
+  last_updated_at DateTime? @default(now()) @db.Timestamp(6)
+  deleted         Boolean?  @default(false)
+  users           users[]
+}
+
+model progress_tracker {
+  id                                                Int       @id @default(autoincrement())
+  user_id                                           Int?
+  course_id                                         Int?
+  completed_lessons                                 Int?      @default(0)
+  total_lessons                                     Int?      @default(0)
+  completed_chapters                                Int?      @default(0)
+  total_chapters                                    Int?      @default(0)
+  created_at                                        DateTime? @default(now()) @db.Timestamp(6)
+  last_updated_at                                   DateTime? @default(now()) @db.Timestamp(6)
+  deleted                                           Boolean?  @default(false)
+  course                                            course?   @relation(fields: [course_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_progress_tracker_course_id")
+  users_progress_tracker_user_idTousers             users?    @relation("progress_tracker_user_idTousers", fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_progress_tracker_user_id")
+  users_users_progress_tracker_idToprogress_tracker users[]   @relation("users_progress_tracker_idToprogress_tracker")
+}
+
+model ressource {
+  id              Int       @id @default(autoincrement())
+  title           String?   @db.VarChar(100)
+  duration        DateTime? @db.Timestamp(6)
+  created_at      DateTime? @default(now()) @db.Timestamp(6)
+  last_updated_at DateTime? @default(now()) @db.Timestamp(6)
+  deleted         Boolean?  @default(false)
+  course          course[]
+}
+
+model rewards {
+  id              Int           @id @default(autoincrement())
+  title           String        @db.VarChar(100)
+  description     String?       @db.VarChar(100)
+  type            String?       @db.VarChar(100)
+  value           Int?
+  availability    Boolean?      @default(false)
+  unlock_criteria Boolean?      @default(false)
+  redeemable      Boolean?      @default(false)
+  expiration_date DateTime?     @db.Timestamp(6)
+  created_at      DateTime?     @default(now()) @db.Timestamp(6)
+  last_updated_at DateTime?     @default(now()) @db.Timestamp(6)
+  created_by      String?       @db.VarChar(100)
+  last_updated_by String?       @db.VarChar(100)
+  deleted         Boolean?      @default(false)
+  access_level    Int?
+  category_id     Int?
+  achievement     achievement[]
+  category        category?     @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_rewards_category_id")
+}
+
+model subscription {
+  id              Int       @id @default(autoincrement())
+  plan            String    @db.VarChar(100)
+  created_at      DateTime? @default(now()) @db.Timestamp(6)
+  last_updated_at DateTime? @default(now()) @db.Timestamp(6)
+  deleted         Boolean?  @default(false)
+  users           users[]
+}
+
+model tag {
+  id              Int       @id @default(autoincrement())
+  name            String    @db.VarChar(100)
+  created_at      DateTime? @default(now()) @db.Timestamp(6)
+  last_updated_at DateTime? @default(now()) @db.Timestamp(6)
+  deleted         Boolean?  @default(false)
+  course          course[]
+  lesson          lesson[]
+}
+
+model users {
+  id                                                           Int                @id @default(autoincrement())
+  display_name                                                 String             @db.VarChar(100)
+  first_name                                                   String             @db.VarChar(100)
+  last_name                                                    String             @db.VarChar(100)
+  email                                                        String             @db.VarChar(100)
+  created_at                                                   DateTime?          @default(now()) @db.Timestamp(6)
+  last_updated_at                                              DateTime?          @default(now()) @db.Timestamp(6)
+  deleted                                                      Boolean?           @default(false)
+  role                                                         String?            @default("USER") @db.VarChar(100)
+  password                                                     String             @db.VarChar(100)
+  preferences                                                  String?            @db.VarChar(100)
+  ecole                                                        String?            @db.VarChar(100)
+  gamification_id                                              Int?
+  notification_id                                              Int?
+  subscription_id                                              Int?
+  progress_tracker_id                                          Int?
+  course_id                                                    Int?
+  image_id                                                     Int?
+  course_course_user_idTousers                                 course[]           @relation("course_user_idTousers")
+  gamification_gamification_user_idTousers                     gamification[]     @relation("gamification_user_idTousers")
+  progress_tracker_progress_tracker_user_idTousers             progress_tracker[] @relation("progress_tracker_user_idTousers")
+  course_users_course_idTocourse                               course?            @relation("users_course_idTocourse", fields: [course_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_course_id")
+  gamification_users_gamification_idTogamification             gamification?      @relation("users_gamification_idTogamification", fields: [gamification_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_gamification_id")
+  image                                                        image?             @relation(fields: [image_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_image_id")
+  notification                                                 notification?      @relation(fields: [notification_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_notification_id")
+  progress_tracker_users_progress_tracker_idToprogress_tracker progress_tracker?  @relation("users_progress_tracker_idToprogress_tracker", fields: [progress_tracker_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_progress_tracker_id")
+  subscription                                                 subscription?      @relation(fields: [subscription_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_subscription_id")
+}
+
+model video {
+  id              Int       @id @default(autoincrement())
+  url             String    @db.VarChar(100)
+  created_at      DateTime? @default(now()) @db.Timestamp(6)
+  last_updated_at DateTime? @default(now()) @db.Timestamp(6)
+  deleted         Boolean?  @default(false)
+  lesson          lesson[]
 }
