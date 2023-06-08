@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma.service';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { Prisma, User } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -24,6 +25,10 @@ export class UsersService {
 
   async createUser(data: Prisma.UserCreateInput): Promise<User> {
     //TODO: crypte user password
+    const cryptedPassword = await bcrypt.hash(data.password, 10);
+
+    data.password = cryptedPassword;
+
     try {
       return await this.prisma.user.create({
         data,
