@@ -74,9 +74,6 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-npm-v3-${{ hashFiles('package-lock.json') }}
 
-      - name: Generate Prisma Client
-        run: npx prisma generate
-
       - name: Build project
         run: |
           npm run build:all

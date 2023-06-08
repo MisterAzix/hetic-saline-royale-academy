@@ -4,6 +4,12 @@
   "sourceRoot": "apps/api/src",
   "projectType": "application",
   "targets": {
+    "migrate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx prisma generate --schema=apps/api/prisma/schema.prisma"
+      }
+    },
     "build": {
       "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
@@ -22,7 +28,13 @@
       "configurations": {
         "development": {},
         "production": {}
-      }
+      },
+      "dependsOn": [
+        {
+          "target": "migrate",
+          "projects": "self"
+        }
+      ]
     },
     "serve": {
       "executor": "@nx/js:node",

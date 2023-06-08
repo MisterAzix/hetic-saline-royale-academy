@@ -3,18 +3,18 @@
 
 generator client {
   provider = "prisma-client-js"
-  output = "../../../node_modules/.prisma/client"
+  output   = "../../../node_modules/.prisma/client"
 }
 
-//Configure Database Connection
+// Configure Database Connection
 datasource db {
   provider = "postgresql"
   url      = "postgresql://postgres:password@localhost:5555/saline?schema=public"
-  //TODO:  env variable does not working should work
+  // TODO:  env variable does not working should work
   // url      = env("DATABASE_URL")
 }
 
-//Create User database table 
+// Create User database table
 model User {
   id        String  @id @default(uuid())
   email     String  @unique
