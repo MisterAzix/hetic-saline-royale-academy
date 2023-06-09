@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Prisma } from '@prisma/client';
 import { generateRandomPassword } from '../../helper/helper.services';
 import { UsersService } from '../users/users.service';
+import * as bcrypt from 'bcrypt'
 
 //Cette classe implémenter la logique d'authentification
 @Injectable()
@@ -17,9 +18,9 @@ export class AuthService {
     const { password, firstName, lastName, id, email } =
       (await this.usersService.findOne({ email: emailInput })) ?? {};
 
-    if (password !== pass) {
-      throw new UnauthorizedException();
-    }
+    const isPasswordMatch = await bcrypt.compare(pass, password);
+
+    if (!isPasswordMatch) throw new UnauthorizedException();
     const payload = {
       firstName,
       lastName,
