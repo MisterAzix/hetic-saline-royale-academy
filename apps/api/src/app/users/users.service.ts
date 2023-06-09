@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, Users } from '@prisma/client';
-import { PrismaService } from '../../prisma.service';
 import * as bcrypt from 'bcrypt';
+import { PrismaService } from '../../prisma.service';
 
+const SALT_ROUND = 10;
 @Injectable()
 export class UsersService {
   //Injection des dépendances
@@ -22,12 +23,14 @@ export class UsersService {
   }
 
   async createUser(data: Prisma.UsersCreateInput): Promise<Users> {
-    const cryptedPassword = await bcrypt.hash(data.password, 10);
+    const cryptedPassword = await bcrypt.hash(data.password, SALT_ROUND);
 
-    data.password = cryptedPassword;
     try {
       return await this.prisma.users.create({
-        data,
+        data: {
+          ...data,
+          password: cryptedPassword,
+        },
       });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
