@@ -54,7 +54,7 @@ export class AuthService {
 
     const oAuthUserPwd = generateRandomPassword(12); // Generate a secure password
 
-    const userData: Prisma.UserCreateInput = {
+    const userData: Prisma.UsersCreateInput = {
       email: userEmail,
       firstName,
       lastName,

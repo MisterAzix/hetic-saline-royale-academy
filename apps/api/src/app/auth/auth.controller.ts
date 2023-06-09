@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { Prisma, User as UserModel } from '@prisma/client';
+import { Prisma, Users as UserModel } from '@prisma/client';
 import { Public } from '../decorators/public.decorator';
 import { UserSignDto } from '../users/dto/signin-user.dto';
 import { UsersService } from '../users/users.service';
@@ -53,7 +53,7 @@ export class AuthController {
   @Public()
   @Post('signup')
   async signupUser(
-    @Body() userData: Prisma.UserCreateInput
+    @Body() userData: Prisma.UsersCreateInput
   ): Promise<UserModel> {
     return this.userService.createUser(userData);
   }
