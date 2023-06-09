@@ -1,7 +1,8 @@
-import { createGlobalStyle } from 'styled-components';
 import { CSS_RESET } from './reset';
+import styled from '@emotion/styled';
+import { Global } from '@emotion/react';
 
-export const GlobalStyles = createGlobalStyle`
+export const GlobalStyles = styled(Global)`
   ${CSS_RESET}
 
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
