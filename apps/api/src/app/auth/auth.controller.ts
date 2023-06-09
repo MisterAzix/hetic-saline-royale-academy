@@ -9,8 +9,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { Prisma, Users as UserModel } from '@prisma/client';
+import { ApiExcludeEndpoint } from '@nestjs/swagger';
+import { Users as UserModel } from '@prisma/client';
 import { Public } from '../decorators/public.decorator';
+import { UserCreateDto } from '../users/dto/create-user.dto';
 import { UserSignDto } from '../users/dto/signin-user.dto';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
@@ -32,6 +34,7 @@ export class AuthController {
   }
 
   //Google OAuth
+  @ApiExcludeEndpoint()
   @Public()
   @Get('google')
   @UseGuards(AuthGuard('google'))
@@ -39,6 +42,7 @@ export class AuthController {
     /*  */
   }
 
+  @ApiExcludeEndpoint()
   @Public()
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
@@ -52,9 +56,7 @@ export class AuthController {
 
   @Public()
   @Post('signup')
-  async signupUser(
-    @Body() userData: Prisma.UsersCreateInput
-  ): Promise<UserModel> {
+  async signupUser(@Body() userData: UserCreateDto): Promise<UserModel> {
     return this.userService.createUser(userData);
   }
 }
