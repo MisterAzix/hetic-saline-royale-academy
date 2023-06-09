@@ -2,6 +2,9 @@
   "name": "hetic-saline-royale-academy",
   "version": "0.0.0",
   "license": "MIT",
+  "engines": {
+    "node": "18.16.0"
+  },
   "scripts": {
     "lint": "nx workspace-lint && nx run-many --all --target=lint  --maxWarnings=0",
     "test": "nx test",
