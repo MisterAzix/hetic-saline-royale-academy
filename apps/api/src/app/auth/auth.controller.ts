@@ -9,12 +9,11 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { Prisma, User as UserModel } from '@prisma/client';
+import { Prisma, Users as UserModel } from '@prisma/client';
+import { Public } from '../decorators/public.decorator';
 import { UserSignDto } from '../users/dto/signin-user.dto';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
-import { Public } from '../decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -54,7 +53,7 @@ export class AuthController {
   @Public()
   @Post('signup')
   async signupUser(
-    @Body() userData: Prisma.UserCreateInput
+    @Body() userData: Prisma.UsersCreateInput
   ): Promise<UserModel> {
     return this.userService.createUser(userData);
   }
