@@ -10,6 +10,7 @@ import { PrismaModule } from './prisma.module';
 import { UsersModule } from './users/users.module';
 import { BadgeModule } from './badge/badge.module';
 import { CategoryModule } from './category/category.module';
+import { ChapterModule } from './chapter/chapter.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { CategoryModule } from './category/category.module';
     AchievementModule,
     BadgeModule,
     CategoryModule,
+    ChapterModule,
   ],
   controllers: [AppController],
   providers: [AppService],
