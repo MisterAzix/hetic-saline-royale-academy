@@ -15,6 +15,7 @@ import { CourseModule } from './course/course.module';
 import { GamificationModule } from './gamification/gamification.module';
 import { ImageModule } from './image/image.module';
 import { LessonModule } from './lesson/lesson.module';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { LessonModule } from './lesson/lesson.module';
     GamificationModule,
     ImageModule,
     LessonModule,
+    NotificationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
