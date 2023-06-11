@@ -16,6 +16,7 @@ import { GamificationModule } from './gamification/gamification.module';
 import { ImageModule } from './image/image.module';
 import { LessonModule } from './lesson/lesson.module';
 import { NotificationModule } from './notification/notification.module';
+import { ProgressTrackerModule } from './progress_tracker/progress_tracker.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { NotificationModule } from './notification/notification.module';
     ImageModule,
     LessonModule,
     NotificationModule,
+    ProgressTrackerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
