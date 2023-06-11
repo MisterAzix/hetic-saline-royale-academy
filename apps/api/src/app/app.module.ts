@@ -21,6 +21,7 @@ import { RessourceModule } from './ressource/ressource.module';
 import { RewardsModule } from './rewards/rewards.module';
 import { SubscriptionModule } from './subscription/subscription.module';
 import { TagModule } from './tag/tag.module';
+import { VideoModule } from './video/video.module';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { TagModule } from './tag/tag.module';
     RewardsModule,
     SubscriptionModule,
     TagModule,
+    VideoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
