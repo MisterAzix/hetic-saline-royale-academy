@@ -20,6 +20,7 @@ import { ProgressTrackerModule } from './progress_tracker/progress_tracker.modul
 import { RessourceModule } from './ressource/ressource.module';
 import { RewardsModule } from './rewards/rewards.module';
 import { SubscriptionModule } from './subscription/subscription.module';
+import { TagModule } from './tag/tag.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { SubscriptionModule } from './subscription/subscription.module';
     RessourceModule,
     RewardsModule,
     SubscriptionModule,
+    TagModule,
   ],
   controllers: [AppController],
   providers: [AppService],
