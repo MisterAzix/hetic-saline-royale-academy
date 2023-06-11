@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma.module';
 import { UsersModule } from './users/users.module';
 import { BadgeModule } from './badge/badge.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { BadgeModule } from './badge/badge.module';
     PrismaModule,
     AchievementModule,
     BadgeModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
