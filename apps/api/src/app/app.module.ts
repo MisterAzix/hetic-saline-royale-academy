@@ -13,6 +13,7 @@ import { CategoryModule } from './category/category.module';
 import { ChapterModule } from './chapter/chapter.module';
 import { CourseModule } from './course/course.module';
 import { GamificationModule } from './gamification/gamification.module';
+import { ImageModule } from './image/image.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { GamificationModule } from './gamification/gamification.module';
     ChapterModule,
     CourseModule,
     GamificationModule,
+    ImageModule,
   ],
   controllers: [AppController],
   providers: [AppService],
