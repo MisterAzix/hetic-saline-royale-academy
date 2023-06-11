@@ -19,6 +19,7 @@ import { NotificationModule } from './notification/notification.module';
 import { ProgressTrackerModule } from './progress_tracker/progress_tracker.module';
 import { RessourceModule } from './ressource/ressource.module';
 import { RewardsModule } from './rewards/rewards.module';
+import { SubscriptionModule } from './subscription/subscription.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { RewardsModule } from './rewards/rewards.module';
     ProgressTrackerModule,
     RessourceModule,
     RewardsModule,
+    SubscriptionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
