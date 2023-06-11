@@ -18,6 +18,7 @@ import { LessonModule } from './lesson/lesson.module';
 import { NotificationModule } from './notification/notification.module';
 import { ProgressTrackerModule } from './progress_tracker/progress_tracker.module';
 import { RessourceModule } from './ressource/ressource.module';
+import { RewardsModule } from './rewards/rewards.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { RessourceModule } from './ressource/ressource.module';
     NotificationModule,
     ProgressTrackerModule,
     RessourceModule,
+    RewardsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
