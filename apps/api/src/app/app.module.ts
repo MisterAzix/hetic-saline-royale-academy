@@ -12,6 +12,7 @@ import { BadgeModule } from './badge/badge.module';
 import { CategoryModule } from './category/category.module';
 import { ChapterModule } from './chapter/chapter.module';
 import { CourseModule } from './course/course.module';
+import { GamificationModule } from './gamification/gamification.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { CourseModule } from './course/course.module';
     CategoryModule,
     ChapterModule,
     CourseModule,
+    GamificationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
