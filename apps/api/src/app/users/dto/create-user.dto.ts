@@ -1,39 +1,57 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString, Min } from 'class-validator';
-import { HasLowercase } from '../../decorators/has-lowercase-letter.decorator';
-import { HasNumber } from '../../decorators/has-number.decorator';
-import { HasSpecialCharacter } from '../../decorators/has-special-character.decorator';
-import { HasUppercaseLetter } from '../../decorators/has-uppercase-letter.decorator';
 
-// Valider les données entrantes des endpoints
 export class UserCreateDto {
-  @IsString()
-  @IsNotEmpty()
-  userId: string;
+  @ApiProperty({ required: false })
+  id?: string;
+
+  @ApiProperty({ required: false })
+  displayName?: string;
 
   @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  @IsEmail()
-  email: string;
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  @Min(8)
-  @HasUppercaseLetter()
-  @HasLowercase()
-  @HasNumber()
-  @HasSpecialCharacter()
-  password: string;
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
   firstName: string;
 
   @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
   lastName: string;
+
+  @ApiProperty()
+  email: string;
+
+  @ApiProperty({ required: false })
+  createdAt?: Date;
+
+  @ApiProperty({ required: false })
+  lastUpdatedAt?: Date;
+
+  @ApiProperty({ required: false })
+  deleted?: boolean;
+
+  @ApiProperty({ required: false, default: 'USER' })
+  role?: string;
+
+  @ApiProperty()
+  password: string;
+
+  @ApiProperty({ required: false })
+  preferences?: string;
+
+  @ApiProperty({ required: false })
+  ecole?: string;
+
+  @ApiProperty({ required: false })
+  gamificationId?: string;
+
+  @ApiProperty({ required: false })
+  notificationId?: string;
+
+  @ApiProperty({ required: false })
+  subscriptionId?: string;
+
+  @ApiProperty({ required: false })
+  progressTrackerId?: string;
+
+  @ApiProperty({ required: false })
+  courseId?: string;
+
+  @ApiProperty({ required: false })
+  imageId?: string;
 }

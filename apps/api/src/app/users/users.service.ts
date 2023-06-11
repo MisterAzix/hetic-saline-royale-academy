@@ -52,4 +52,51 @@ export class UsersService {
       throw new Error('Failed to create user.');
     }
   }
+
+  async findAll(): Promise<Users[]> {
+    try {
+      return await this.prisma.users.findMany({
+        where: { deleted: false },
+      });
+    } catch (error) {
+      console.error('Error while retrieving users:', error);
+      throw new Error('Failed to retrieve users.');
+    }
+  }
+
+  async update(
+    id: string,
+    data: Prisma.AchievementUpdateInput
+  ): Promise<Users> {
+    try {
+      return await this.prisma.users.update({
+        where: { id },
+        data,
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientValidationError) {
+        // Handle validation errors
+        console.error('User DTO validation error:', error.message);
+        throw new Error('User DTO validation error: ' + JSON.stringify(error));
+      } else {
+        // Handle other errors
+        throw new Error('An error occurred while updating the user.');
+      }
+    }
+  }
+
+  async remove(id: string): Promise<Users> {
+    try {
+      return await this.prisma.users.delete({ where: { id } });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientValidationError) {
+        // Handle validation errors
+        console.error('User ID validation error:', error.message);
+        throw new Error('User DTO validation error: ' + JSON.stringify(error));
+      } else {
+        // Handle other errors
+        throw new Error('An error occurred while deleting user.');
+      }
+    }
+  }
 }
