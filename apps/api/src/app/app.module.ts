@@ -11,6 +11,7 @@ import { UsersModule } from './users/users.module';
 import { BadgeModule } from './badge/badge.module';
 import { CategoryModule } from './category/category.module';
 import { ChapterModule } from './chapter/chapter.module';
+import { CourseModule } from './course/course.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { ChapterModule } from './chapter/chapter.module';
     BadgeModule,
     CategoryModule,
     ChapterModule,
+    CourseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
