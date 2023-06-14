@@ -16,4 +16,16 @@ export class VideoEntity implements Video {
 
   @ApiProperty()
   deleted: boolean;
+
+  @ApiProperty()
+  description: string;
+
+  @ApiProperty()
+  height: number;
+
+  @ApiProperty()
+  width: number;
+
+  @ApiProperty()
+  lessonId: string;
 }

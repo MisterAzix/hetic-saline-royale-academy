@@ -16,4 +16,10 @@ export class SubscriptionEntity implements Subscription {
 
   @ApiProperty()
   deleted: boolean;
+
+  @ApiProperty()
+  payed: boolean;
+
+  @ApiProperty()
+  userId: string;
 }

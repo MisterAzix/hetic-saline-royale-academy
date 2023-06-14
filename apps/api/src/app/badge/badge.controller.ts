@@ -21,7 +21,9 @@ export class BadgeController {
   @Post()
   @ApiCreatedResponse({ type: BadgeEntity })
   create(@Body() createBadgeDto: CreateBadgeDto): Promise<Badge> {
-    return this.badgeService.create(createBadgeDto);
+    return this.badgeService.create({
+      ...createBadgeDto,
+    });
   }
 
   @Get()
@@ -42,7 +44,9 @@ export class BadgeController {
     @Param('id') id: string,
     @Body() updateBadgeDto: UpdateBadgeDto
   ): Promise<Badge> {
-    return this.badgeService.update(id, updateBadgeDto);
+    return this.badgeService.update(id, {
+      ...updateBadgeDto,
+    });
   }
 
   @Delete(':id')

@@ -1,30 +1,48 @@
 import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsArray,
+  IsBoolean,
+  IsNumber,
+  IsString,
+  Length,
+} from 'class-validator';
 
 export class CreateLessonDto {
-  @ApiProperty()
-  id?: string;
-
-  @ApiProperty()
+  @ApiProperty({ type: String })
+  @IsString()
+  @Length(2, 100)
   title: string;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({ type: String, required: false })
+  @IsString()
+  @Length(10, 700)
   description?: string;
 
-  @ApiProperty({ required: false })
-  createdAt?: Date;
+  @ApiProperty({ type: Number, required: false })
+  @IsNumber()
+  duration?: number;
 
-  @ApiProperty({ required: false })
-  lastUpdatedAt?: Date;
-
-  @ApiProperty({ required: false })
+  @ApiProperty({ type: Boolean, required: false, default: false })
+  @IsBoolean()
   deleted?: boolean;
 
-  @ApiProperty({ required: false })
-  imageId?: string;
+  @ApiProperty({ type: String, required: false })
+  @IsString()
+  chapterId?: string;
 
-  @ApiProperty({ required: false })
-  videoId?: string;
+  @ApiProperty({ type: Array, required: false })
+  @IsArray()
+  images?: string[];
 
-  @ApiProperty({ required: false })
-  tagId?: string;
+  @ApiProperty({ type: Array, required: false })
+  @IsArray()
+  videos?: string[];
+
+  @ApiProperty({ type: Array, required: false })
+  @IsArray()
+  tags?: string[];
+
+  @ApiProperty({ type: Array, required: false })
+  @IsArray()
+  ressources?: string[];
 }

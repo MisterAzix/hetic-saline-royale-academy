@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, Users } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../../prisma.service';
 
@@ -10,10 +10,10 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async findOne(
-    userWhereUniqueInput: Prisma.UsersWhereUniqueInput
-  ): Promise<Users | null> {
+    userWhereUniqueInput: Prisma.UserWhereUniqueInput
+  ): Promise<User | null> {
     try {
-      return await this.prisma.users.findUnique({
+      return await this.prisma.user.findUnique({
         where: userWhereUniqueInput,
       });
     } catch (error) {
@@ -22,11 +22,11 @@ export class UsersService {
     }
   }
 
-  async createUser(data: Prisma.UsersCreateInput): Promise<Users> {
+  async createUser(data: Prisma.UserCreateInput): Promise<User> {
     const cryptedPassword = await bcrypt.hash(data.password, SALT_ROUND);
 
     try {
-      return await this.prisma.users.create({
+      return await this.prisma.user.create({
         data: {
           ...data,
           password: cryptedPassword,
@@ -53,9 +53,9 @@ export class UsersService {
     }
   }
 
-  async findAll(): Promise<Users[]> {
+  async findAll(): Promise<User[]> {
     try {
-      return await this.prisma.users.findMany({
+      return await this.prisma.user.findMany({
         where: { deleted: false },
       });
     } catch (error) {
@@ -64,12 +64,9 @@ export class UsersService {
     }
   }
 
-  async update(
-    id: string,
-    data: Prisma.AchievementUpdateInput
-  ): Promise<Users> {
+  async update(id: string, data: Prisma.UserUpdateInput): Promise<User> {
     try {
-      return await this.prisma.users.update({
+      return await this.prisma.user.update({
         where: { id },
         data,
       });
@@ -85,9 +82,9 @@ export class UsersService {
     }
   }
 
-  async remove(id: string): Promise<Users> {
+  async remove(id: string): Promise<User> {
     try {
-      return await this.prisma.users.delete({ where: { id } });
+      return await this.prisma.user.delete({ where: { id } });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors

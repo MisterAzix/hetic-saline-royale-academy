@@ -1,39 +1,56 @@
 import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsArray,
+  IsBoolean,
+  IsObject,
+  IsString,
+  Length,
+} from 'class-validator';
 
 export class CreateCourseDto {
-  @ApiProperty()
+  @ApiProperty({ type: String })
+  @IsString()
+  @Length(2, 100)
   title: string;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({ type: String, required: false })
+  @IsString()
+  @Length(10, 700)
   description?: string;
 
-  @ApiProperty({ required: false })
-  createdAt?: Date;
-
-  @ApiProperty({ required: false })
-  lastUpdatedAt?: Date;
-
-  @ApiProperty({ required: false })
+  @ApiProperty({ type: String, required: false })
+  @IsString()
   createdBy?: string;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({ type: String, required: false })
+  @IsString()
   lastUpdatedBy?: string;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({ type: Boolean, required: false, default: false })
+  @IsBoolean()
   deleted?: boolean;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({ type: String, required: false })
+  @IsString()
   userId?: string;
 
-  @ApiProperty({ required: false })
-  chapterId?: string;
+  @ApiProperty({ type: String, required: false })
+  @IsString()
+  progressTrackingId?: string;
 
-  @ApiProperty({ required: false })
-  tagId?: string;
+  @ApiProperty({ type: Object, required: false })
+  @IsObject()
+  category?: object;
 
-  @ApiProperty({ required: false })
-  ressourceId?: string;
+  @ApiProperty({ type: Array, required: false })
+  @IsArray()
+  chapters?: string[];
 
-  @ApiProperty({ required: false })
-  categoryId?: string;
+  @ApiProperty({ type: Array, required: false })
+  @IsArray()
+  tags?: string[];
+
+  @ApiProperty({ type: Array, required: false })
+  @IsArray()
+  ressources?: string[];
 }

@@ -1,57 +1,70 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Role } from '@prisma/client';
+import {
+  IsArray,
+  IsBoolean,
+  IsEmail,
+  IsNotEmpty,
+  IsObject,
+  IsString,
+} from 'class-validator';
 
 export class UserCreateDto {
-  @ApiProperty({ required: false })
-  id?: string;
-
-  @ApiProperty({ required: false })
+  @ApiProperty({ type: String, required: false })
+  @IsString()
   displayName?: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
+  @IsString()
+  @IsNotEmpty()
   firstName: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
+  @IsString()
+  @IsNotEmpty()
   lastName: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String, required: false })
+  @IsEmail()
   email: string;
 
-  @ApiProperty({ required: false })
-  createdAt?: Date;
-
-  @ApiProperty({ required: false })
-  lastUpdatedAt?: Date;
-
-  @ApiProperty({ required: false })
+  @ApiProperty({ type: Boolean, required: false, default: false })
+  @IsBoolean()
   deleted?: boolean;
 
   @ApiProperty({ required: false, default: 'USER' })
-  role?: string;
+  role?: Role;
 
-  @ApiProperty()
+  @ApiProperty({ type: String, required: false })
+  @IsString()
+  @IsNotEmpty()
   password: string;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({ type: String, required: false })
+  @IsString()
   preferences?: string;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({ type: String, required: false })
+  @IsString()
   ecole?: string;
 
-  @ApiProperty({ required: false })
-  gamificationId?: string;
+  @ApiProperty({ type: Object, required: false })
+  @IsObject()
+  image?: object;
 
-  @ApiProperty({ required: false })
-  notificationId?: string;
+  @ApiProperty({ type: Object, required: false })
+  @IsObject()
+  gamefication?: object;
 
-  @ApiProperty({ required: false })
-  subscriptionId?: string;
+  @ApiProperty({ type: Object, required: false })
+  @IsObject()
+  notification?: object;
 
-  @ApiProperty({ required: false })
-  progressTrackerId?: string;
+  @ApiProperty({ type: Object, required: false })
+  @IsObject()
+  subscription?: object;
 
-  @ApiProperty({ required: false })
-  courseId?: string;
-
-  @ApiProperty({ required: false })
-  imageId?: string;
+  @ApiProperty({ type: Array, required: false })
+  @IsArray()
+  courses?: string[];
 }

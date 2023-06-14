@@ -8,8 +8,10 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
-import { Users } from '@prisma/client';
+import { User } from '@prisma/client';
+import { getElementIds } from '../../helper/helper.controller';
 import { UserCreateDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersEntity } from './entities/user.entity';
 import { UsersService } from './users.service';
 
@@ -18,18 +20,23 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
   @Post()
   @ApiCreatedResponse({ type: UsersEntity })
-  create(@Body() userCreateDto: UserCreateDto): Promise<Users> {
-    return this.usersService.createUser(userCreateDto);
+  create(@Body() userCreateDto: UserCreateDto): Promise<User> {
+    const courses = getElementIds(userCreateDto.courses);
+
+    return this.usersService.createUser({
+      ...userCreateDto,
+      courses: { connect: courses },
+    });
   }
   @Get()
   @ApiOkResponse({ type: UsersEntity, isArray: true })
-  findAll(): Promise<Users[]> {
+  findAll(): Promise<User[]> {
     return this.usersService.findAll();
   }
 
   @Get(':id')
   @ApiOkResponse({ type: UsersEntity })
-  findOne(@Param('id') id: string): Promise<Users> {
+  findOne(@Param('id') id: string): Promise<User> {
     return this.usersService.findOne({ id });
   }
 
@@ -37,14 +44,19 @@ export class UsersController {
   @ApiOkResponse({ type: UsersEntity })
   update(
     @Param('id') id: string,
-    @Body() updateAchievementDto: UsersEntity
-  ): Promise<Users> {
-    return this.usersService.update(id, updateAchievementDto);
+    @Body() updateUserDto: UpdateUserDto
+  ): Promise<User> {
+    const courses = getElementIds(updateUserDto.courses);
+
+    return this.usersService.update(id, {
+      ...updateUserDto,
+      courses: { connect: courses },
+    });
   }
 
   @Delete(':id')
   @ApiOkResponse({ type: UsersEntity })
-  remove(@Param('id') id: string): Promise<Users> {
+  remove(@Param('id') id: string): Promise<User> {
     return this.usersService.remove(id);
   }
 }

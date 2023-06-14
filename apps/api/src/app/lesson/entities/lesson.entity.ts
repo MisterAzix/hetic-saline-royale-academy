@@ -28,4 +28,10 @@ export class LessonEntity implements Lesson {
 
   @ApiProperty()
   tagId: string;
+
+  @ApiProperty()
+  duration: number;
+
+  @ApiProperty()
+  chapterId: string;
 }

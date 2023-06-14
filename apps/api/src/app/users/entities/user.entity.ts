@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Users } from '@prisma/client';
+import { Role, User } from '@prisma/client';
 
-export class UsersEntity implements Users {
+export class UsersEntity implements User {
   @ApiProperty()
   id: string;
 
@@ -27,7 +27,7 @@ export class UsersEntity implements Users {
   deleted: boolean;
 
   @ApiProperty()
-  role: string;
+  role: Role;
 
   @ApiProperty()
   password: string;

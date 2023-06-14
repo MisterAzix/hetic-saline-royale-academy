@@ -1,21 +1,45 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsBoolean, IsNumber, IsString, IsUrl, Length } from 'class-validator';
 
 export class CreateRessourceDto {
-  @ApiProperty()
-  id?: string;
-
-  @ApiProperty()
+  @ApiProperty({ type: String })
+  @IsString()
+  @Length(2, 100)
   title: string;
 
-  @ApiProperty({ required: false })
-  duration?: Date;
+  @ApiProperty({ type: String, required: false })
+  @IsUrl()
+  path?: string;
 
-  @ApiProperty({ required: false })
-  createdAt?: Date;
+  @ApiProperty({ type: String, required: false })
+  @IsString()
+  type?: string;
 
-  @ApiProperty({ required: false })
-  lastUpdatedAt?: Date;
+  @ApiProperty({ type: String, required: false })
+  @IsString()
+  accessLevel?: string;
 
-  @ApiProperty({ required: false, default: false })
+  @ApiProperty({ type: Number, required: false })
+  @IsNumber()
+  duration?: number;
+
+  @ApiProperty({ type: Boolean, required: false, default: false })
+  @IsBoolean()
   deleted?: boolean;
+
+  @ApiProperty({ type: String, required: false })
+  @IsString()
+  courseId?: string;
+
+  @ApiProperty({ type: String, required: false })
+  @IsString()
+  gamificationId?: string;
+
+  @ApiProperty({ type: String, required: false })
+  @IsString()
+  bagdeId?: string;
+
+  @ApiProperty({ type: String, required: false })
+  @IsString()
+  lessonId?: string;
 }

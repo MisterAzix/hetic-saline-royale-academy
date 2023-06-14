@@ -43,4 +43,7 @@ export class AchievementEntity implements Achievement {
 
   @ApiProperty()
   categoryId: string;
+
+  @ApiProperty()
+  gamificationId: string;
 }

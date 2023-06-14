@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { ApiCreatedResponse } from '@nestjs/swagger';
 import { Course } from '@prisma/client';
+import { getElementIds } from '../../helper/helper.controller';
 import { CourseService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
@@ -21,7 +22,16 @@ export class CourseController {
   @Post()
   @ApiCreatedResponse({ type: CourseEntity })
   create(@Body() createCourseDto: CreateCourseDto): Promise<Course> {
-    return this.courseService.create(createCourseDto);
+    const chapters = getElementIds(createCourseDto.chapters);
+    const tags = getElementIds(createCourseDto.tags);
+    const ressources = getElementIds(createCourseDto.ressources);
+
+    return this.courseService.create({
+      ...createCourseDto,
+      chapters: { connect: chapters },
+      tags: { connect: tags },
+      ressources: { connect: ressources },
+    });
   }
 
   @Get()
@@ -42,7 +52,16 @@ export class CourseController {
     @Param('id') id: string,
     @Body() updateCourseDto: UpdateCourseDto
   ): Promise<Course> {
-    return this.courseService.update(id, updateCourseDto);
+    const chapters = getElementIds(updateCourseDto.chapters);
+    const tags = getElementIds(updateCourseDto.tags);
+    const ressources = getElementIds(updateCourseDto.ressources);
+
+    return this.courseService.update(id, {
+      ...updateCourseDto,
+      chapters: { connect: chapters },
+      tags: { connect: tags },
+      ressources: { connect: ressources },
+    });
   }
 
   @Delete(':id')

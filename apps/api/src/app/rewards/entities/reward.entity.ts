@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Rewards } from '@prisma/client';
+import { Reward } from '@prisma/client';
 
-export class RewardEntity implements Rewards {
+export class RewardEntity implements Reward {
   @ApiProperty()
   id: string;
 
@@ -49,4 +49,7 @@ export class RewardEntity implements Rewards {
 
   @ApiProperty()
   categoryId: string;
+
+  @ApiProperty()
+  achievementId: string;
 }

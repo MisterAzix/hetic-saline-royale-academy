@@ -53,7 +53,7 @@ export class ChapterService {
     }
   }
 
-  async update(id: string, data: Prisma.BadgeUpdateInput): Promise<Chapter> {
+  async update(id: string, data: Prisma.ChapterUpdateInput): Promise<Chapter> {
     try {
       return await this.prisma.chapter.update({
         where: { id },

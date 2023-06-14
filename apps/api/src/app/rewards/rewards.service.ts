@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, Rewards } from '@prisma/client';
+import { Prisma, Reward } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
 @Injectable()
 export class RewardsService {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: Prisma.RewardsCreateInput): Promise<Rewards> {
+  async create(data: Prisma.RewardCreateInput): Promise<Reward> {
     try {
-      const rewards = await this.prisma.rewards.create({ data });
+      const rewards = await this.prisma.reward.create({ data });
 
       return rewards;
     } catch (error) {
@@ -25,9 +25,9 @@ export class RewardsService {
     }
   }
 
-  async findAll(): Promise<Rewards[]> {
+  async findAll(): Promise<Reward[]> {
     try {
-      return await this.prisma.rewards.findMany({
+      return await this.prisma.reward.findMany({
         where: { deleted: false },
       });
     } catch (error) {
@@ -36,9 +36,9 @@ export class RewardsService {
     }
   }
 
-  async findOne(id: string): Promise<Rewards> {
+  async findOne(id: string): Promise<Reward> {
     try {
-      return await this.prisma.rewards.findUnique({ where: { id } });
+      return await this.prisma.reward.findUnique({ where: { id } });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
@@ -56,9 +56,9 @@ export class RewardsService {
   async update(
     id: string,
     data: Prisma.AchievementUpdateInput
-  ): Promise<Rewards> {
+  ): Promise<Reward> {
     try {
-      return await this.prisma.rewards.update({
+      return await this.prisma.reward.update({
         where: { id },
         data,
       });
@@ -76,9 +76,9 @@ export class RewardsService {
     }
   }
 
-  async remove(id: string): Promise<Rewards> {
+  async remove(id: string): Promise<Reward> {
     try {
-      return await this.prisma.rewards.delete({ where: { id } });
+      return await this.prisma.reward.delete({ where: { id } });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors

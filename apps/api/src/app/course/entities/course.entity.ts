@@ -40,4 +40,7 @@ export class CourseEntity implements Course {
 
   @ApiProperty()
   categoryId: string;
+
+  @ApiProperty()
+  progressTrackingId: string;
 }

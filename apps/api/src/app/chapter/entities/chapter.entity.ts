@@ -22,4 +22,7 @@ export class ChapterEntity implements Chapter {
 
   @ApiProperty()
   lessonId: string;
+
+  @ApiProperty()
+  courseId: string;
 }

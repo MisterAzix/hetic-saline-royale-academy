@@ -1,40 +1,62 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsDate, IsString, IsUUID } from 'class-validator';
+import {
+  IsArray,
+  IsBoolean,
+  IsDate,
+  IsNotEmpty,
+  IsObject,
+  IsString,
+  Length,
+} from 'class-validator';
 
 export class CreateAchievementDto {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   @IsString()
+  @Length(2, 100)
   title: string;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({ type: String, required: false })
   @IsString()
+  @Length(10, 700)
   description?: string;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({ type: String, required: false })
   @IsString()
+  lastUpdatedBy?: string;
+
+  @ApiProperty({ type: String, required: false })
+  @IsString()
+  createdBy?: string;
+
+  @ApiProperty({ type: String, required: false })
+  @IsNotEmpty()
   criteria?: string;
 
   @ApiProperty({ type: Date, required: false })
   @IsDate()
   unlockDate?: Date;
 
-  @ApiProperty({ type: Boolean, required: false })
+  @ApiProperty({ type: Boolean, required: false, default: false })
   @IsBoolean()
   visible?: boolean;
 
-  @ApiProperty({ type: Boolean, required: false })
+  @ApiProperty({ type: Boolean, required: false, default: false })
   @IsBoolean()
   deleted?: boolean;
 
-  @ApiProperty({ required: false })
-  @IsUUID()
-  rewardId?: string;
+  @ApiProperty({ type: String, required: false })
+  @IsString()
+  gamificationId?: string;
 
-  @ApiProperty({ required: false })
-  @IsUUID()
-  badgeId?: string;
+  @ApiProperty({ type: Object, required: false })
+  @IsObject()
+  category?: object;
 
-  @ApiProperty({ required: false })
-  @IsUUID()
-  categoryId?: string;
+  @ApiProperty({ type: Array, required: false })
+  @IsArray()
+  rewards?: string[];
+
+  @ApiProperty({ type: Array, required: false })
+  @IsArray()
+  badges?: string[];
 }

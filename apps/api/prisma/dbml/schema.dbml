@@ -1,0 +1,313 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table Achievement {
+  id String [pk]
+  title String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  lastUpdatedAt DateTime
+  lastUpdatedBy String
+  createdBy String
+  criteria String
+  unlockDate DateTime
+  visible Boolean [default: false]
+  deleted Boolean [default: false]
+  gamificationId String [unique]
+  category Category
+  rewards Reward [not null]
+  badges Badge [not null]
+  gamification Gamification
+}
+
+Table Badge {
+  id String [pk]
+  title String [unique, not null]
+  description String
+  criteria String
+  level String
+  unlock_date DateTime
+  createdAt DateTime [default: `now()`]
+  lastUpdatedAt DateTime
+  createdBy String
+  lastUpdatedBy String
+  visible Boolean [default: false]
+  hiddenDescription String
+  deleted Boolean [default: false]
+  achievementId String
+  category Category
+  ressource Ressource
+  Achievement Achievement
+}
+
+Table Category {
+  id String [pk]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  lastUpdatedAt DateTime
+  deleted Boolean [default: false]
+  achievementId String [unique]
+  badgeId String [unique]
+  courseId String [unique]
+  achivement Achievement
+  badge Badge
+  course Course
+}
+
+Table Chapter {
+  id String [pk]
+  title String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  lastUpdatedAt DateTime
+  deleted Boolean [default: false]
+  courseId String
+  lessons Lesson [not null]
+  course Course
+}
+
+Table Course {
+  id String [pk]
+  title String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  lastUpdatedAt DateTime
+  createdBy String
+  lastUpdatedBy String
+  deleted Boolean [default: false]
+  userId String
+  progressTrackingId String [unique]
+  category Category
+  chapters Chapter [not null]
+  tags Tag [not null]
+  ressources Ressource [not null]
+  progressTracking ProgressTracker
+  user User
+}
+
+Table Gamification {
+  id String [pk]
+  description String [not null]
+  experiencePoint Int
+  level String
+  createdAt DateTime [default: `now()`]
+  lastUpdatedAt DateTime
+  deleted Boolean [default: false]
+  ressourceId String
+  progressTrackingId String [unique]
+  userId String [unique]
+  achievement Achievement
+  ressource Ressource
+  useer User
+  progressTrackers ProgressTracker
+}
+
+Table Image {
+  id String [pk]
+  description String [not null]
+  url String [not null]
+  height Int
+  width Int
+  createdAt DateTime [default: `now()`]
+  lastUpdatedAt DateTime
+  deleted Boolean [default: false]
+  lessonId String [unique]
+  userId String [unique]
+  lesson Lesson
+  user User
+}
+
+Table Lesson {
+  id String [pk]
+  title String [not null]
+  description String
+  duration Int
+  createdAt DateTime [default: `now()`]
+  lastUpdatedAt DateTime
+  deleted Boolean [default: false]
+  chapterId String [unique]
+  images Image [not null]
+  videos Video [not null]
+  tags Tag [not null]
+  ressources Ressource [not null]
+  Chapter Chapter
+}
+
+Table Notification {
+  id String [pk]
+  message String [not null]
+  published Boolean
+  createdAt DateTime [default: `now()`]
+  lastUpdatedAt DateTime
+  deleted Boolean [default: false]
+  userId String [unique]
+  user User
+}
+
+Table ProgressTracker {
+  id String [pk]
+  progress Int
+  completedLessons Int [default: 0]
+  totalLessons Int [default: 0]
+  completedChapters Int [default: 0]
+  totalChapters Int [default: 0]
+  createdAt DateTime [default: `now()`]
+  lastUpdatedAt DateTime
+  deleted Boolean [default: false]
+  userId String [unique]
+  course Course
+  gamifications Gamification
+  user User
+}
+
+Table Ressource {
+  id String [pk]
+  title String [not null]
+  path String
+  type String
+  accessLevel String
+  duration Int
+  createdAt DateTime [default: `now()`]
+  lastUpdatedAt DateTime
+  deleted Boolean [default: false]
+  courseId String [unique]
+  gamificationId String [unique]
+  bagdeId String [unique]
+  lessonId String [unique]
+  course Course
+  gamification Gamification
+  badge Badge
+  lesson Lesson
+}
+
+Table Reward {
+  id String [pk]
+  title String [not null]
+  description String
+  type String
+  value Float
+  availability Boolean [default: false]
+  unlockCriteria Boolean [default: false]
+  redeemable Boolean [default: false]
+  expirationDate DateTime
+  createdAt DateTime [default: `now()`]
+  lastUpdatedAt DateTime
+  createdBy String
+  lastUpdatedBy String
+  deleted Boolean [default: false]
+  accessLevel Int
+  achievementId String
+  Achievement Achievement
+}
+
+Table Subscription {
+  id String [pk]
+  plan String [not null]
+  payed Boolean [default: false]
+  createdAt DateTime [default: `now()`]
+  lastUpdatedAt DateTime
+  deleted Boolean [default: false]
+  userId String [unique]
+  user User
+}
+
+Table Tag {
+  id String [pk]
+  name String [not null]
+  createdAt DateTime [default: `now()`]
+  lastUpdatedAt DateTime
+  deleted Boolean [default: false]
+  courseId String [unique]
+  lessonId String [unique]
+  course Course
+  lesson Lesson
+}
+
+Table User {
+  id String [pk]
+  displayName String
+  firstName String [not null]
+  lastName String [not null]
+  email String [unique, not null]
+  createdAt DateTime [default: `now()`]
+  lastUpdatedAt DateTime
+  deleted Boolean [default: false]
+  role Role [not null, default: 'USER']
+  password String [not null]
+  preferences String
+  ecole String
+  image Image
+  courses Course [not null]
+  gamefication Gamification
+  notification Notification
+  subscription Subscription
+  progressTracker ProgressTracker
+}
+
+Table Video {
+  id String [pk]
+  description String
+  url String [not null]
+  height Int
+  width Int
+  createdAt DateTime [default: `now()`]
+  lastUpdatedAt DateTime
+  deleted Boolean [default: false]
+  lessonId String [unique]
+  lesson Lesson
+}
+
+Enum Role {
+  USER
+  ADMIN
+}
+
+Ref: Achievement.gamificationId - Gamification.id
+
+Ref: Badge.achievementId > Achievement.id
+
+Ref: Category.achievementId - Achievement.id
+
+Ref: Category.badgeId - Badge.id
+
+Ref: Category.courseId - Course.id
+
+Ref: Chapter.courseId > Course.id
+
+Ref: Course.progressTrackingId - ProgressTracker.id
+
+Ref: Course.userId > User.id
+
+Ref: Gamification.userId - User.id
+
+Ref: Gamification.progressTrackingId - ProgressTracker.id
+
+Ref: Image.lessonId > Lesson.id
+
+Ref: Image.userId - User.id
+
+Ref: Lesson.chapterId > Chapter.id
+
+Ref: Notification.userId - User.id
+
+Ref: ProgressTracker.userId - User.id
+
+Ref: Ressource.courseId > Course.id
+
+Ref: Ressource.gamificationId - Gamification.id
+
+Ref: Ressource.bagdeId - Badge.id
+
+Ref: Ressource.lessonId > Lesson.id
+
+Ref: Reward.achievementId > Achievement.id
+
+Ref: Subscription.userId - User.id
+
+Ref: Tag.courseId > Course.id
+
+Ref: Tag.lessonId > Lesson.id
+
+Ref: Video.lessonId > Lesson.id

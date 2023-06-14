@@ -16,4 +16,10 @@ export class NotificationEntity implements Notification {
 
   @ApiProperty()
   deleted: boolean;
+
+  @ApiProperty()
+  published: boolean;
+
+  @ApiProperty()
+  userId: string;
 }

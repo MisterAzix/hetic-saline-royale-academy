@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Progress_tracker } from '@prisma/client';
+import { ProgressTracker } from '@prisma/client';
 
-export class ProgressTrackerEntity implements Progress_tracker {
+export class ProgressTrackerEntity implements ProgressTracker {
   @ApiProperty()
   id: string;
 
@@ -31,4 +31,7 @@ export class ProgressTrackerEntity implements Progress_tracker {
 
   @ApiProperty()
   deleted: boolean;
+
+  @ApiProperty()
+  progress: number;
 }

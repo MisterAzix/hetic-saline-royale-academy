@@ -16,4 +16,19 @@ export class ImageEntity implements Image {
 
   @ApiProperty()
   deleted: boolean;
+
+  @ApiProperty()
+  description: string;
+
+  @ApiProperty()
+  height: number;
+
+  @ApiProperty()
+  width: number;
+
+  @ApiProperty()
+  lessonId: string;
+
+  @ApiProperty()
+  userId: string;
 }

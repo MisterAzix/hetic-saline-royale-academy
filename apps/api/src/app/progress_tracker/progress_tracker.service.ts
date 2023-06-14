@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, Progress_tracker } from '@prisma/client';
+import { Prisma, ProgressTracker } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
 @Injectable()
@@ -7,14 +7,14 @@ export class ProgressTrackerService {
   constructor(private prisma: PrismaService) {}
 
   async create(
-    data: Prisma.Progress_trackerCreateInput
-  ): Promise<Progress_tracker> {
+    data: Prisma.ProgressTrackerCreateInput
+  ): Promise<ProgressTracker> {
     try {
-      const progress_tracker = await this.prisma.progress_tracker.create({
+      const ProgressTracker = await this.prisma.progressTracker.create({
         data,
       });
 
-      return progress_tracker;
+      return ProgressTracker;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
@@ -31,9 +31,9 @@ export class ProgressTrackerService {
     }
   }
 
-  async findAll(): Promise<Progress_tracker[]> {
+  async findAll(): Promise<ProgressTracker[]> {
     try {
-      return await this.prisma.progress_tracker.findMany({
+      return await this.prisma.progressTracker.findMany({
         where: { deleted: false },
       });
     } catch (error) {
@@ -42,9 +42,9 @@ export class ProgressTrackerService {
     }
   }
 
-  async findOne(id: string): Promise<Progress_tracker> {
+  async findOne(id: string): Promise<ProgressTracker> {
     try {
-      return await this.prisma.progress_tracker.findUnique({ where: { id } });
+      return await this.prisma.progressTracker.findUnique({ where: { id } });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
@@ -62,9 +62,9 @@ export class ProgressTrackerService {
   async update(
     id: string,
     data: Prisma.AchievementUpdateInput
-  ): Promise<Progress_tracker> {
+  ): Promise<ProgressTracker> {
     try {
-      return await this.prisma.progress_tracker.update({
+      return await this.prisma.progressTracker.update({
         where: { id },
         data,
       });
@@ -84,9 +84,9 @@ export class ProgressTrackerService {
     }
   }
 
-  async remove(id: string): Promise<Progress_tracker> {
+  async remove(id: string): Promise<ProgressTracker> {
     try {
-      return await this.prisma.progress_tracker.delete({ where: { id } });
+      return await this.prisma.progressTracker.delete({ where: { id } });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors

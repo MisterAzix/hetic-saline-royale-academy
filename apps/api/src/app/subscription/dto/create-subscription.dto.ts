@@ -1,18 +1,22 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateSubscriptionDto {
-  @ApiProperty({ required: false })
-  id?: string;
-
-  @ApiProperty()
+  @ApiProperty({ type: String })
+  @IsString()
+  @IsNotEmpty()
   plan: string;
 
-  @ApiProperty({ required: false })
-  createdAt?: Date;
+  @ApiProperty({ type: Boolean, required: false, default: false })
+  @IsBoolean()
+  payed?: boolean;
 
-  @ApiProperty({ required: false })
-  lastUpdatedAt?: Date;
-
+  @ApiProperty({ type: Boolean, required: false, default: false })
+  @IsBoolean()
   @ApiProperty({ required: false, default: false })
   deleted?: boolean;
+
+  @ApiProperty({ type: String, required: false })
+  @IsString()
+  userId?: string;
 }

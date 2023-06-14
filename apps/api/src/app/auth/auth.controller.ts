@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiCreatedResponse, ApiExcludeEndpoint } from '@nestjs/swagger';
-import { Users as UserModel } from '@prisma/client';
+import { User as UserModel } from '@prisma/client';
 import { Public } from '../decorators/public.decorator';
 import { UserCreateDto } from '../users/dto/create-user.dto';
 import { UserSignDto } from '../users/dto/signin-user.dto';
@@ -60,6 +60,9 @@ export class AuthController {
   @Post('signup')
   @ApiCreatedResponse({ type: UsersEntity })
   async signupUser(@Body() userData: UserCreateDto): Promise<UserModel> {
-    return this.userService.createUser(userData);
+    return this.userService.createUser({
+      ...userData,
+      courses: { connect: {} },
+    });
   }
 }

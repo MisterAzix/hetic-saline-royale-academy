@@ -9,7 +9,7 @@ export class RessourceEntity implements Ressource {
   title: string;
 
   @ApiProperty()
-  duration: Date;
+  duration: number;
 
   @ApiProperty()
   createdAt: Date;
@@ -19,4 +19,25 @@ export class RessourceEntity implements Ressource {
 
   @ApiProperty()
   deleted: boolean;
+
+  @ApiProperty()
+  path: string;
+
+  @ApiProperty()
+  type: string;
+
+  @ApiProperty()
+  accessLevel: string;
+
+  @ApiProperty()
+  courseId: string;
+
+  @ApiProperty()
+  gamificationId: string;
+
+  @ApiProperty()
+  bagdeId: string;
+
+  @ApiProperty()
+  lessonId: string;
 }

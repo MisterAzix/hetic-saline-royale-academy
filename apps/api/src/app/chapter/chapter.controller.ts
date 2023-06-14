@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { ApiCreatedResponse } from '@nestjs/swagger';
 import { Chapter } from '@prisma/client';
+import { getElementIds } from '../../helper/helper.controller';
 import { ChapterService } from './chapter.service';
 import { CreateChapterDto } from './dto/create-chapter.dto';
 import { UpdateChapterDto } from './dto/update-chapter.dto';
@@ -21,7 +22,12 @@ export class ChapterController {
   @Post()
   @ApiCreatedResponse({ type: ChapterEntity })
   create(@Body() createChapterDto: CreateChapterDto): Promise<Chapter> {
-    return this.chapterService.create(createChapterDto);
+    const lessons = getElementIds(createChapterDto.lessons);
+
+    return this.chapterService.create({
+      ...createChapterDto,
+      lessons: { connect: lessons },
+    });
   }
 
   @Get()
@@ -41,7 +47,12 @@ export class ChapterController {
     @Param('id') id: string,
     @Body() updateChapterDto: UpdateChapterDto
   ): Promise<Chapter> {
-    return this.chapterService.update(id, updateChapterDto);
+    const lessons = getElementIds(updateChapterDto.lessons);
+
+    return this.chapterService.update(id, {
+      ...updateChapterDto,
+      lessons: { connect: lessons },
+    });
   }
 
   @Delete(':id')

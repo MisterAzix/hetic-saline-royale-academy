@@ -1,18 +1,21 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateNotificationDto {
-  @ApiProperty()
-  id?: string;
-
-  @ApiProperty()
+  @ApiProperty({ type: String })
+  @IsString()
+  @IsNotEmpty()
   message: string;
 
-  @ApiProperty({ required: false })
-  createdAt?: Date;
+  @ApiProperty({ type: Boolean, required: false, default: false })
+  @IsBoolean()
+  published?: boolean;
 
-  @ApiProperty({ required: false })
-  lastUpdatedAt?: Date;
-
-  @ApiProperty({ required: false })
+  @ApiProperty({ type: Boolean, required: false, default: false })
+  @IsBoolean()
   deleted?: boolean;
+
+  @ApiProperty({ type: String, required: false })
+  @IsString()
+  userId: string;
 }

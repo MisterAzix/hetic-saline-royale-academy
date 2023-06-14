@@ -16,4 +16,10 @@ export class TagEntity implements Tag {
 
   @ApiProperty()
   deleted: boolean;
+
+  @ApiProperty()
+  courseId: string;
+
+  @ApiProperty()
+  lessonId: string;
 }

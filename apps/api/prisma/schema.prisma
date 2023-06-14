@@ -3,246 +3,273 @@ generator client {
   output   = "../../../node_modules/.prisma/client"
 }
 
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
 datasource db {
   provider = "postgresql"
   url      = "postgresql://postgres:password@localhost:5555/saline?schema=public"
 }
 
 model Achievement {
-  id            String         @id @default(uuid())
-  title         String         @db.VarChar(100)
-  description   String?        @db.VarChar(100)
-  createdAt     DateTime?      @default(now()) @map("created_at") @db.Timestamp(6)
-  lastUpdatedAt DateTime?      @default(now()) @map("last_updated_at") @db.Timestamp(6)
-  lastUpdatedBy String?        @map(name: "last_updated_by") @db.VarChar(100)
-  createdBy     String?        @map(name: "created_by") @db.VarChar(100)
-  criteria      String?        @db.VarChar(100)
-  unlockDate    DateTime?      @map(name: "unlock_date") @db.Timestamp(6)
-  visible       Boolean?       @default(false)
-  deleted       Boolean?       @default(false)
-  rewardId      String?        @map(name: "reward_id")
-  badgeId       String?        @map(name: "badge_id")
-  categoryId    String?        @map(name: "category_id")
-  badge         Badge?         @relation(fields: [badgeId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_achievement_badge_id")
-  category      Category?      @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_achievement_category_id")
-  rewards       Rewards?       @relation(fields: [rewardId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_achievement_reward_id")
-  gamification  Gamification[]
+  id             String        @id @default(uuid())
+  title          String        @unique() @db.VarChar(100)
+  description    String?       @db.VarChar(700)
+  createdAt      DateTime?     @default(now()) @map("created_at")
+  lastUpdatedAt  DateTime?     @updatedAt @map("last_updated_at")
+  lastUpdatedBy  String?       @map(name: "last_updated_by") @db.VarChar(100)
+  createdBy      String?       @map(name: "created_by") @db.VarChar(100)
+  criteria       String?       @db.VarChar(100)
+  unlockDate     DateTime?     @map(name: "unlock_date")
+  visible        Boolean?      @default(false)
+  deleted        Boolean?      @default(false)
+  gamificationId String?       @unique @map("gamification_id")
+  category       Category?
+  rewards        Reward[]
+  badges         Badge[]
+  gamification   Gamification? @relation(fields: [gamificationId], references: [id])
 }
 
 model Badge {
-  id                String        @id @default(uuid())
-  title             String        @db.VarChar(100)
-  description       String?       @db.VarChar(100)
-  criteria          String?       @db.VarChar(100)
-  level             String?       @db.VarChar(100)
-  unlock_date       DateTime?     @map("unlock_date ") @db.Timestamp(6)
-  createdAt         DateTime?     @default(now()) @map("created_at") @db.Timestamp(6)
-  lastUpdatedAt     DateTime?     @default(now()) @map("last_updated_at") @db.Timestamp(6)
-  createdBy         String?       @map("created_by ") @db.VarChar(100)
-  lastUpdatedBy     String?       @map("last_updated_by  ") @db.VarChar(100)
-  visible           Boolean?      @default(false)
-  hiddenDescription String?       @map("hidden_description") @db.VarChar(100)
-  deleted           Boolean?      @default(false)
-  categoryId        String?       @map("category_id")
-  achievement       Achievement[]
-  category          Category?     @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_badge_category_id")
+  id                String       @id @default(uuid())
+  title             String       @unique @db.VarChar(100)
+  description       String?      @db.VarChar(100)
+  criteria          String?      @db.VarChar(100)
+  level             String?      @db.VarChar(100)
+  unlock_date       DateTime?    @map("unlock_date ")
+  createdAt         DateTime?    @default(now()) @map("created_at")
+  lastUpdatedAt     DateTime?    @updatedAt @map("last_updated_at")
+  createdBy         String?      @map("created_by ") @db.VarChar(100)
+  lastUpdatedBy     String?      @map("last_updated_by  ") @db.VarChar(100)
+  visible           Boolean?     @default(false)
+  hiddenDescription String?      @map("hidden_description") @db.VarChar(100)
+  deleted           Boolean?     @default(false)
+  achievementId     String?      @map("achievement_id")
+  category          Category?
+  ressource         Ressource?
+  Achievement       Achievement? @relation(fields: [achievementId], references: [id])
 }
 
 model Category {
-  id            String        @id @default(uuid())
-  name          String        @db.VarChar(100)
-  createdAt     DateTime?     @default(now()) @map("created_at") @db.Timestamp(6)
-  lastUpdatedAt DateTime?     @default(now()) @map("last_updated_at") @db.Timestamp(6)
-  deleted       Boolean?      @default(false)
-  achievement   Achievement[]
-  badge         Badge[]
-  course        Course[]
-  rewards       Rewards[]
+  id            String       @id @default(uuid())
+  name          String       @unique @db.VarChar(100)
+  description   String?
+  createdAt     DateTime?    @default(now()) @map("created_at")
+  lastUpdatedAt DateTime?    @updatedAt @map("last_updated_at")
+  deleted       Boolean?     @default(false)
+  achievementId String?      @unique @map("achievement_id")
+  badgeId       String?      @unique @map("badge_id")
+  courseId      String?      @unique @map("course_id")
+  achivement    Achievement? @relation(fields: [achievementId], references: [id])
+  badge         Badge?       @relation(fields: [badgeId], references: [id])
+  course        Course?      @relation(fields: [courseId], references: [id])
 }
 
 model Chapter {
   id            String    @id @default(uuid())
-  title         String?   @db.VarChar(100)
+  title         String    @unique @db.VarChar(100)
   description   String?   @db.VarChar(100)
-  createdAt     DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
-  lastUpdatedAt DateTime? @default(now()) @map("last_updated_at") @db.Timestamp(6)
+  createdAt     DateTime? @default(now()) @map("created_at")
+  lastUpdatedAt DateTime? @updatedAt @map("last_updated_at")
   deleted       Boolean?  @default(false)
-  lessonId      String?   @map("lesson_id")
-  lesson        Lesson?   @relation(fields: [lessonId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_chapter_lesson_id")
-  course        Course[]
+  courseId      String?   @map("course_id")
+  lessons       Lesson[]
+  course        Course?   @relation(fields: [courseId], references: [id])
 }
 
 model Course {
-  id                            String             @id @default(uuid())
-  title                         String             @db.VarChar(200)
-  description                   String?            @db.VarChar(700)
-  createdAt                     DateTime?          @default(now()) @map("created_at") @db.Timestamp(6)
-  lastUpdatedAt                 DateTime?          @default(now()) @map("last_updated_at") @db.Timestamp(6)
-  createdBy                     String?            @map("created_by") @db.VarChar(100)
-  lastUpdatedBy                 String?            @map("last_updated_by") @db.VarChar(100)
-  deleted                       Boolean?           @default(false)
-  userId                        String?            @map("user_id")
-  chapterId                     String?            @map("chapter_id")
-  tagId                         String?            @map("tag_id")
-  ressourceId                   String?            @map("ressource_id")
-  categoryId                    String?            @map("category_id")
-  category                      Category?          @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_course_category_id")
-  chapter                       Chapter?           @relation(fields: [chapterId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_course_chapter_id")
-  ressource                     Ressource?         @relation(fields: [ressourceId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_course_ressource_id")
-  tag                           Tag?               @relation(fields: [tagId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_course_tag_id")
-  users_course_user_idTousers   Users?             @relation("course_user_idTousers", fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_course_user_id")
-  progress_tracker              Progress_tracker[]
-  users_users_course_idTocourse Users[]            @relation("users_course_idTocourse")
+  id                 String           @id @default(uuid())
+  title              String           @unique @db.VarChar(200)
+  description        String?          @db.VarChar(700)
+  createdAt          DateTime?        @default(now()) @map("created_at")
+  lastUpdatedAt      DateTime?        @updatedAt @map("last_updated_at")
+  createdBy          String?          @map("created_by") @db.VarChar(100)
+  lastUpdatedBy      String?          @map("last_updated_by") @db.VarChar(100)
+  deleted            Boolean?         @default(false)
+  userId             String?          @map("user_id")
+  progressTrackingId String?          @unique @map("progress_tracking")
+  category           Category?
+  chapters           Chapter[]
+  tags               Tag[]
+  ressources         Ressource[]
+  progressTracking   ProgressTracker? @relation(fields: [progressTrackingId], references: [id])
+  user               User?            @relation(fields: [userId], references: [id])
 }
 
 model Gamification {
-  id                                        String       @id @default(uuid())
-  userId                                    String?      @map("user_id")
-  achievementId                             String?      @map("achievement_id")
-  createdAt                                 DateTime?    @default(now()) @map("created_at") @db.Timestamp(6)
-  lastUpdatedAt                             DateTime?    @default(now()) @map("last_updated_at") @db.Timestamp(6)
-  deleted                                   Boolean?     @default(false)
-  achievement                               Achievement? @relation(fields: [achievementId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_gamification_achievement_id")
-  users_gamification_user_idTousers         Users?       @relation("gamification_user_idTousers", fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_gamification_user_id")
-  users_users_gamification_idTogamification Users[]      @relation("users_gamification_idTogamification")
+  id                 String           @id @default(uuid())
+  description        String
+  experiencePoint    Int?             @map("experience_point")
+  level              String?
+  createdAt          DateTime?        @default(now()) @map("created_at")
+  lastUpdatedAt      DateTime?        @updatedAt @map("last_updated_at")
+  deleted            Boolean?         @default(false)
+  ressourceId        String?          @map("ressource_id")
+  progressTrackingId String?          @unique @map("progress-tracking")
+  userId             String?          @unique @map("user_id")
+  achievement        Achievement?
+  ressource          Ressource?
+  useer              User?            @relation(fields: [userId], references: [id])
+  progressTrackers   ProgressTracker? @relation(fields: [progressTrackingId], references: [id])
 }
 
 model Image {
   id            String    @id @default(uuid())
+  description   String
   url           String    @db.VarChar(100)
-  createdAt     DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
-  lastUpdatedAt DateTime? @default(now()) @map("last_updated_at") @db.Timestamp(6)
+  height        Int?
+  width         Int?
+  createdAt     DateTime? @default(now()) @map("created_at")
+  lastUpdatedAt DateTime? @updatedAt @map("last_updated_at")
   deleted       Boolean?  @default(false)
-  lesson        Lesson[]
-  users         Users[]
+  lessonId      String?   @unique @map("lesson_id")
+  userId        String?   @unique @map("user_id")
+  lesson        Lesson?   @relation(fields: [lessonId], references: [id])
+  user          User?     @relation(fields: [userId], references: [id])
 }
 
 model Lesson {
-  id            String    @id @default(uuid())
-  title         String?   @db.VarChar(100)
-  description   String?   @db.VarChar(100)
-  createdAt     DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
-  lastUpdatedAt DateTime? @default(now()) @map("last_updated_at") @db.Timestamp(6)
-  deleted       Boolean?  @default(false)
-  imageId       String?   @map("image_id")
-  videoId       String?   @map("video_id")
-  tagId         String?   @map("tag_id")
-  chapter       Chapter[]
-  image         Image?    @relation(fields: [imageId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_lesson_image_id")
-  tag           Tag?      @relation(fields: [tagId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_lesson_tag_id")
-  video         Video?    @relation(fields: [videoId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_lesson_video_id")
+  id            String      @id @default(uuid())
+  title         String      @db.VarChar(100)
+  description   String?     @db.VarChar(100)
+  duration      Int?
+  createdAt     DateTime?   @default(now()) @map("created_at")
+  lastUpdatedAt DateTime?   @updatedAt @map("last_updated_at")
+  deleted       Boolean?    @default(false)
+  chapterId     String?     @unique @map("chapter_id")
+  images        Image[]
+  videos        Video[]
+  tags          Tag[]
+  ressources    Ressource[]
+  Chapter       Chapter?    @relation(fields: [chapterId], references: [id])
 }
 
 model Notification {
   id            String    @id @default(uuid())
   message       String    @db.VarChar(100)
-  createdAt     DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
-  lastUpdatedAt DateTime? @default(now()) @map("last_updated_at") @db.Timestamp(6)
+  published     Boolean?
+  createdAt     DateTime? @default(now()) @map("created_at")
+  lastUpdatedAt DateTime? @updatedAt @map("last_updated_at")
   deleted       Boolean?  @default(false)
-  users         Users[]
+  userId        String?   @unique @map("user_id")
+  user          User?     @relation(fields: [userId], references: [id])
 }
 
-model Progress_tracker {
-  id                                                String    @id @default(uuid())
-  userId                                            String?   @map("user_id")
-  courseId                                          String?   @map("course_id")
-  completedLessons                                  Int?      @default(0) @map("completed_lessons")
-  totalLessons                                      Int?      @default(0) @map("total_lessons")
-  completedChapters                                 Int?      @default(0) @map("completed_chapters")
-  totalChapters                                     Int?      @default(0) @map("total_chapters")
-  createdAt                                         DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
-  lastUpdatedAt                                     DateTime? @default(now()) @map("last_updated_at") @db.Timestamp(6)
-  deleted                                           Boolean?  @default(false)
-  course                                            Course?   @relation(fields: [courseId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_progress_tracker_course_id")
-  users_progress_tracker_user_idTousers             Users?    @relation("progress_tracker_user_idTousers", fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_progress_tracker_user_id")
-  users_users_progress_tracker_idToprogress_tracker Users[]   @relation("users_progress_tracker_idToprogress_tracker")
+model ProgressTracker {
+  id                String        @id @default(uuid())
+  progress          Int?
+  completedLessons  Int?          @default(0) @map("completed_lessons")
+  totalLessons      Int?          @default(0) @map("total_lessons")
+  completedChapters Int?          @default(0) @map("completed_chapters")
+  totalChapters     Int?          @default(0) @map("total_chapters")
+  createdAt         DateTime?     @default(now()) @map("created_at")
+  lastUpdatedAt     DateTime?     @updatedAt @map("last_updated_at")
+  deleted           Boolean?      @default(false)
+  userId            String?       @unique @map("user_id")
+  course            Course?
+  gamifications     Gamification?
+  user              User?         @relation(fields: [userId], references: [id])
 }
 
 model Ressource {
-  id            String    @id @default(uuid())
-  title         String?   @db.VarChar(100)
-  duration      DateTime? @db.Timestamp(6)
-  createdAt     DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
-  lastUpdatedAt DateTime? @default(now()) @map("last_updated_at") @db.Timestamp(6)
-  deleted       Boolean?  @default(false)
-  course        Course[]
-}
-
-model Rewards {
   id             String        @id @default(uuid())
   title          String        @db.VarChar(100)
-  description    String?       @db.VarChar(100)
-  type           String?       @db.VarChar(100)
-  value          Int?
-  availability   Boolean?      @default(false)
-  unlockCriteria Boolean?      @default(false) @map("unlock_criteria")
-  redeemable     Boolean?      @default(false)
-  expirationDate DateTime?     @map("expiration_date") @db.Timestamp(6)
-  createdAt      DateTime?     @default(now()) @map("created_at") @db.Timestamp(6)
-  lastUpdatedAt  DateTime?     @default(now()) @map("last_updated_at") @db.Timestamp(6)
-  createdBy      String?       @map("created_by") @db.VarChar(100)
-  lastUpdatedBy  String?       @map("last_updated_by") @db.VarChar(100)
+  path           String?
+  type           String?
+  accessLevel    String?       @map("access_level")
+  duration       Int?
+  createdAt      DateTime?     @default(now()) @map("created_at")
+  lastUpdatedAt  DateTime?     @updatedAt @map("last_updated_at")
   deleted        Boolean?      @default(false)
-  accessLevel    Int?          @map("access_level")
-  categoryId     String?       @map("category_id")
-  achievement    Achievement[]
-  category       Category?     @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_rewards_category_id")
+  courseId       String?       @unique @map("course_id")
+  gamificationId String?       @unique @map("gamification_id")
+  bagdeId        String?       @unique @map("badge_id")
+  lessonId       String?       @unique @map("lesson_id")
+  course         Course?       @relation(fields: [courseId], references: [id])
+  gamification   Gamification? @relation(fields: [gamificationId], references: [id])
+  badge          Badge?        @relation(fields: [bagdeId], references: [id])
+  lesson         Lesson?       @relation(fields: [lessonId], references: [id])
+}
+
+model Reward {
+  id             String       @id @default(uuid())
+  title          String       @db.VarChar(100)
+  description    String?      @db.VarChar(100)
+  type           String?      @db.VarChar(100)
+  value          Float?
+  availability   Boolean?     @default(false)
+  unlockCriteria Boolean?     @default(false) @map("unlock_criteria")
+  redeemable     Boolean?     @default(false)
+  expirationDate DateTime?    @map("expiration_date")
+  createdAt      DateTime?    @default(now()) @map("created_at")
+  lastUpdatedAt  DateTime?    @updatedAt @map("last_updated_at")
+  createdBy      String?      @map("created_by") @db.VarChar(100)
+  lastUpdatedBy  String?      @map("last_updated_by") @db.VarChar(100)
+  deleted        Boolean?     @default(false)
+  accessLevel    Int?         @map("access_level")
+  achievementId  String?      @map("achievement_id")
+  Achievement    Achievement? @relation(fields: [achievementId], references: [id])
 }
 
 model Subscription {
   id            String    @id @default(uuid())
   plan          String    @db.VarChar(100)
-  createdAt     DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
-  lastUpdatedAt DateTime? @default(now()) @map("last_updated_at") @db.Timestamp(6)
+  payed         Boolean?  @default(false)
+  createdAt     DateTime? @default(now()) @map("created_at")
+  lastUpdatedAt DateTime? @updatedAt @map("last_updated_at")
   deleted       Boolean?  @default(false)
-  users         Users[]
+  userId        String?   @unique @map("user_id")
+  user          User?     @relation(fields: [userId], references: [id])
 }
 
 model Tag {
   id            String    @id @default(uuid())
   name          String    @db.VarChar(100)
-  createdAt     DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
-  lastUpdatedAt DateTime? @default(now()) @map("last_updated_at") @db.Timestamp(6)
+  createdAt     DateTime? @default(now()) @map("created_at")
+  lastUpdatedAt DateTime? @updatedAt @map("last_updated_at")
   deleted       Boolean?  @default(false)
-  course        Course[]
-  lesson        Lesson[]
+  courseId      String?   @unique @map("course_id")
+  lessonId      String?   @unique @map("lesson_id")
+  course        Course?   @relation(fields: [courseId], references: [id])
+  lesson        Lesson?   @relation(fields: [lessonId], references: [id])
 }
 
-model Users {
-  id                                                           String             @id @default(uuid())
-  displayName                                                  String?            @map("display_name") @db.VarChar(100)
-  firstName                                                    String             @map("first_name") @db.VarChar(100)
-  lastName                                                     String             @map("last_name") @db.VarChar(100)
-  email                                                        String             @unique @db.VarChar(100)
-  createdAt                                                    DateTime?          @default(now()) @map("created_at") @db.Timestamp(6)
-  lastUpdatedAt                                                DateTime?          @default(now()) @map("last_updated_at") @db.Timestamp(6)
-  deleted                                                      Boolean?           @default(false)
-  role                                                         String?            @default("USER") @db.VarChar(100)
-  password                                                     String             @db.VarChar(100)
-  preferences                                                  String?            @db.VarChar(100)
-  ecole                                                        String?            @db.VarChar(100)
-  gamificationId                                               String?            @map("gamification_id")
-  notificationId                                               String?            @map("notificationId")
-  subscriptionId                                               String?            @map("subscription_id")
-  progressTrackerId                                            String?            @map("progress_tracker_id")
-  courseId                                                     String?            @map("course_id")
-  imageId                                                      String?            @map("image_id")
-  course_course_user_idTousers                                 Course[]           @relation("course_user_idTousers")
-  gamification_gamification_user_idTousers                     Gamification[]     @relation("gamification_user_idTousers")
-  progress_tracker_progress_tracker_user_idTousers             Progress_tracker[] @relation("progress_tracker_user_idTousers")
-  course_users_course_idTocourse                               Course?            @relation("users_course_idTocourse", fields: [courseId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_course_id")
-  gamification_users_gamification_idTogamification             Gamification?      @relation("users_gamification_idTogamification", fields: [gamificationId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_gamification_id")
-  image                                                        Image?             @relation(fields: [imageId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_image_id")
-  notification                                                 Notification?      @relation(fields: [notificationId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_notification_id")
-  progress_tracker_users_progress_tracker_idToprogress_tracker Progress_tracker?  @relation("users_progress_tracker_idToprogress_tracker", fields: [progressTrackerId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_progress_tracker_id")
-  subscription                                                 Subscription?      @relation(fields: [subscriptionId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_subscription_id")
+model User {
+  id              String           @id @default(uuid())
+  displayName     String?          @map("display_name") @db.VarChar(100)
+  firstName       String           @map("first_name") @db.VarChar(100)
+  lastName        String           @map("last_name") @db.VarChar(100)
+  email           String           @unique @db.VarChar(100)
+  createdAt       DateTime?        @default(now()) @map("created_at")
+  lastUpdatedAt   DateTime?        @updatedAt @map("last_updated_at")
+  deleted         Boolean?         @default(false)
+  role            Role             @default(USER)
+  password        String           @db.VarChar(100)
+  preferences     String?          @db.VarChar(100)
+  ecole           String?          @db.VarChar(100)
+  image           Image?
+  courses         Course[]
+  gamefication    Gamification?
+  notification    Notification?
+  subscription    Subscription?
+  progressTracker ProgressTracker?
 }
 
 model Video {
   id            String    @id @default(uuid())
+  description   String?
   url           String    @db.VarChar(100)
-  createdAt     DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
-  lastUpdatedAt DateTime? @default(now()) @map("last_updated_at") @db.Timestamp(6)
+  height        Int?
+  width         Int?
+  createdAt     DateTime? @default(now()) @map("created_at")
+  lastUpdatedAt DateTime? @updatedAt @map("last_updated_at")
   deleted       Boolean?  @default(false)
-  lesson        Lesson[]
+  lessonId      String?   @unique @map("lesson_id")
+  lesson        Lesson?   @relation(fields: [lessonId], references: [id])
+}
+
+enum Role {
+  USER
+  ADMIN
 }

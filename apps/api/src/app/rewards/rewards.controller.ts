@@ -8,7 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiCreatedResponse } from '@nestjs/swagger';
-import { Rewards } from '@prisma/client';
+import { Reward } from '@prisma/client';
 import { CreateRewardDto } from './dto/create-reward.dto';
 import { UpdateRewardDto } from './dto/update-reward.dto';
 import { RewardEntity } from './entities/reward.entity';
@@ -20,19 +20,19 @@ export class RewardsController {
 
   @Post()
   @ApiCreatedResponse({ type: RewardEntity })
-  create(@Body() createRewardDto: CreateRewardDto): Promise<Rewards> {
+  create(@Body() createRewardDto: CreateRewardDto): Promise<Reward> {
     return this.rewardsService.create(createRewardDto);
   }
 
   @Get()
   @ApiCreatedResponse({ type: RewardEntity, isArray: true })
-  findAll(): Promise<Rewards[]> {
+  findAll(): Promise<Reward[]> {
     return this.rewardsService.findAll();
   }
 
   @Get(':id')
   @ApiCreatedResponse({ type: RewardEntity })
-  findOne(@Param('id') id: string): Promise<Rewards> {
+  findOne(@Param('id') id: string): Promise<Reward> {
     return this.rewardsService.findOne(id);
   }
 
@@ -41,13 +41,13 @@ export class RewardsController {
   update(
     @Param('id') id: string,
     @Body() updateRewardDto: UpdateRewardDto
-  ): Promise<Rewards> {
+  ): Promise<Reward> {
     return this.rewardsService.update(id, updateRewardDto);
   }
 
   @Delete(':id')
   @ApiCreatedResponse({ type: RewardEntity })
-  remove(@Param('id') id: string): Promise<Rewards> {
+  remove(@Param('id') id: string): Promise<Reward> {
     return this.rewardsService.remove(id);
   }
 }

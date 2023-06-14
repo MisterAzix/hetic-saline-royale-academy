@@ -44,4 +44,7 @@ export class BadgeEntity implements Badge {
 
   @ApiProperty()
   categoryId: string;
+
+  @ApiProperty()
+  achievementId: string;
 }

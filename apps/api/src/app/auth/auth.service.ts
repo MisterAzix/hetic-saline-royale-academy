@@ -1,9 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Prisma } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 import { generateRandomPassword } from '../../helper/helper.services';
 import { UsersService } from '../users/users.service';
-import * as bcrypt from 'bcrypt'
 
 //Cette classe implémenter la logique d'authentification
 @Injectable()
@@ -54,7 +54,7 @@ export class AuthService {
 
     const oAuthUserPwd = generateRandomPassword(12); // Generate a secure password
 
-    const userData: Prisma.UsersCreateInput = {
+    const userData: Prisma.UserCreateInput = {
       email: userEmail,
       firstName,
       lastName,
