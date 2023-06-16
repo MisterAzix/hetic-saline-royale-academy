@@ -14,7 +14,7 @@ import { UpdateRewardDto } from './dto/update-reward.dto';
 import { RewardEntity } from './entities/reward.entity';
 import { RewardsService } from './rewards.service';
 
-@Controller('rewards')
+@Controller('reward')
 export class RewardsController {
   constructor(private readonly rewardsService: RewardsService) {}
 

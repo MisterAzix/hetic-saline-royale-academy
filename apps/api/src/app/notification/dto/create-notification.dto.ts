@@ -17,5 +17,5 @@ export class CreateNotificationDto {
 
   @ApiProperty({ type: String, required: false })
   @IsString()
-  userId: string;
+  userId?: string;
 }

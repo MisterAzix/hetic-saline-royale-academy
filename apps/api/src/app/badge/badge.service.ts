@@ -1,20 +1,23 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Badge, Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
 @Injectable()
 export class BadgeService {
+  private logger = new Logger(BadgeService.name);
+
   constructor(private prisma: PrismaService) {}
 
   async create(data: Prisma.BadgeCreateInput): Promise<Badge> {
     try {
       const badge = await this.prisma.badge.create({ data });
+      this.logger.log(`Badge has been created : ${badge.id}`);
 
       return badge;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Badge DTO validation error:', error.message);
+        this.logger.error(`Badge DTO validation error: ${error.message}`);
         throw new Error('Badge DTO validation error: ' + JSON.stringify(error));
       } else {
         // Handle other errors
@@ -51,14 +54,16 @@ export class BadgeService {
 
   async update(id: string, data: Prisma.BadgeUpdateInput): Promise<Badge> {
     try {
-      return await this.prisma.badge.update({
+      const badge = await this.prisma.badge.update({
         where: { id },
         data,
       });
+      this.logger.warn(`Badge has been updated : ${badge.id}`);
+      return badge;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Badge DTO validation error:', error.message);
+        this.logger.error(`Badge DTO validation error: ${error.message}`);
         throw new Error('Badge DTO validation error: ' + JSON.stringify(error));
       } else {
         // Handle other errors
@@ -69,11 +74,13 @@ export class BadgeService {
 
   async remove(id: string): Promise<Badge> {
     try {
-      return await this.prisma.badge.delete({ where: { id } });
+      const badge = await this.prisma.badge.delete({ where: { id } });
+      this.logger.warn(`Badge has been updated : ${badge.id}`);
+      return badge;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Badge ID validation error:', error.message);
+        this.logger.error(`Badge DTO validation error: ${error.message}`);
         throw new Error('Badge DTO validation error: ' + JSON.stringify(error));
       } else {
         // Handle other errors

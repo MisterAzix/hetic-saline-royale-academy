@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Prisma } from '@prisma/client';
 import {
   IsArray,
   IsBoolean,
@@ -50,13 +51,13 @@ export class CreateAchievementDto {
 
   @ApiProperty({ type: Object, required: false })
   @IsObject()
-  category?: object;
+  category?: Prisma.AchievementCreateInput['category'];
 
   @ApiProperty({ type: Array, required: false })
   @IsArray()
-  rewards?: string[];
+  rewards?: Prisma.AchievementCreateInput['rewards'];
 
   @ApiProperty({ type: Array, required: false })
   @IsArray()
-  badges?: string[];
+  badges?: Prisma.AchievementCreateInput['badges'];
 }

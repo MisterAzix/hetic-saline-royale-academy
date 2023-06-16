@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Prisma } from '@prisma/client';
 import {
   IsArray,
   IsBoolean,
@@ -40,17 +41,17 @@ export class CreateCourseDto {
 
   @ApiProperty({ type: Object, required: false })
   @IsObject()
-  category?: object;
+  category?: Prisma.CourseCreateInput['category'];
 
   @ApiProperty({ type: Array, required: false })
   @IsArray()
-  chapters?: string[];
+  chapters?: Prisma.CourseCreateInput['chapters'];
 
   @ApiProperty({ type: Array, required: false })
   @IsArray()
-  tags?: string[];
+  tags?: Prisma.CourseCreateInput['tags'];
 
   @ApiProperty({ type: Array, required: false })
   @IsArray()
-  ressources?: string[];
+  ressources?: Prisma.CourseCreateInput['ressources'];
 }

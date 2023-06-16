@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Prisma } from '@prisma/client';
 import { IsBoolean, IsDate, IsObject, IsString, Length } from 'class-validator';
 
 export class CreateBadgeDto {
@@ -50,9 +51,9 @@ export class CreateBadgeDto {
 
   @ApiProperty({ type: Object, required: false })
   @IsObject()
-  category: object;
+  category: Prisma.BadgeCreateInput['category'];
 
   @ApiProperty({ type: Object, required: false })
   @IsObject()
-  ressource: object;
+  ressource: Prisma.BadgeCreateInput['ressource'];
 }

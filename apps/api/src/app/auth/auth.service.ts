@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
@@ -8,6 +8,8 @@ import { UsersService } from '../users/users.service';
 //Cette classe implémenter la logique d'authentification
 @Injectable()
 export class AuthService {
+  private logger = new Logger(AuthService.name);
+
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService
@@ -27,6 +29,8 @@ export class AuthService {
       sub: id,
       email,
     };
+    this.logger.log(`User login : ${id}`);
+
     //Handle JWT jeton
     return {
       access_token: await this.jwtService.signAsync(payload),
@@ -69,6 +73,7 @@ export class AuthService {
       sub: createdUser.id,
       email: createdUser.email,
     };
+    this.logger.log(`User login from google OAuth : ${createdUser.id}`);
 
     const access_token = await this.jwtService.signAsync(payload);
 

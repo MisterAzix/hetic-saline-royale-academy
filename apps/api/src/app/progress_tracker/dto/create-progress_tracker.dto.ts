@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Prisma } from '@prisma/client';
 import { IsBoolean, IsNumber, IsObject, IsString } from 'class-validator';
 
 export class CreateProgressTrackerDto {
@@ -40,5 +41,5 @@ export class CreateProgressTrackerDto {
 
   @ApiProperty({ type: Object, required: false })
   @IsObject()
-  gamifications?: object;
+  gamifications?: Prisma.ProgressTrackerCreateInput['gamifications'];
 }

@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
 import { Achievement } from '@prisma/client';
-import { getElementIds } from '../../helper/helper.controller';
 import { AchievementService } from './achievement.service';
 import { CreateAchievementDto } from './dto/create-achievement.dto';
 import { UpdateAchievementDto } from './dto/update-achievement.dto';
@@ -24,13 +23,8 @@ export class AchievementController {
   create(
     @Body() createAchievementDto: CreateAchievementDto
   ): Promise<Achievement> {
-    const rewards = getElementIds(createAchievementDto.rewards);
-    const badges = getElementIds(createAchievementDto.badges);
-
     return this.achievementService.create({
       ...createAchievementDto,
-      rewards: { connect: rewards },
-      badges: { connect: badges },
     });
   }
   @Get()
@@ -51,13 +45,8 @@ export class AchievementController {
     @Param('id') id: string,
     @Body() updateAchievementDto: UpdateAchievementDto
   ): Promise<Achievement> {
-    const rewards = getElementIds(updateAchievementDto.rewards);
-    const badges = getElementIds(updateAchievementDto.badges);
-
     return this.achievementService.update(id, {
       ...updateAchievementDto,
-      rewards: { connect: rewards },
-      badges: { connect: badges },
     });
   }
 

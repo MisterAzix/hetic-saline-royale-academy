@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Prisma } from '@prisma/client';
 import {
   IsBoolean,
   IsNumber,
@@ -39,9 +40,9 @@ export class CreateGamificationDto {
 
   @ApiProperty({ type: Object, required: false })
   @IsObject()
-  achievement?: object;
+  achievement?: Prisma.GamificationCreateInput['achievement'];
 
   @ApiProperty({ type: Object, required: false })
   @IsObject()
-  ressource?: object;
+  ressource?: Prisma.GamificationCreateInput['ressource'];
 }

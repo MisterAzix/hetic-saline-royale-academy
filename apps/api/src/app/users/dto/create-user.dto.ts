@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Role } from '@prisma/client';
+import { Prisma, Role } from '@prisma/client';
 import {
   IsArray,
   IsBoolean,
@@ -66,5 +66,5 @@ export class UserCreateDto {
 
   @ApiProperty({ type: Array, required: false })
   @IsArray()
-  courses?: string[];
+  courses?: Prisma.UserCreateInput['courses'];
 }

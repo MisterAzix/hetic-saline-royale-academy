@@ -1,20 +1,25 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Achievement, Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
 @Injectable()
 export class AchievementService {
+  private logger = new Logger(AchievementService.name);
+
   constructor(private prisma: PrismaService) {}
 
   async create(data: Prisma.AchievementCreateInput): Promise<Achievement> {
     try {
       const achievement = await this.prisma.achievement.create({ data });
+      this.logger.log(`Achievement has been created : ${achievement.id}`);
 
       return achievement;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Achievement DTO validation error:', error.message);
+        this.logger.error(
+          `Achievement DTO validation error: : ${error.message}`
+        );
         throw new Error(
           'Achievement DTO validation error: ' + JSON.stringify(error)
         );
@@ -31,7 +36,7 @@ export class AchievementService {
         where: { deleted: false },
       });
     } catch (error) {
-      console.error('Error while retrieving achievements:', error);
+      this.logger.log(`Error while retrieving achievements: ${error}`);
       throw new Error('Failed to retrieve achievements.');
     }
   }
@@ -42,7 +47,7 @@ export class AchievementService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Achievement ID validation error:', error.message);
+        this.logger.error(`Achievement ID validation error: ${error.message}`);
         throw new Error(
           'Achievement DTO validation error: ' + JSON.stringify(error)
         );
@@ -58,16 +63,20 @@ export class AchievementService {
     data: Prisma.AchievementUpdateInput
   ): Promise<Achievement> {
     try {
-      return await this.prisma.achievement.update({
+      const achievement = await this.prisma.achievement.update({
         where: { id },
         data,
       });
+      this.logger.warn(`Achievement has been updated : ${id}`);
+
+      return achievement;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Achievement DTO validation error:', error.message);
+        this.logger.error(`Achievement DTO validation error: ${error.message}`);
+
         throw new Error(
-          'Achievement DTO validation error: ' + JSON.stringify(error)
+          'Achievement DTO validation error: ' + JSON.stringify(id)
         );
       } else {
         // Handle other errors
@@ -78,11 +87,17 @@ export class AchievementService {
 
   async remove(id: string): Promise<Achievement> {
     try {
-      return await this.prisma.achievement.delete({ where: { id } });
+      const achievement = await this.prisma.achievement.delete({
+        where: { id },
+      });
+      this.logger.warn(`Achievement has been deleted : ${id}`);
+
+      return achievement;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Achievement ID validation error:', error.message);
+        this.logger.error(` Achievement ID validation error:${error.message}`);
+
         throw new Error(
           'Achievement DTO validation error: ' + JSON.stringify(error)
         );

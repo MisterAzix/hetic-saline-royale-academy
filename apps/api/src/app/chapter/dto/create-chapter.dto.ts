@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Prisma } from '@prisma/client';
 import { IsArray, IsBoolean, IsDate, IsString, Length } from 'class-validator';
 
 export class CreateChapterDto {
@@ -30,5 +31,5 @@ export class CreateChapterDto {
 
   @ApiProperty({ type: Array, required: false })
   @IsArray()
-  lessons?: string[];
+  lessons?: Prisma.ChapterCreateInput['lessons'];
 }
