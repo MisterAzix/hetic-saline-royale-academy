@@ -6,6 +6,12 @@ import { PrismaService } from '../../prisma.service';
 export class GamificationService {
   constructor(private prisma: PrismaService) {}
 
+  /**
+   * Create a new gamification.
+   *
+   * @param {Prisma.GamificationCreateInput} data - The data for creating the gamification.
+   * @returns {Promise<Gamification>} - The created gamification.
+   */
   async create(data: Prisma.GamificationCreateInput): Promise<Gamification> {
     try {
       const gamification = await this.prisma.gamification.create({ data });
@@ -25,6 +31,11 @@ export class GamificationService {
     }
   }
 
+  /**
+   * Retrieve all gamifications.
+   *
+   * @returns {Promise<Gamification[]>} - An array of gamifications.
+   */
   async findAll(): Promise<Gamification[]> {
     try {
       return await this.prisma.gamification.findMany({
@@ -36,6 +47,12 @@ export class GamificationService {
     }
   }
 
+  /**
+   * Retrieve a specific gamification by ID.
+   *
+   * @param {string} id - The ID of the gamification to retrieve.
+   * @returns {Promise<Gamification>} - The gamification with the specified ID.
+   */
   async findOne(id: string): Promise<Gamification> {
     try {
       return await this.prisma.gamification.findUnique({ where: { id } });
@@ -53,6 +70,13 @@ export class GamificationService {
     }
   }
 
+  /**
+   * Update a gamification with new data.
+   *
+   * @param {string} id - The ID of the gamification to update.
+   * @param {Prisma.AchievementUpdateInput} data - The data for updating the gamification.
+   * @returns {Promise<Gamification>} - The updated gamification.
+   */
   async update(
     id: string,
     data: Prisma.AchievementUpdateInput
@@ -76,6 +100,12 @@ export class GamificationService {
     }
   }
 
+  /**
+   * Remove a gamification by ID.
+   *
+   * @param {string} id - The ID of the gamification to remove.
+   * @returns {Promise<Gamification>} - The removed gamification.
+   */
   async remove(id: string): Promise<Gamification> {
     try {
       return await this.prisma.gamification.delete({ where: { id } });

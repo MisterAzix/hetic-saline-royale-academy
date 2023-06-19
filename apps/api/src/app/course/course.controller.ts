@@ -1,57 +1,64 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-} from '@nestjs/common';
-import { ApiCreatedResponse } from '@nestjs/swagger';
+import { Controller } from '@nestjs/common';
 import { Course } from '@prisma/client';
 import { CourseService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
-import { CourseEntity } from './entities/course.entity';
 
 @Controller('course')
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
 
-  @Post()
-  @ApiCreatedResponse({ type: CourseEntity })
-  create(@Body() createCourseDto: CreateCourseDto): Promise<Course> {
+  /**
+   * Create a new course.
+   *
+   * @param {CreateCourseDto} createCourseDto - The data for creating the course.
+   * @returns {Promise<Course>} - The created course.
+   */
+  async create(createCourseDto: CreateCourseDto): Promise<Course> {
     return this.courseService.create({
       ...createCourseDto,
     });
   }
 
-  @Get()
-  @ApiCreatedResponse({ type: CourseEntity, isArray: true })
-  findAll(): Promise<Course[]> {
+  /**
+   * Retrieve all courses.
+   *
+   * @returns {Promise<Course[]>} - An array of courses.
+   */
+  async findAll(): Promise<Course[]> {
     return this.courseService.findAll();
   }
 
-  @Get(':id')
-  @ApiCreatedResponse({ type: CourseEntity })
-  findOne(@Param('id') id: string): Promise<Course> {
+  /**
+   * Retrieve a specific course by ID.
+   *
+   * @param {string} id - The ID of the course to retrieve.
+   * @returns {Promise<Course>} - The course with the specified ID.
+   */
+  async findOne(id: string): Promise<Course> {
     return this.courseService.findOne(id);
   }
 
-  @Patch(':id')
-  @ApiCreatedResponse({ type: CourseEntity })
-  update(
-    @Param('id') id: string,
-    @Body() updateCourseDto: UpdateCourseDto
-  ): Promise<Course> {
+  /**
+   * Update a course with new data.
+   *
+   * @param {string} id - The ID of the course to update.
+   * @param {UpdateCourseDto} updateCourseDto - The data for updating the course.
+   * @returns {Promise<Course>} - The updated course.
+   */
+  async update(id: string, updateCourseDto: UpdateCourseDto): Promise<Course> {
     return this.courseService.update(id, {
       ...updateCourseDto,
     });
   }
 
-  @Delete(':id')
-  @ApiCreatedResponse({ type: CourseEntity })
-  remove(@Param('id') id: string): Promise<Course> {
+  /**
+   * Remove a course by ID.
+   *
+   * @param {string} id - The ID of the course to remove.
+   * @returns {Promise<Course>} - The removed course.
+   */
+  async remove(id: string): Promise<Course> {
     return this.courseService.remove(id);
   }
 }

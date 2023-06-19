@@ -8,7 +8,12 @@ const SALT_ROUND = 10;
 export class UsersService {
   //Injection des dépendances
   constructor(private prisma: PrismaService) {}
-
+  /**
+   * Retrieve a specific user by unique input.
+   *
+   * @param {Prisma.UserWhereUniqueInput} userWhereUniqueInput - The unique input to identify the user.
+   * @returns {Promise<User | null>} - The user found, or null if not found.
+   */
   async findOne(
     userWhereUniqueInput: Prisma.UserWhereUniqueInput
   ): Promise<User | null> {
@@ -22,6 +27,12 @@ export class UsersService {
     }
   }
 
+  /**
+   * Create a new user.
+   *
+   * @param {Prisma.UserCreateInput} data - The data for creating the user.
+   * @returns {Promise<User>} - The created user.
+   */
   async createUser(data: Prisma.UserCreateInput): Promise<User> {
     const cryptedPassword = await bcrypt.hash(data.password, SALT_ROUND);
 
@@ -53,6 +64,11 @@ export class UsersService {
     }
   }
 
+  /**
+   * Retrieve all users.
+   *
+   * @returns {Promise<User[]>} - An array of users.
+   */
   async findAll(): Promise<User[]> {
     try {
       return await this.prisma.user.findMany({
@@ -64,6 +80,13 @@ export class UsersService {
     }
   }
 
+  /**
+   * Update a user with new data.
+   *
+   * @param {string} id - The ID of the user to update.
+   * @param {Prisma.UserUpdateInput} data - The data for updating the user.
+   * @returns {Promise<User>} - The updated user.
+   */
   async update(id: string, data: Prisma.UserUpdateInput): Promise<User> {
     try {
       return await this.prisma.user.update({
@@ -82,6 +105,12 @@ export class UsersService {
     }
   }
 
+  /**
+   * Remove a user by ID.
+   *
+   * @param {string} id - The ID of the user to remove.
+   * @returns {Promise<User>} - The removed user.
+   */
   async remove(id: string): Promise<User> {
     try {
       return await this.prisma.user.delete({ where: { id } });

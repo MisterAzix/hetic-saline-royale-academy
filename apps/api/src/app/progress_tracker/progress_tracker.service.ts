@@ -5,16 +5,21 @@ import { PrismaService } from '../../prisma.service';
 @Injectable()
 export class ProgressTrackerService {
   constructor(private prisma: PrismaService) {}
-
+  /**
+   * Create a new progress tracker.
+   *
+   * @param {Prisma.ProgressTrackerCreateInput} data - The data for creating the progress tracker.
+   * @returns {Promise<ProgressTracker>} - The created progress tracker.
+   */
   async create(
     data: Prisma.ProgressTrackerCreateInput
   ): Promise<ProgressTracker> {
     try {
-      const ProgressTracker = await this.prisma.progressTracker.create({
+      const progressTracker = await this.prisma.progressTracker.create({
         data,
       });
 
-      return ProgressTracker;
+      return progressTracker;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
@@ -31,6 +36,11 @@ export class ProgressTrackerService {
     }
   }
 
+  /**
+   * Retrieve all progress trackers.
+   *
+   * @returns {Promise<ProgressTracker[]>} - An array of progress trackers.
+   */
   async findAll(): Promise<ProgressTracker[]> {
     try {
       return await this.prisma.progressTracker.findMany({
@@ -42,6 +52,12 @@ export class ProgressTrackerService {
     }
   }
 
+  /**
+   * Retrieve a specific progress tracker by ID.
+   *
+   * @param {string} id - The ID of the progress tracker to retrieve.
+   * @returns {Promise<ProgressTracker>} - The progress tracker with the specified ID.
+   */
   async findOne(id: string): Promise<ProgressTracker> {
     try {
       return await this.prisma.progressTracker.findUnique({ where: { id } });
@@ -59,9 +75,16 @@ export class ProgressTrackerService {
     }
   }
 
+  /**
+   * Update a progress tracker with new data.
+   *
+   * @param {string} id - The ID of the progress tracker to update.
+   * @param {Prisma.ProgressTrackerUpdateInput} data - The data for updating the progress tracker.
+   * @returns {Promise<ProgressTracker>} - The updated progress tracker.
+   */
   async update(
     id: string,
-    data: Prisma.AchievementUpdateInput
+    data: Prisma.ProgressTrackerUpdateInput
   ): Promise<ProgressTracker> {
     try {
       return await this.prisma.progressTracker.update({
@@ -84,6 +107,12 @@ export class ProgressTrackerService {
     }
   }
 
+  /**
+   * Remove a progress tracker by ID.
+   *
+   * @param {string} id - The ID of the progress tracker to remove.
+   * @returns {Promise<ProgressTracker>} - The removed progress tracker.
+   */
   async remove(id: string): Promise<ProgressTracker> {
     try {
       return await this.prisma.progressTracker.delete({ where: { id } });
@@ -92,7 +121,7 @@ export class ProgressTrackerService {
         // Handle validation errors
         console.error('Progress tracker ID validation error:', error.message);
         throw new Error(
-          'Progress tracke DTO validation error: ' + JSON.stringify(error)
+          'Progress tracker DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors

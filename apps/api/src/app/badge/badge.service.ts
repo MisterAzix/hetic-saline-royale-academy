@@ -7,7 +7,12 @@ export class BadgeService {
   private logger = new Logger(BadgeService.name);
 
   constructor(private prisma: PrismaService) {}
-
+  /**
+   * Create a new badge.
+   *
+   * @param {Prisma.BadgeCreateInput} data - The data for creating the badge.
+   * @returns {Promise<Badge>} - The created badge.
+   */
   async create(data: Prisma.BadgeCreateInput): Promise<Badge> {
     try {
       const badge = await this.prisma.badge.create({ data });
@@ -26,6 +31,11 @@ export class BadgeService {
     }
   }
 
+  /**
+   * Retrieve all badges.
+   *
+   * @returns {Promise<Badge[]>} - An array of badges.
+   */
   async findAll(): Promise<Badge[]> {
     try {
       return await this.prisma.badge.findMany({
@@ -37,6 +47,12 @@ export class BadgeService {
     }
   }
 
+  /**
+   * Retrieve a specific badge by ID.
+   *
+   * @param {string} id - The ID of the badge to retrieve.
+   * @returns {Promise<Badge>} - The badge with the specified ID.
+   */
   async findOne(id: string): Promise<Badge> {
     try {
       return await this.prisma.badge.findUnique({ where: { id } });
@@ -52,6 +68,13 @@ export class BadgeService {
     }
   }
 
+  /**
+   * Update a badge with new data.
+   *
+   * @param {string} id - The ID of the badge to update.
+   * @param {Prisma.BadgeUpdateInput} data - The data for updating the badge.
+   * @returns {Promise<Badge>} - The updated badge.
+   */
   async update(id: string, data: Prisma.BadgeUpdateInput): Promise<Badge> {
     try {
       const badge = await this.prisma.badge.update({
@@ -72,6 +95,12 @@ export class BadgeService {
     }
   }
 
+  /**
+   * Remove a badge.
+   *
+   * @param {string} id - The ID of the badge to remove.
+   * @returns {Promise<Badge>} - The removed badge.
+   */
   async remove(id: string): Promise<Badge> {
     try {
       const badge = await this.prisma.badge.delete({ where: { id } });

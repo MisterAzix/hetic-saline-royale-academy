@@ -6,10 +6,16 @@ import { PrismaService } from '../../prisma.service';
 export class CourseService {
   constructor(private prisma: PrismaService) {}
 
+  /**
+   * Create a new course.
+   *
+   * @param {Prisma.CourseCreateInput} data - The data for creating the course.
+   * @returns {Promise<Course>} - The created course.
+   * @throws {Error} - If an error occurs while creating the course.
+   */
   async create(data: Prisma.CourseCreateInput): Promise<Course> {
     try {
       const course = await this.prisma.course.create({ data });
-
       return course;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
@@ -25,6 +31,12 @@ export class CourseService {
     }
   }
 
+  /**
+   * Retrieve all courses.
+   *
+   * @returns {Promise<Course[]>} - An array of courses.
+   * @throws {Error} - If an error occurs while retrieving the courses.
+   */
   async findAll(): Promise<Course[]> {
     try {
       return await this.prisma.course.findMany({
@@ -36,6 +48,13 @@ export class CourseService {
     }
   }
 
+  /**
+   * Retrieve a specific course by ID.
+   *
+   * @param {string} id - The ID of the course to retrieve.
+   * @returns {Promise<Course>} - The course with the specified ID.
+   * @throws {Error} - If an error occurs while retrieving the course.
+   */
   async findOne(id: string): Promise<Course> {
     try {
       return await this.prisma.course.findUnique({ where: { id } });
@@ -48,11 +67,19 @@ export class CourseService {
         );
       } else {
         // Handle other errors
-        throw new Error('An error occurred while retrieving course.');
+        throw new Error('An error occurred while retrieving the course.');
       }
     }
   }
 
+  /**
+   * Update a course with new data.
+   *
+   * @param {string} id - The ID of the course to update.
+   * @param {Prisma.CourseUpdateInput} data - The data for updating the course.
+   * @returns {Promise<Course>} - The updated course.
+   * @throws {Error} - If an error occurs while updating the course.
+   */
   async update(id: string, data: Prisma.CourseUpdateInput): Promise<Course> {
     try {
       return await this.prisma.course.update({
@@ -73,6 +100,13 @@ export class CourseService {
     }
   }
 
+  /**
+   * Remove a course by ID.
+   *
+   * @param {string} id - The ID of the course to remove.
+   * @returns {Promise<Course>} - The removed course.
+   * @throws {Error} - If an error occurs while deleting the course.
+   */
   async remove(id: string): Promise<Course> {
     try {
       return await this.prisma.course.delete({ where: { id } });
@@ -85,7 +119,7 @@ export class CourseService {
         );
       } else {
         // Handle other errors
-        throw new Error('An error occurred while deleting Course.');
+        throw new Error('An error occurred while deleting the course.');
       }
     }
   }

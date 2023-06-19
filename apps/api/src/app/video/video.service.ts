@@ -6,6 +6,12 @@ import { PrismaService } from '../../prisma.service';
 export class VideoService {
   constructor(private prisma: PrismaService) {}
 
+  /**
+   * Create a new video.
+   *
+   * @param {Prisma.VideoCreateInput} data - The data for creating the video.
+   * @returns {Promise<Video>} - The created video.
+   */
   async create(data: Prisma.VideoCreateInput): Promise<Video> {
     try {
       const video = await this.prisma.video.create({ data });
@@ -23,6 +29,11 @@ export class VideoService {
     }
   }
 
+  /**
+   * Retrieve all videos.
+   *
+   * @returns {Promise<Video[]>} - An array of videos.
+   */
   async findAll(): Promise<Video[]> {
     try {
       return await this.prisma.video.findMany({
@@ -34,6 +45,12 @@ export class VideoService {
     }
   }
 
+  /**
+   * Retrieve a specific video by ID.
+   *
+   * @param {string} id - The ID of the video.
+   * @returns {Promise<Video>} - The video found.
+   */
   async findOne(id: string): Promise<Video> {
     try {
       return await this.prisma.video.findUnique({ where: { id } });
@@ -49,6 +66,13 @@ export class VideoService {
     }
   }
 
+  /**
+   * Update a video with new data.
+   *
+   * @param {string} id - The ID of the video to update.
+   * @param {Prisma.AchievementUpdateInput} data - The data for updating the video.
+   * @returns {Promise<Video>} - The updated video.
+   */
   async update(
     id: string,
     data: Prisma.AchievementUpdateInput
@@ -70,6 +94,12 @@ export class VideoService {
     }
   }
 
+  /**
+   * Remove a video by ID.
+   *
+   * @param {string} id - The ID of the video to remove.
+   * @returns {Promise<Video>} - The removed video.
+   */
   async remove(id: string): Promise<Video> {
     try {
       return await this.prisma.video.delete({ where: { id } });

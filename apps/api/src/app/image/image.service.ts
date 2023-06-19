@@ -6,6 +6,12 @@ import { PrismaService } from '../../prisma.service';
 export class ImageService {
   constructor(private prisma: PrismaService) {}
 
+  /**
+   * Create a new image.
+   *
+   * @param {Prisma.ImageCreateInput} data - The data for creating the image.
+   * @returns {Promise<Image>} - The created image.
+   */
   async create(data: Prisma.ImageCreateInput): Promise<Image> {
     try {
       const image = await this.prisma.image.create({ data });
@@ -23,6 +29,11 @@ export class ImageService {
     }
   }
 
+  /**
+   * Retrieve all images.
+   *
+   * @returns {Promise<Image[]>} - An array of images.
+   */
   async findAll(): Promise<Image[]> {
     try {
       return await this.prisma.image.findMany({
@@ -34,6 +45,12 @@ export class ImageService {
     }
   }
 
+  /**
+   * Retrieve a specific image by ID.
+   *
+   * @param {string} id - The ID of the image to retrieve.
+   * @returns {Promise<Image>} - The image with the specified ID.
+   */
   async findOne(id: string): Promise<Image> {
     try {
       return await this.prisma.image.findUnique({ where: { id } });
@@ -49,6 +66,13 @@ export class ImageService {
     }
   }
 
+  /**
+   * Update an image with new data.
+   *
+   * @param {string} id - The ID of the image to update.
+   * @param {Prisma.AchievementUpdateInput} data - The data for updating the image.
+   * @returns {Promise<Image>} - The updated image.
+   */
   async update(
     id: string,
     data: Prisma.AchievementUpdateInput
@@ -70,6 +94,12 @@ export class ImageService {
     }
   }
 
+  /**
+   * Remove an image by ID.
+   *
+   * @param {string} id - The ID of the image to remove.
+   * @returns {Promise<Image>} - The removed image.
+   */
   async remove(id: string): Promise<Image> {
     try {
       return await this.prisma.image.delete({ where: { id } });
@@ -80,7 +110,7 @@ export class ImageService {
         throw new Error('Image DTO validation error: ' + JSON.stringify(error));
       } else {
         // Handle other errors
-        throw new Error('An error occurred while deleting image.');
+        throw new Error('An error occurred while deleting the image.');
       }
     }
   }

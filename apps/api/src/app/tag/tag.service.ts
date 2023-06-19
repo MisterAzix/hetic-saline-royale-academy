@@ -5,7 +5,12 @@ import { PrismaService } from '../../prisma.service';
 @Injectable()
 export class TagService {
   constructor(private prisma: PrismaService) {}
-
+  /**
+   * Create a new tag.
+   *
+   * @param {Prisma.TagCreateInput} data - The data for creating the tag.
+   * @returns {Promise<Tag>} - The created tag.
+   */
   async create(data: Prisma.TagCreateInput): Promise<Tag> {
     try {
       const tag = await this.prisma.tag.create({ data });
@@ -23,6 +28,11 @@ export class TagService {
     }
   }
 
+  /**
+   * Retrieve all tags.
+   *
+   * @returns {Promise<Tag[]>} - An array of tags.
+   */
   async findAll(): Promise<Tag[]> {
     try {
       return await this.prisma.tag.findMany({
@@ -34,6 +44,12 @@ export class TagService {
     }
   }
 
+  /**
+   * Retrieve a specific tag by ID.
+   *
+   * @param {string} id - The ID of the tag to retrieve.
+   * @returns {Promise<Tag>} - The tag with the specified ID.
+   */
   async findOne(id: string): Promise<Tag> {
     try {
       return await this.prisma.tag.findUnique({ where: { id } });
@@ -49,7 +65,14 @@ export class TagService {
     }
   }
 
-  async update(id: string, data: Prisma.AchievementUpdateInput): Promise<Tag> {
+  /**
+   * Update a tag with new data.
+   *
+   * @param {string} id - The ID of the tag to update.
+   * @param {Prisma.TagUpdateInput} data - The data for updating the tag.
+   * @returns {Promise<Tag>} - The updated tag.
+   */
+  async update(id: string, data: Prisma.TagUpdateInput): Promise<Tag> {
     try {
       return await this.prisma.tag.update({
         where: { id },
@@ -67,6 +90,12 @@ export class TagService {
     }
   }
 
+  /**
+   * Remove a tag by ID.
+   *
+   * @param {string} id - The ID of the tag to remove.
+   * @returns {Promise<Tag>} - The removed tag.
+   */
   async remove(id: string): Promise<Tag> {
     try {
       return await this.prisma.tag.delete({ where: { id } });

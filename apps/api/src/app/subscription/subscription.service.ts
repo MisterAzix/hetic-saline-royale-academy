@@ -6,10 +6,15 @@ import { PrismaService } from '../../prisma.service';
 export class SubscriptionService {
   constructor(private prisma: PrismaService) {}
 
+  /**
+   * Create a new subscription.
+   *
+   * @param {Prisma.SubscriptionCreateInput} data - The data for creating the subscription.
+   * @returns {Promise<Subscription>} - The created subscription.
+   */
   async create(data: Prisma.SubscriptionCreateInput): Promise<Subscription> {
     try {
       const subscription = await this.prisma.subscription.create({ data });
-
       return subscription;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
@@ -25,6 +30,11 @@ export class SubscriptionService {
     }
   }
 
+  /**
+   * Retrieve all subscriptions.
+   *
+   * @returns {Promise<Subscription[]>} - An array of subscriptions.
+   */
   async findAll(): Promise<Subscription[]> {
     try {
       return await this.prisma.subscription.findMany({
@@ -36,6 +46,12 @@ export class SubscriptionService {
     }
   }
 
+  /**
+   * Retrieve a specific subscription by ID.
+   *
+   * @param {string} id - The ID of the subscription to retrieve.
+   * @returns {Promise<Subscription>} - The subscription with the specified ID.
+   */
   async findOne(id: string): Promise<Subscription> {
     try {
       return await this.prisma.subscription.findUnique({ where: { id } });
@@ -48,14 +64,21 @@ export class SubscriptionService {
         );
       } else {
         // Handle other errors
-        throw new Error('An error occurred while retrieving subscription.');
+        throw new Error('An error occurred while retrieving the subscription.');
       }
     }
   }
 
+  /**
+   * Update a subscription with new data.
+   *
+   * @param {string} id - The ID of the subscription to update.
+   * @param {Prisma.SubscriptionUpdateInput} data - The data for updating the subscription.
+   * @returns {Promise<Subscription>} - The updated subscription.
+   */
   async update(
     id: string,
-    data: Prisma.AchievementUpdateInput
+    data: Prisma.SubscriptionUpdateInput
   ): Promise<Subscription> {
     try {
       return await this.prisma.subscription.update({
@@ -76,6 +99,12 @@ export class SubscriptionService {
     }
   }
 
+  /**
+   * Remove a subscription by ID.
+   *
+   * @param {string} id - The ID of the subscription to remove.
+   * @returns {Promise<Subscription>} - The removed subscription.
+   */
   async remove(id: string): Promise<Subscription> {
     try {
       return await this.prisma.subscription.delete({ where: { id } });
@@ -88,7 +117,7 @@ export class SubscriptionService {
         );
       } else {
         // Handle other errors
-        throw new Error('An error occurred while deleting subscription.');
+        throw new Error('An error occurred while deleting the subscription.');
       }
     }
   }

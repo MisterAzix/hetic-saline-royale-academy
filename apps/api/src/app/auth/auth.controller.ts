@@ -26,7 +26,12 @@ export class AuthController {
     private userService: UsersService
   ) {}
 
-  //Local login
+  /**
+   * Sign in with email and password.
+   *
+   * @param {UserSignDto} signInDto - The DTO containing the sign-in data.
+   * @returns {Promise<UsersEntity>} - The signed-in user entity.
+   */
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login') // http://localhost:3000/api/auth/login
@@ -35,7 +40,12 @@ export class AuthController {
     return this.authService.signIn(signInDto.email, signInDto.password);
   }
 
-  //Google OAuth
+  /**
+   * Perform Google OAuth authentication.
+   * This endpoint is excluded from the API documentation.
+   *
+   * @returns {Promise<void>} - No return value.
+   */
   @ApiExcludeEndpoint()
   @Public()
   @Get('google')
@@ -44,6 +54,13 @@ export class AuthController {
     /*  */
   }
 
+  /**
+   * Handle the callback after successful Google OAuth authentication.
+   * This endpoint is excluded from the API documentation.
+   *
+   * @param {Request} req - The request object.
+   * @returns {Promise<object>} - The user information.
+   */
   @ApiExcludeEndpoint()
   @Public()
   @Get('google/callback')
@@ -56,13 +73,18 @@ export class AuthController {
     };
   }
 
+  /**
+   * Sign up a new user.
+   *
+   * @param {UserCreateDto} userData - The DTO containing the user data.
+   * @returns {Promise<UserModel>} - The created user.
+   */
   @Public()
   @Post('signup')
   @ApiCreatedResponse({ type: UsersEntity })
   async signupUser(@Body() userData: UserCreateDto): Promise<UserModel> {
     return this.userService.createUser({
       ...userData,
-      courses: { connect: {} },
     });
   }
 }

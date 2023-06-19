@@ -18,24 +18,48 @@ import { VideoService } from './video.service';
 export class VideoController {
   constructor(private readonly videoService: VideoService) {}
 
+  /**
+   * Create a new video.
+   *
+   * @param {CreateVideoDto} createVideoDto - The data for creating the video.
+   * @returns {Promise<Video>} - The created video.
+   */
   @Post()
   @ApiCreatedResponse({ type: VideoEntity })
   create(@Body() createVideoDto: CreateVideoDto): Promise<Video> {
     return this.videoService.create(createVideoDto);
   }
 
+  /**
+   * Retrieve all videos.
+   *
+   * @returns {Promise<Video[]>} - An array of videos.
+   */
   @Get()
   @ApiCreatedResponse({ type: VideoEntity, isArray: true })
   findAll(): Promise<Video[]> {
     return this.videoService.findAll();
   }
 
+  /**
+   * Retrieve a specific video by ID.
+   *
+   * @param {string} id - The ID of the video.
+   * @returns {Promise<Video>} - The video found.
+   */
   @Get(':id')
   @ApiCreatedResponse({ type: VideoEntity })
   findOne(@Param('id') id: string): Promise<Video> {
     return this.videoService.findOne(id);
   }
 
+  /**
+   * Update a video with new data.
+   *
+   * @param {string} id - The ID of the video to update.
+   * @param {UpdateVideoDto} updateVideoDto - The data for updating the video.
+   * @returns {Promise<Video>} - The updated video.
+   */
   @Patch(':id')
   @ApiCreatedResponse({ type: VideoEntity })
   update(
@@ -45,6 +69,12 @@ export class VideoController {
     return this.videoService.update(id, updateVideoDto);
   }
 
+  /**
+   * Remove a video by ID.
+   *
+   * @param {string} id - The ID of the video to remove.
+   * @returns {Promise<Video>} - The removed video.
+   */
   @Delete(':id')
   remove(@Param('id') id: string): Promise<Video> {
     return this.videoService.remove(id);

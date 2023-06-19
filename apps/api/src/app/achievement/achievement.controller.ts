@@ -17,7 +17,12 @@ import { AchievementEntity } from './entities/achievement.entity';
 @Controller('achievement')
 export class AchievementController {
   constructor(private readonly achievementService: AchievementService) {}
-
+  /**
+   * Create a new achievement.
+   *
+   * @param {CreateAchievementDto} createAchievementDto - The DTO containing the achievement data.
+   * @returns {Promise<Achievement>} - The created achievement.
+   */
   @Post()
   @ApiCreatedResponse({ type: AchievementEntity })
   create(
@@ -27,18 +32,31 @@ export class AchievementController {
       ...createAchievementDto,
     });
   }
+
   @Get()
   @ApiOkResponse({ type: AchievementEntity, isArray: true })
   findAll(): Promise<Achievement[]> {
     return this.achievementService.findAll();
   }
 
+  /**
+   * Get all achievements.
+   *
+   * @returns {Promise<Achievement[]>} - An array of achievements.
+   */
   @Get(':id')
   @ApiOkResponse({ type: AchievementEntity })
   findOne(@Param('id') id: string): Promise<Achievement> {
     return this.achievementService.findOne(id);
   }
 
+  /**
+   * Update an achievement by ID.
+   *
+   * @param {string} id - The ID of the achievement to update.
+   * @param {UpdateAchievementDto} updateAchievementDto - The updated achievement data.
+   * @returns {Promise<Achievement>} - The updated achievement.
+   */
   @Patch(':id')
   @ApiOkResponse({ type: AchievementEntity })
   update(
@@ -50,6 +68,12 @@ export class AchievementController {
     });
   }
 
+  /**
+   * Remove an achievement by ID.
+   *
+   * @param {string} id - The ID of the achievement to remove.
+   * @returns {Promise<Achievement>} - The removed achievement.
+   */
   @Delete(':id')
   @ApiOkResponse({ type: AchievementEntity })
   remove(@Param('id') id: string): Promise<Achievement> {

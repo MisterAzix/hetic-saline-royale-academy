@@ -6,10 +6,15 @@ import { PrismaService } from '../../prisma.service';
 export class NotificationService {
   constructor(private prisma: PrismaService) {}
 
+  /**
+   * Create a new notification.
+   *
+   * @param {Prisma.NotificationCreateInput} data - The data for creating the notification.
+   * @returns {Promise<Notification>} - The created notification.
+   */
   async create(data: Prisma.NotificationCreateInput): Promise<Notification> {
     try {
       const notification = await this.prisma.notification.create({ data });
-
       return notification;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
@@ -25,17 +30,28 @@ export class NotificationService {
     }
   }
 
+  /**
+   * Retrieve all notifications.
+   *
+   * @returns {Promise<Notification[]>} - An array of notifications.
+   */
   async findAll(): Promise<Notification[]> {
     try {
       return await this.prisma.notification.findMany({
         where: { deleted: false },
       });
     } catch (error) {
-      console.error('Error while retrieving notification:', error);
-      throw new Error('Failed to retrieve notification.');
+      console.error('Error while retrieving notifications:', error);
+      throw new Error('Failed to retrieve notifications.');
     }
   }
 
+  /**
+   * Retrieve a specific notification by ID.
+   *
+   * @param {string} id - The ID of the notification to retrieve.
+   * @returns {Promise<Notification>} - The notification with the specified ID.
+   */
   async findOne(id: string): Promise<Notification> {
     try {
       return await this.prisma.notification.findUnique({ where: { id } });
@@ -48,11 +64,18 @@ export class NotificationService {
         );
       } else {
         // Handle other errors
-        throw new Error('An error occurred while retrieving notification.');
+        throw new Error('An error occurred while retrieving the notification.');
       }
     }
   }
 
+  /**
+   * Update a notification with new data.
+   *
+   * @param {string} id - The ID of the notification to update.
+   * @param {Prisma.NotificationUpdateInput} data - The data for updating the notification.
+   * @returns {Promise<Notification>} - The updated notification.
+   */
   async update(
     id: string,
     data: Prisma.NotificationUpdateInput
@@ -76,6 +99,12 @@ export class NotificationService {
     }
   }
 
+  /**
+   * Remove a notification by ID.
+   *
+   * @param {string} id - The ID of the notification to remove.
+   * @returns {Promise<Notification>} - The removed notification.
+   */
   async remove(id: string): Promise<Notification> {
     try {
       return await this.prisma.notification.delete({ where: { id } });
@@ -88,7 +117,7 @@ export class NotificationService {
         );
       } else {
         // Handle other errors
-        throw new Error('An error occurred while deleting notification.');
+        throw new Error('An error occurred while deleting the notification.');
       }
     }
   }

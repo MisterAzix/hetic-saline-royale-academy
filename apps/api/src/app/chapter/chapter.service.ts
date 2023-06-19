@@ -6,6 +6,12 @@ import { PrismaService } from '../../prisma.service';
 export class ChapterService {
   constructor(private prisma: PrismaService) {}
 
+  /**
+   * Create a new chapter.
+   *
+   * @param {Prisma.ChapterCreateInput} data - The data for creating the chapter.
+   * @returns {Promise<Chapter>} - The created chapter.
+   */
   async create(data: Prisma.ChapterCreateInput): Promise<Chapter> {
     try {
       const chapter = await this.prisma.chapter.create({ data });
@@ -14,7 +20,7 @@ export class ChapterService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('chapter DTO validation error:', error.message);
+        console.error('Chapter DTO validation error:', error.message);
         throw new Error(
           'Chapter DTO validation error: ' + JSON.stringify(error)
         );
@@ -25,6 +31,11 @@ export class ChapterService {
     }
   }
 
+  /**
+   * Retrieve all chapters.
+   *
+   * @returns {Promise<Chapter[]>} - An array of chapters.
+   */
   async findAll(): Promise<Chapter[]> {
     try {
       return await this.prisma.chapter.findMany({
@@ -36,6 +47,12 @@ export class ChapterService {
     }
   }
 
+  /**
+   * Retrieve a specific chapter by ID.
+   *
+   * @param {string} id - The ID of the chapter to retrieve.
+   * @returns {Promise<Chapter>} - The chapter with the specified ID.
+   */
   async findOne(id: string): Promise<Chapter> {
     try {
       return await this.prisma.chapter.findUnique({ where: { id } });
@@ -48,11 +65,18 @@ export class ChapterService {
         );
       } else {
         // Handle other errors
-        throw new Error('An error occurred while retrieving chapter.');
+        throw new Error('An error occurred while retrieving the chapter.');
       }
     }
   }
 
+  /**
+   * Update a chapter with new data.
+   *
+   * @param {string} id - The ID of the chapter to update.
+   * @param {Prisma.ChapterUpdateInput} data - The data for updating the chapter.
+   * @returns {Promise<Chapter>} - The updated chapter.
+   */
   async update(id: string, data: Prisma.ChapterUpdateInput): Promise<Chapter> {
     try {
       return await this.prisma.chapter.update({
@@ -73,6 +97,12 @@ export class ChapterService {
     }
   }
 
+  /**
+   * Remove a chapter by ID.
+   *
+   * @param {string} id - The ID of the chapter to remove.
+   * @returns {Promise<Chapter>} - The removed chapter.
+   */
   async remove(id: string): Promise<Chapter> {
     try {
       return await this.prisma.chapter.delete({ where: { id } });
@@ -85,7 +115,7 @@ export class ChapterService {
         );
       } else {
         // Handle other errors
-        throw new Error('An error occurred while deleting chapter.');
+        throw new Error('An error occurred while deleting the chapter.');
       }
     }
   }

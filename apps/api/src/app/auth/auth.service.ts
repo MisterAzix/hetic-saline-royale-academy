@@ -15,8 +15,18 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  //Connexion
-  async signIn(emailInput: string, pass: string) {
+  /**
+   * Sign in a user.
+   *
+   * @param {string} emailInput - The user's email.
+   * @param {string} pass - The user's password.
+   * @returns {Promise<{ access_token: string }>} - The access token for the authenticated user.
+   * @throws {UnauthorizedException} - If the provided password does not match the user's password.
+   */
+  async signIn(
+    emailInput: string,
+    pass: string
+  ): Promise<{ access_token: string }> {
     const { password, firstName, lastName, id, email } =
       (await this.usersService.findOne({ email: emailInput })) ?? {};
 
@@ -37,8 +47,14 @@ export class AuthService {
     };
   }
 
-  //Google OAuth
-  async findOrCreateUser(profile) {
+  /**
+   * Find or create a user based on the google OAUth provided profile.
+   *
+   * @param {Object} profile - The user's profile obtained from the OAuth provider.
+   * @returns {Promise<{ access_token: string }>} - The access token for the authenticated user.
+   * @throws {Error} - If the email is not verified.
+   */
+  async findOrCreateUser(profile): Promise<{ access_token: string }> {
     const {
       email_verified,
       email: userEmail,

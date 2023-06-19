@@ -6,6 +6,12 @@ import { PrismaService } from '../../prisma.service';
 export class CategoryService {
   constructor(private prisma: PrismaService) {}
 
+  /**
+   * Create a new category.
+   *
+   * @param {Prisma.CategoryCreateInput} data - The data for creating the category.
+   * @returns {Promise<Category>} - The created category.
+   */
   async create(data: Prisma.CategoryCreateInput): Promise<Category> {
     try {
       const category = await this.prisma.category.create({ data });
@@ -20,22 +26,33 @@ export class CategoryService {
         );
       } else {
         // Handle other errors
-        throw new Error('An error occurred while creating the Category.');
+        throw new Error('An error occurred while creating the category.');
       }
     }
   }
 
+  /**
+   * Retrieve all categories.
+   *
+   * @returns {Promise<Category[]>} - An array of categories.
+   */
   async findAll(): Promise<Category[]> {
     try {
       return await this.prisma.category.findMany({
         where: { deleted: false },
       });
     } catch (error) {
-      console.error('Error while retrieving categoris:', error);
-      throw new Error('Failed to retrieve categoris.');
+      console.error('Error while retrieving categories:', error);
+      throw new Error('Failed to retrieve categories.');
     }
   }
 
+  /**
+   * Retrieve a specific category by ID.
+   *
+   * @param {string} id - The ID of the category to retrieve.
+   * @returns {Promise<Category>} - The category with the specified ID.
+   */
   async findOne(id: string): Promise<Category> {
     try {
       return await this.prisma.category.findUnique({ where: { id } });
@@ -48,11 +65,18 @@ export class CategoryService {
         );
       } else {
         // Handle other errors
-        throw new Error('An error occurred while retrieving Category.');
+        throw new Error('An error occurred while retrieving the category.');
       }
     }
   }
 
+  /**
+   * Update a category with new data.
+   *
+   * @param {string} id - The ID of the category to update.
+   * @param {Prisma.CategoryUpdateInput} data - The data for updating the category.
+   * @returns {Promise<Category>} - The updated category.
+   */
   async update(
     id: string,
     data: Prisma.CategoryUpdateInput
@@ -71,11 +95,17 @@ export class CategoryService {
         );
       } else {
         // Handle other errors
-        throw new Error('An error occurred while updating the Category.');
+        throw new Error('An error occurred while updating the category.');
       }
     }
   }
 
+  /**
+   * Remove a category by ID.
+   *
+   * @param {string} id - The ID of the category to remove.
+   * @returns {Promise<Category>} - The removed category.
+   */
   async remove(id: string): Promise<Category> {
     try {
       return await this.prisma.category.delete({ where: { id } });
@@ -88,7 +118,7 @@ export class CategoryService {
         );
       } else {
         // Handle other errors
-        throw new Error('An error occurred while deleting category.');
+        throw new Error('An error occurred while deleting the category.');
       }
     }
   }

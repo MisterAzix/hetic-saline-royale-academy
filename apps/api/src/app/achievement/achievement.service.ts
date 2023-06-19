@@ -8,6 +8,13 @@ export class AchievementService {
 
   constructor(private prisma: PrismaService) {}
 
+  /**
+   * Create an achievement.
+   *
+   * @param {Prisma.AchievementCreateInput} data - The data for creating the achievement.
+   * @returns {Promise<Achievement>} - The created achievement.
+   * @throws {Error} - If an error occurs while creating the achievement.
+   */
   async create(data: Prisma.AchievementCreateInput): Promise<Achievement> {
     try {
       const achievement = await this.prisma.achievement.create({ data });
@@ -30,6 +37,12 @@ export class AchievementService {
     }
   }
 
+  /**
+   * Retrieve all achievements.
+   *
+   * @returns {Promise<Achievement[]>} - The array of achievements.
+   * @throws {Error} - If an error occurs while retrieving achievements.
+   */
   async findAll(): Promise<Achievement[]> {
     try {
       return await this.prisma.achievement.findMany({
@@ -41,6 +54,13 @@ export class AchievementService {
     }
   }
 
+  /**
+   * Retrieve an achievement by its ID.
+   *
+   * @param {string} id - The ID of the achievement to retrieve.
+   * @returns {Promise<Achievement>} - The retrieved achievement.
+   * @throws {Error} - If an error occurs while retrieving the achievement.
+   */
   async findOne(id: string): Promise<Achievement> {
     try {
       return await this.prisma.achievement.findUnique({ where: { id } });
@@ -58,6 +78,14 @@ export class AchievementService {
     }
   }
 
+  /**
+   * Update an achievement by its ID.
+   *
+   * @param {string} id - The ID of the achievement to update.
+   * @param {Prisma.AchievementUpdateInput} data - The updated data for the achievement.
+   * @returns {Promise<Achievement>} - The updated achievement.
+   * @throws {Error} - If an error occurs while updating the achievement.
+   */
   async update(
     id: string,
     data: Prisma.AchievementUpdateInput
@@ -85,6 +113,13 @@ export class AchievementService {
     }
   }
 
+  /**
+   * Remove an achievement by its ID.
+   *
+   * @param {string} id - The ID of the achievement to remove.
+   * @returns {Promise<Achievement>} - The removed achievement.
+   * @throws {Error} - If an error occurs while deleting the achievement.
+   */
   async remove(id: string): Promise<Achievement> {
     try {
       const achievement = await this.prisma.achievement.delete({
