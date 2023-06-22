@@ -28,4 +28,10 @@ export class CategoryEntity implements Category {
 
   @ApiProperty()
   deleted: boolean;
+
+  @ApiProperty()
+  createdBy: string;
+
+  @ApiProperty()
+  lastUpdatedBy: string;
 }

@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Gamification, Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
 @Injectable()
 export class GamificationService {
+  private logger = new Logger(GamificationService.name);
+
   constructor(private prisma: PrismaService) {}
 
   /**
@@ -20,12 +22,16 @@ export class GamificationService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Gamification DTO validation error:', error.message);
+        this.logger.error('Gamification DTO validation error:', error.message);
         throw new Error(
           'Gamification DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while creating the gamification:',
+          error.message
+        );
         throw new Error('An error occurred while creating the gamification.');
       }
     }
@@ -42,7 +48,7 @@ export class GamificationService {
         where: { deleted: false },
       });
     } catch (error) {
-      console.error('Error while retrieving gamifications:', error);
+      this.logger.error('Error while retrieving gamifications:', error);
       throw new Error('Failed to retrieve gamifications.');
     }
   }
@@ -59,12 +65,16 @@ export class GamificationService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Gamification ID validation error:', error.message);
+        this.logger.error('Gamification ID validation error:', error.message);
         throw new Error(
           'Gamification DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while retrieving gamification:',
+          error.message
+        );
         throw new Error('An error occurred while retrieving gamification.');
       }
     }
@@ -89,12 +99,16 @@ export class GamificationService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Gamification DTO validation error:', error.message);
+        this.logger.error('Gamification DTO validation error:', error.message);
         throw new Error(
           'Gamification DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while updating the gamification:',
+          error.message
+        );
         throw new Error('An error occurred while updating the gamification.');
       }
     }
@@ -112,12 +126,16 @@ export class GamificationService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Gamification ID validation error:', error.message);
+        this.logger.error('Gamification ID validation error:', error.message);
         throw new Error(
           'Gamification DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while deleting gamification:',
+          error.message
+        );
         throw new Error('An error occurred while deleting gamification.');
       }
     }

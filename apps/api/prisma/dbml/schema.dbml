@@ -47,6 +47,8 @@ Table Category {
   description String
   createdAt DateTime [default: `now()`]
   lastUpdatedAt DateTime
+  createdBy String
+  lastUpdatedBy String
   deleted Boolean [default: false]
   achievementId String [unique]
   badgeId String [unique]

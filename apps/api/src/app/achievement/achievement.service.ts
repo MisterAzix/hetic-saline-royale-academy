@@ -17,7 +17,10 @@ export class AchievementService {
    */
   async create(data: Prisma.AchievementCreateInput): Promise<Achievement> {
     try {
-      const achievement = await this.prisma.achievement.create({ data });
+      const achievement = await this.prisma.achievement.create({
+        data,
+        include: { category: true, rewards: true, badges: true },
+      });
       this.logger.log(`Achievement has been created : ${achievement.id}`);
 
       return achievement;
@@ -32,6 +35,7 @@ export class AchievementService {
         );
       } else {
         // Handle other errors
+        this.logger.error('An error occurred while updating the achievement.');
         throw new Error('An error occurred while creating the achievement.');
       }
     }
@@ -47,6 +51,7 @@ export class AchievementService {
     try {
       return await this.prisma.achievement.findMany({
         where: { deleted: false },
+        include: { category: true, rewards: true, badges: true },
       });
     } catch (error) {
       this.logger.log(`Error while retrieving achievements: ${error}`);
@@ -63,7 +68,10 @@ export class AchievementService {
    */
   async findOne(id: string): Promise<Achievement> {
     try {
-      return await this.prisma.achievement.findUnique({ where: { id } });
+      return await this.prisma.achievement.findUnique({
+        where: { id },
+        include: { category: true, rewards: true, badges: true },
+      });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
@@ -73,6 +81,7 @@ export class AchievementService {
         );
       } else {
         // Handle other errors
+        this.logger.error('An error occurred while retrieving achievement');
         throw new Error('An error occurred while retrieving achievement.');
       }
     }
@@ -94,6 +103,7 @@ export class AchievementService {
       const achievement = await this.prisma.achievement.update({
         where: { id },
         data,
+        include: { category: true, rewards: true, badges: true },
       });
       this.logger.warn(`Achievement has been updated : ${id}`);
 
@@ -108,6 +118,7 @@ export class AchievementService {
         );
       } else {
         // Handle other errors
+        this.logger.error('An error occurred while updating the achievement.');
         throw new Error('An error occurred while updating the achievement.');
       }
     }
@@ -138,6 +149,7 @@ export class AchievementService {
         );
       } else {
         // Handle other errors
+        this.logger.error('An error occurred while deleting the achievement.');
         throw new Error('An error occurred while deleting achievement.');
       }
     }

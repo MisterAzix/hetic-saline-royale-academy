@@ -1,10 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Prisma, Tag } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
 @Injectable()
 export class TagService {
+  private logger = new Logger(TagService.name);
+
   constructor(private prisma: PrismaService) {}
+
   /**
    * Create a new tag.
    *
@@ -14,15 +17,18 @@ export class TagService {
   async create(data: Prisma.TagCreateInput): Promise<Tag> {
     try {
       const tag = await this.prisma.tag.create({ data });
-
       return tag;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Tag DTO validation error:', error.message);
+        this.logger.error('Tag DTO validation error:', error.message);
         throw new Error('Tag DTO validation error: ' + JSON.stringify(error));
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while creating the tag:',
+          error.message
+        );
         throw new Error('An error occurred while creating the tag.');
       }
     }
@@ -39,7 +45,7 @@ export class TagService {
         where: { deleted: false },
       });
     } catch (error) {
-      console.error('Error while retrieving tags:', error);
+      this.logger.error('Error while retrieving tags:', error);
       throw new Error('Failed to retrieve tags.');
     }
   }
@@ -56,10 +62,14 @@ export class TagService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Tag ID validation error:', error.message);
+        this.logger.error('Tag ID validation error:', error.message);
         throw new Error('Tag DTO validation error: ' + JSON.stringify(error));
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while retrieving tag:',
+          error.message
+        );
         throw new Error('An error occurred while retrieving tag.');
       }
     }
@@ -81,10 +91,14 @@ export class TagService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Tag DTO validation error:', error.message);
+        this.logger.error('Tag DTO validation error:', error.message);
         throw new Error('Tag DTO validation error: ' + JSON.stringify(error));
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while updating the tag:',
+          error.message
+        );
         throw new Error('An error occurred while updating the tag.');
       }
     }
@@ -102,10 +116,14 @@ export class TagService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Tag ID validation error:', error.message);
+        this.logger.error('Tag ID validation error:', error.message);
         throw new Error('Tag DTO validation error: ' + JSON.stringify(error));
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while deleting tag:',
+          error.message
+        );
         throw new Error('An error occurred while deleting tag.');
       }
     }

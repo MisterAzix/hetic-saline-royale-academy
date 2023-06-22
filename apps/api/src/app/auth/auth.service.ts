@@ -39,7 +39,7 @@ export class AuthService {
       sub: id,
       email,
     };
-    this.logger.log(`User login : ${id}`);
+    this.logger.log(`User login successfully : ${id}`);
 
     //Handle JWT jeton
     return {

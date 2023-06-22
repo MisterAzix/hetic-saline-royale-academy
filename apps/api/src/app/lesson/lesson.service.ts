@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Lesson, Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
 @Injectable()
 export class LessonService {
+  private logger = new Logger(LessonService.name);
+
   constructor(private prisma: PrismaService) {}
 
   /**
@@ -19,12 +21,16 @@ export class LessonService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Lesson DTO validation error:', error.message);
+        this.logger.error('Lesson DTO validation error:', error.message);
         throw new Error(
           'Lesson DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while creating the lesson:',
+          error.message
+        );
         throw new Error('An error occurred while creating the lesson.');
       }
     }
@@ -41,7 +47,7 @@ export class LessonService {
         where: { deleted: false },
       });
     } catch (error) {
-      console.error('Error while retrieving lessons:', error);
+      this.logger.error('Error while retrieving lessons:', error);
       throw new Error('Failed to retrieve lessons.');
     }
   }
@@ -58,12 +64,16 @@ export class LessonService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Lesson ID validation error:', error.message);
+        this.logger.error('Lesson ID validation error:', error.message);
         throw new Error(
           'Lesson DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while retrieving lesson:',
+          error.message
+        );
         throw new Error('An error occurred while retrieving lesson.');
       }
     }
@@ -85,12 +95,16 @@ export class LessonService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Lesson DTO validation error:', error.message);
+        this.logger.error('Lesson DTO validation error:', error.message);
         throw new Error(
           'Lesson DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while updating the lesson:',
+          error.message
+        );
         throw new Error('An error occurred while updating the lesson.');
       }
     }
@@ -108,12 +122,16 @@ export class LessonService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Lesson ID validation error:', error.message);
+        this.logger.error('Lesson ID validation error:', error.message);
         throw new Error(
           'Lesson DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while deleting lesson:',
+          error.message
+        );
         throw new Error('An error occurred while deleting lesson.');
       }
     }

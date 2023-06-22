@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Image, Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
 @Injectable()
 export class ImageService {
+  private logger = new Logger(ImageService.name);
+
   constructor(private prisma: PrismaService) {}
 
   /**
@@ -20,10 +22,14 @@ export class ImageService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Image DTO validation error:', error.message);
+        this.logger.error('Image DTO validation error:', error.message);
         throw new Error('Image DTO validation error: ' + JSON.stringify(error));
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while creating the image:',
+          error.message
+        );
         throw new Error('An error occurred while creating the image.');
       }
     }
@@ -40,7 +46,7 @@ export class ImageService {
         where: { deleted: false },
       });
     } catch (error) {
-      console.error('Error while retrieving images:', error);
+      this.logger.error('Error while retrieving images:', error);
       throw new Error('Failed to retrieve images.');
     }
   }
@@ -57,10 +63,14 @@ export class ImageService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Image ID validation error:', error.message);
+        this.logger.error('Image ID validation error:', error.message);
         throw new Error('Image DTO validation error: ' + JSON.stringify(error));
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while retrieving images:',
+          error.message
+        );
         throw new Error('An error occurred while retrieving images.');
       }
     }
@@ -85,10 +95,14 @@ export class ImageService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Image DTO validation error:', error.message);
+        this.logger.error('Image DTO validation error:', error.message);
         throw new Error('Image DTO validation error: ' + JSON.stringify(error));
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while updating the image:',
+          error.message
+        );
         throw new Error('An error occurred while updating the image.');
       }
     }
@@ -106,10 +120,14 @@ export class ImageService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Image ID validation error:', error.message);
+        this.logger.error('Image ID validation error:', error.message);
         throw new Error('Image DTO validation error: ' + JSON.stringify(error));
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while deleting the image:',
+          error.message
+        );
         throw new Error('An error occurred while deleting the image.');
       }
     }

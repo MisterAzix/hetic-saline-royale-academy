@@ -25,14 +25,6 @@ export class CreateBadgeDto {
   @IsDate()
   unlock_date?: Date;
 
-  @ApiProperty({ type: String, required: false })
-  @IsString()
-  createdBy?: string;
-
-  @ApiProperty({ type: String, required: false })
-  @IsString()
-  lastUpdatedBy?: string;
-
   @ApiProperty({ type: Boolean, required: false })
   @IsBoolean()
   visible?: boolean;

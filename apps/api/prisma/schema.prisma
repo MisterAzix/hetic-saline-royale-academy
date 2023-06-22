@@ -57,6 +57,8 @@ model Category {
   description   String?
   createdAt     DateTime?    @default(now()) @map("created_at")
   lastUpdatedAt DateTime?    @updatedAt @map("last_updated_at")
+  createdBy     String?      @map("created_by ") @db.VarChar(100)
+  lastUpdatedBy String?      @map("last_updated_by  ") @db.VarChar(100)
   deleted       Boolean?     @default(false)
   achievementId String?      @unique @map("achievement_id")
   badgeId       String?      @unique @map("badge_id")

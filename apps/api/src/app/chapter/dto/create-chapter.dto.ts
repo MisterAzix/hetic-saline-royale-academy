@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Prisma } from '@prisma/client';
-import { IsArray, IsBoolean, IsDate, IsString, Length } from 'class-validator';
+import { IsArray, IsBoolean, IsString, Length } from 'class-validator';
 
 export class CreateChapterDto {
   @ApiProperty({ type: String })
@@ -12,10 +12,6 @@ export class CreateChapterDto {
   @IsString()
   @Length(10, 700)
   description?: string;
-
-  @ApiProperty({ type: Date, required: false })
-  @IsDate()
-  lastUpdatedAt?: Date;
 
   @ApiProperty({ type: Boolean, required: false, default: false })
   @IsBoolean()

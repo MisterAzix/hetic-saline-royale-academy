@@ -1,10 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Prisma, ProgressTracker } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
 @Injectable()
 export class ProgressTrackerService {
+  private logger = new Logger(ProgressTrackerService.name);
+
   constructor(private prisma: PrismaService) {}
+
   /**
    * Create a new progress tracker.
    *
@@ -23,12 +26,19 @@ export class ProgressTrackerService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Progress tracker DTO validation error:', error.message);
+        this.logger.error(
+          'Progress tracker DTO validation error:',
+          error.message
+        );
         throw new Error(
           'Progress tracker DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while creating the progress tracker:',
+          error.message
+        );
         throw new Error(
           'An error occurred while creating the progress tracker.'
         );
@@ -47,7 +57,7 @@ export class ProgressTrackerService {
         where: { deleted: false },
       });
     } catch (error) {
-      console.error('Error while retrieving progress tracker:', error);
+      this.logger.error('Error while retrieving progress tracker:', error);
       throw new Error('Failed to retrieve progress tracker.');
     }
   }
@@ -64,12 +74,19 @@ export class ProgressTrackerService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Progress tracker ID validation error:', error.message);
+        this.logger.error(
+          'Progress tracker ID validation error:',
+          error.message
+        );
         throw new Error(
           'Progress tracker DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while retrieving progress tracker.:',
+          error.message
+        );
         throw new Error('An error occurred while retrieving progress tracker.');
       }
     }
@@ -94,12 +111,19 @@ export class ProgressTrackerService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Progress tracker DTO validation error:', error.message);
+        this.logger.error(
+          'Progress tracker DTO validation error:',
+          error.message
+        );
         throw new Error(
           'Progress tracker DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while updating the progress tracker:',
+          error.message
+        );
         throw new Error(
           'An error occurred while updating the progress tracker.'
         );
@@ -119,12 +143,19 @@ export class ProgressTrackerService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Progress tracker ID validation error:', error.message);
+        this.logger.error(
+          'Progress tracker ID validation error:',
+          error.message
+        );
         throw new Error(
           'Progress tracker DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while deleting progress tracker:',
+          error.message
+        );
         throw new Error('An error occurred while deleting progress tracker.');
       }
     }

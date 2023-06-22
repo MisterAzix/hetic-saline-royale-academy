@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Chapter, Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
 @Injectable()
 export class ChapterService {
+  private logger = new Logger(ChapterService.name);
+
   constructor(private prisma: PrismaService) {}
 
   /**
@@ -20,12 +22,16 @@ export class ChapterService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Chapter DTO validation error:', error.message);
+        this.logger.error('Chapter DTO validation error:', error.message);
         throw new Error(
           'Chapter DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while creating the chapter',
+          error.message
+        );
         throw new Error('An error occurred while creating the chapter.');
       }
     }
@@ -42,7 +48,7 @@ export class ChapterService {
         where: { deleted: false },
       });
     } catch (error) {
-      console.error('Error while retrieving chapters:', error);
+      this.logger.error('Error while retrieving chapters:', error);
       throw new Error('Failed to retrieve chapters.');
     }
   }
@@ -59,12 +65,20 @@ export class ChapterService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Chapter ID validation error:', error.message);
+        this.logger.error('Chapter ID validation error:', error.message);
         throw new Error(
           'Chapter DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while retrieving the chapter:',
+          error.message
+        );
+        this.logger.error(
+          'An error occurred while retrieving the chapter:',
+          error.message
+        );
         throw new Error('An error occurred while retrieving the chapter.');
       }
     }
@@ -86,12 +100,16 @@ export class ChapterService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Chapter DTO validation error:', error.message);
+        this.logger.error('Chapter DTO validation error:', error.message);
         throw new Error(
           'Chapter DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while updating the chapter.',
+          error.message
+        );
         throw new Error('An error occurred while updating the chapter.');
       }
     }
@@ -109,12 +127,16 @@ export class ChapterService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Chapter ID validation error:', error.message);
+        this.logger.error('Chapter ID validation error:', error.message);
         throw new Error(
           'Chapter DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while deleting the chapter.:',
+          error.message
+        );
         throw new Error('An error occurred while deleting the chapter.');
       }
     }

@@ -9,6 +9,8 @@ import {
 } from '@nestjs/common';
 import { ApiCreatedResponse } from '@nestjs/swagger';
 import { Badge } from '@prisma/client';
+import { CreatedBy } from '../decorators/created-by.decorator';
+import { LastUpdatedBy } from '../decorators/last-updated-by.decorator';
 import { BadgeService } from './badge.service';
 import { CreateBadgeDto } from './dto/create-badge.dto';
 import { UpdateBadgeDto } from './dto/update-badge.dto';
@@ -25,9 +27,15 @@ export class BadgeController {
    */
   @Post()
   @ApiCreatedResponse({ type: BadgeEntity })
-  create(@Body() createBadgeDto: CreateBadgeDto): Promise<Badge> {
+  create(
+    @Body() createBadgeDto: CreateBadgeDto,
+    @CreatedBy() createdBy: string,
+    @LastUpdatedBy() lastUpdatedBy: string
+  ): Promise<Badge> {
     return this.badgeService.create({
       ...createBadgeDto,
+      createdBy,
+      lastUpdatedBy,
     });
   }
 
@@ -65,10 +73,12 @@ export class BadgeController {
   @ApiCreatedResponse({ type: BadgeEntity })
   update(
     @Param('id') id: string,
-    @Body() updateBadgeDto: UpdateBadgeDto
+    @Body() updateBadgeDto: UpdateBadgeDto,
+    @LastUpdatedBy() lastUpdatedBy: string
   ): Promise<Badge> {
     return this.badgeService.update(id, {
       ...updateBadgeDto,
+      lastUpdatedBy,
     });
   }
 

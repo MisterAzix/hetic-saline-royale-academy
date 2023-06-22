@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Category, Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
 @Injectable()
 export class CategoryService {
+  private logger = new Logger(CategoryService.name);
+
   constructor(private prisma: PrismaService) {}
 
   /**
@@ -20,12 +22,13 @@ export class CategoryService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Category DTO validation error:', error.message);
+        this.logger.error(`Category DTO validation error: ${error.message}`);
         throw new Error(
           'Category DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error('An error occurred while creating the category.');
         throw new Error('An error occurred while creating the category.');
       }
     }
@@ -42,11 +45,10 @@ export class CategoryService {
         where: { deleted: false },
       });
     } catch (error) {
-      console.error('Error while retrieving categories:', error);
+      this.logger.error('Error while retrieving categories:', error);
       throw new Error('Failed to retrieve categories.');
     }
   }
-
   /**
    * Retrieve a specific category by ID.
    *
@@ -59,12 +61,13 @@ export class CategoryService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Category ID validation error:', error.message);
+        this.logger.error(`Category ID validation error: ${error.message}`);
         throw new Error(
           'Category DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error('An error occurred while retrieving the category.');
         throw new Error('An error occurred while retrieving the category.');
       }
     }
@@ -89,12 +92,13 @@ export class CategoryService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Category DTO validation error:', error.message);
+        this.logger.error(`Category DTO validation error: ${error.message}`);
         throw new Error(
           'Category DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error('An error occurred while updating the category.');
         throw new Error('An error occurred while updating the category.');
       }
     }
@@ -112,12 +116,13 @@ export class CategoryService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Category ID validation error:', error.message);
+        this.logger.error(`Category ID validation error: ${error.message}`);
         throw new Error(
           'Category DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error('An error occurred while deleting the category.');
         throw new Error('An error occurred while deleting the category.');
       }
     }

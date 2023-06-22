@@ -36,14 +36,6 @@ export class CreateRewardDto {
   @IsDate()
   expirationDate?: Date;
 
-  @ApiProperty({ type: String, required: false })
-  @IsString()
-  createdBy?: string;
-
-  @ApiProperty({ type: String, required: false })
-  @IsString()
-  lastUpdatedBy?: string;
-
   @ApiProperty({ type: Boolean, required: false, default: false })
   @IsBoolean()
   deleted?: boolean;

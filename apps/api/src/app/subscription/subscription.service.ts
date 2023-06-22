@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Prisma, Subscription } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
 @Injectable()
 export class SubscriptionService {
+  private logger = new Logger(SubscriptionService.name);
+
   constructor(private prisma: PrismaService) {}
 
   /**
@@ -19,12 +21,16 @@ export class SubscriptionService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Subscription DTO validation error:', error.message);
+        this.logger.error('Subscription DTO validation error:', error.message);
         throw new Error(
           'Subscription DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while creating the subscription:',
+          error.message
+        );
         throw new Error('An error occurred while creating the subscription.');
       }
     }
@@ -41,7 +47,7 @@ export class SubscriptionService {
         where: { deleted: false },
       });
     } catch (error) {
-      console.error('Error while retrieving subscriptions:', error);
+      this.logger.error('Error while retrieving subscriptions:', error);
       throw new Error('Failed to retrieve subscriptions.');
     }
   }
@@ -58,12 +64,16 @@ export class SubscriptionService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Subscription ID validation error:', error.message);
+        this.logger.error('Subscription ID validation error:', error.message);
         throw new Error(
           'Subscription DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while retrieving the subscription:',
+          error.message
+        );
         throw new Error('An error occurred while retrieving the subscription.');
       }
     }
@@ -88,12 +98,16 @@ export class SubscriptionService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Subscription DTO validation error:', error.message);
+        this.logger.error('Subscription DTO validation error:', error.message);
         throw new Error(
           'Subscription DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while updating the subscription:',
+          error.message
+        );
         throw new Error('An error occurred while updating the subscription.');
       }
     }
@@ -111,12 +125,16 @@ export class SubscriptionService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Subscription ID validation error:', error.message);
+        this.logger.error('Subscription ID validation error:', error.message);
         throw new Error(
           'Subscription DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while deleting the subscription.:',
+          error.message
+        );
         throw new Error('An error occurred while deleting the subscription.');
       }
     }

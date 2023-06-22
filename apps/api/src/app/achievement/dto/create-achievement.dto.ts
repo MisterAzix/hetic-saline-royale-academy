@@ -22,14 +22,6 @@ export class CreateAchievementDto {
   description?: string;
 
   @ApiProperty({ type: String, required: false })
-  @IsString()
-  lastUpdatedBy?: string;
-
-  @ApiProperty({ type: String, required: false })
-  @IsString()
-  createdBy?: string;
-
-  @ApiProperty({ type: String, required: false })
   @IsNotEmpty()
   criteria?: string;
 

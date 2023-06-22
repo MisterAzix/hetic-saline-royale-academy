@@ -1,5 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { Course } from '@prisma/client';
+import { CreatedBy } from '../decorators/created-by.decorator';
+import { LastUpdatedBy } from '../decorators/last-updated-by.decorator';
 import { CourseService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
@@ -14,9 +16,15 @@ export class CourseController {
    * @param {CreateCourseDto} createCourseDto - The data for creating the course.
    * @returns {Promise<Course>} - The created course.
    */
-  async create(createCourseDto: CreateCourseDto): Promise<Course> {
+  async create(
+    createCourseDto: CreateCourseDto,
+    @CreatedBy() createdBy: string,
+    @LastUpdatedBy() lastUpdatedBy: string
+  ): Promise<Course> {
     return this.courseService.create({
       ...createCourseDto,
+      createdBy,
+      lastUpdatedBy,
     });
   }
 
@@ -46,9 +54,14 @@ export class CourseController {
    * @param {UpdateCourseDto} updateCourseDto - The data for updating the course.
    * @returns {Promise<Course>} - The updated course.
    */
-  async update(id: string, updateCourseDto: UpdateCourseDto): Promise<Course> {
+  async update(
+    id: string,
+    updateCourseDto: UpdateCourseDto,
+    @LastUpdatedBy() lastUpdatedBy: string
+  ): Promise<Course> {
     return this.courseService.update(id, {
       ...updateCourseDto,
+      lastUpdatedBy,
     });
   }
 

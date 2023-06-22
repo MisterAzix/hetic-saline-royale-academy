@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Notification, Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
 @Injectable()
 export class NotificationService {
+  private logger = new Logger(NotificationService.name);
+
   constructor(private prisma: PrismaService) {}
 
   /**
@@ -19,12 +21,16 @@ export class NotificationService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Notification DTO validation error:', error.message);
+        this.logger.error('Notification DTO validation error:', error.message);
         throw new Error(
           'Notification DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while creating the notification:',
+          error.message
+        );
         throw new Error('An error occurred while creating the notification.');
       }
     }
@@ -41,7 +47,7 @@ export class NotificationService {
         where: { deleted: false },
       });
     } catch (error) {
-      console.error('Error while retrieving notifications:', error);
+      this.logger.error('Error while retrieving notifications:', error);
       throw new Error('Failed to retrieve notifications.');
     }
   }
@@ -58,12 +64,16 @@ export class NotificationService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Notification ID validation error:', error.message);
+        this.logger.error('Notification ID validation error:', error.message);
         throw new Error(
           'Notification DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while retrieving the notification:',
+          error.message
+        );
         throw new Error('An error occurred while retrieving the notification.');
       }
     }
@@ -88,12 +98,16 @@ export class NotificationService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Notification DTO validation error:', error.message);
+        this.logger.error('Notification DTO validation error:', error.message);
         throw new Error(
           'Notification DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while updating the notification:',
+          error.message
+        );
         throw new Error('An error occurred while updating the notification.');
       }
     }
@@ -111,12 +125,16 @@ export class NotificationService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Notification ID validation error:', error.message);
+        this.logger.error('Notification ID validation error:', error.message);
         throw new Error(
           'Notification DTO validation error: ' + JSON.stringify(error)
         );
       } else {
         // Handle other errors
+        this.logger.error(
+          'An error occurred while deleting the notification:',
+          error.message
+        );
         throw new Error('An error occurred while deleting the notification.');
       }
     }
