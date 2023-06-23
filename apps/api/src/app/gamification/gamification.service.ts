@@ -1,4 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { Gamification, Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
@@ -23,8 +28,8 @@ export class GamificationService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Gamification DTO validation error:', error.message);
-        throw new Error(
-          'Gamification DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Gamification DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
@@ -32,7 +37,9 @@ export class GamificationService {
           'An error occurred while creating the gamification:',
           error.message
         );
-        throw new Error('An error occurred while creating the gamification.');
+        throw new InternalServerErrorException(
+          `An error occurred while creating the gamification: ${error}`
+        );
       }
     }
   }
@@ -49,7 +56,9 @@ export class GamificationService {
       });
     } catch (error) {
       this.logger.error('Error while retrieving gamifications:', error);
-      throw new Error('Failed to retrieve gamifications.');
+      throw new InternalServerErrorException(
+        `Failed to retrieve gamifications: ${error}`
+      );
     }
   }
 
@@ -66,8 +75,8 @@ export class GamificationService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Gamification ID validation error:', error.message);
-        throw new Error(
-          'Gamification DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Gamification DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
@@ -75,7 +84,9 @@ export class GamificationService {
           'An error occurred while retrieving gamification:',
           error.message
         );
-        throw new Error('An error occurred while retrieving gamification.');
+        throw new InternalServerErrorException(
+          `An error occurred while retrieving gamification: ${error}`
+        );
       }
     }
   }
@@ -100,8 +111,8 @@ export class GamificationService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Gamification DTO validation error:', error.message);
-        throw new Error(
-          'Gamification DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Gamification DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
@@ -109,7 +120,9 @@ export class GamificationService {
           'An error occurred while updating the gamification:',
           error.message
         );
-        throw new Error('An error occurred while updating the gamification.');
+        throw new InternalServerErrorException(
+          `An error occurred while updating the gamification: ${error}`
+        );
       }
     }
   }
@@ -127,8 +140,8 @@ export class GamificationService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Gamification ID validation error:', error.message);
-        throw new Error(
-          'Gamification DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Gamification DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
@@ -136,7 +149,9 @@ export class GamificationService {
           'An error occurred while deleting gamification:',
           error.message
         );
-        throw new Error('An error occurred while deleting gamification.');
+        throw new InternalServerErrorException(
+          `An error occurred while deleting gamification: ${error}`
+        );
       }
     }
   }

@@ -1,4 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { Chapter, Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
@@ -13,6 +18,7 @@ export class ChapterService {
    *
    * @param {Prisma.ChapterCreateInput} data - The data for creating the chapter.
    * @returns {Promise<Chapter>} - The created chapter.
+   * @throws {Error} - If an error occurs while creating the chapter.
    */
   async create(data: Prisma.ChapterCreateInput): Promise<Chapter> {
     try {
@@ -23,16 +29,16 @@ export class ChapterService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Chapter DTO validation error:', error.message);
-        throw new Error(
-          'Chapter DTO validation error: ' + JSON.stringify(error)
-        );
+        throw new BadRequestException(`Invalid chapter data: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
           'An error occurred while creating the chapter',
           error.message
         );
-        throw new Error('An error occurred while creating the chapter.');
+        throw new InternalServerErrorException(
+          `Failed to create the chapter: ${error}`
+        );
       }
     }
   }
@@ -41,6 +47,7 @@ export class ChapterService {
    * Retrieve all chapters.
    *
    * @returns {Promise<Chapter[]>} - An array of chapters.
+   * @throws {Error} - If an error occurs while retrieving chapters.
    */
   async findAll(): Promise<Chapter[]> {
     try {
@@ -49,7 +56,9 @@ export class ChapterService {
       });
     } catch (error) {
       this.logger.error('Error while retrieving chapters:', error);
-      throw new Error('Failed to retrieve chapters.');
+      throw new InternalServerErrorException(
+        `Failed to retrieve chapters: ${error}`
+      );
     }
   }
 
@@ -58,6 +67,7 @@ export class ChapterService {
    *
    * @param {string} id - The ID of the chapter to retrieve.
    * @returns {Promise<Chapter>} - The chapter with the specified ID.
+   * @throws {Error} - If an error occurs while retrieving the chapter.
    */
   async findOne(id: string): Promise<Chapter> {
     try {
@@ -66,20 +76,16 @@ export class ChapterService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Chapter ID validation error:', error.message);
-        throw new Error(
-          'Chapter DTO validation error: ' + JSON.stringify(error)
-        );
+        throw new BadRequestException(`Invalid chapter ID: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
           'An error occurred while retrieving the chapter:',
           error.message
         );
-        this.logger.error(
-          'An error occurred while retrieving the chapter:',
-          error.message
+        throw new InternalServerErrorException(
+          `Failed to retrieve the chapter: ${error}`
         );
-        throw new Error('An error occurred while retrieving the chapter.');
       }
     }
   }
@@ -90,6 +96,7 @@ export class ChapterService {
    * @param {string} id - The ID of the chapter to update.
    * @param {Prisma.ChapterUpdateInput} data - The data for updating the chapter.
    * @returns {Promise<Chapter>} - The updated chapter.
+   * @throws {Error} - If an error occurs while updating the chapter.
    */
   async update(id: string, data: Prisma.ChapterUpdateInput): Promise<Chapter> {
     try {
@@ -101,16 +108,16 @@ export class ChapterService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Chapter DTO validation error:', error.message);
-        throw new Error(
-          'Chapter DTO validation error: ' + JSON.stringify(error)
-        );
+        throw new BadRequestException(`Invalid chapter data: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
-          'An error occurred while updating the chapter.',
+          'An error occurred while updating the chapter:',
           error.message
         );
-        throw new Error('An error occurred while updating the chapter.');
+        throw new InternalServerErrorException(
+          `Failed to update the chapter: ${error}`
+        );
       }
     }
   }
@@ -120,6 +127,7 @@ export class ChapterService {
    *
    * @param {string} id - The ID of the chapter to remove.
    * @returns {Promise<Chapter>} - The removed chapter.
+   * @throws {Error} - If an error occurs while deleting the chapter.
    */
   async remove(id: string): Promise<Chapter> {
     try {
@@ -128,16 +136,16 @@ export class ChapterService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Chapter ID validation error:', error.message);
-        throw new Error(
-          'Chapter DTO validation error: ' + JSON.stringify(error)
-        );
+        throw new BadRequestException(`Invalid chapter ID: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
-          'An error occurred while deleting the chapter.:',
+          'An error occurred while deleting the chapter:',
           error.message
         );
-        throw new Error('An error occurred while deleting the chapter.');
+        throw new InternalServerErrorException(
+          `Failed to delete the chapter: ${error}`
+        );
       }
     }
   }

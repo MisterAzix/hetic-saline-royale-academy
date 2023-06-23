@@ -1,4 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { Notification, Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
@@ -22,8 +27,8 @@ export class NotificationService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Notification DTO validation error:', error.message);
-        throw new Error(
-          'Notification DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Notification DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
@@ -31,7 +36,9 @@ export class NotificationService {
           'An error occurred while creating the notification:',
           error.message
         );
-        throw new Error('An error occurred while creating the notification.');
+        throw new InternalServerErrorException(
+          `An error occurred while creating the notification: ${error}`
+        );
       }
     }
   }
@@ -48,7 +55,9 @@ export class NotificationService {
       });
     } catch (error) {
       this.logger.error('Error while retrieving notifications:', error);
-      throw new Error('Failed to retrieve notifications.');
+      throw new InternalServerErrorException(
+        `Failed to retrieve notifications: ${error}`
+      );
     }
   }
 
@@ -65,8 +74,8 @@ export class NotificationService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Notification ID validation error:', error.message);
-        throw new Error(
-          'Notification DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Notification DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
@@ -74,7 +83,9 @@ export class NotificationService {
           'An error occurred while retrieving the notification:',
           error.message
         );
-        throw new Error('An error occurred while retrieving the notification.');
+        throw new InternalServerErrorException(
+          `An error occurred while retrieving the notification: ${error}`
+        );
       }
     }
   }
@@ -99,8 +110,8 @@ export class NotificationService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Notification DTO validation error:', error.message);
-        throw new Error(
-          'Notification DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Notification DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
@@ -108,7 +119,9 @@ export class NotificationService {
           'An error occurred while updating the notification:',
           error.message
         );
-        throw new Error('An error occurred while updating the notification.');
+        throw new InternalServerErrorException(
+          `An error occurred while updating the notification: ${error}`
+        );
       }
     }
   }
@@ -126,8 +139,8 @@ export class NotificationService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Notification ID validation error:', error.message);
-        throw new Error(
-          'Notification DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Notification DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
@@ -135,7 +148,9 @@ export class NotificationService {
           'An error occurred while deleting the notification:',
           error.message
         );
-        throw new Error('An error occurred while deleting the notification.');
+        throw new InternalServerErrorException(
+          `An error occurred while deleting the notification: ${error}`
+        );
       }
     }
   }

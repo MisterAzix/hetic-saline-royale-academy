@@ -1,4 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { Prisma, Reward } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
@@ -22,16 +27,16 @@ export class RewardsService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Reward DTO validation error:', error.message);
-        throw new Error(
-          'Reward DTO validation error: ' + JSON.stringify(error)
-        );
+        throw new BadRequestException(`Reward DTO validation error: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
           'An error occurred while creating the reward:',
           error.message
         );
-        throw new Error('An error occurred while creating the reward.');
+        throw new InternalServerErrorException(
+          `An error occurred while creating the reward: ${error}`
+        );
       }
     }
   }
@@ -48,7 +53,9 @@ export class RewardsService {
       });
     } catch (error) {
       this.logger.error('Error while retrieving rewards:', error);
-      throw new Error('Failed to retrieve rewards.');
+      throw new InternalServerErrorException(
+        `Failed to retrieve rewards: ${error}`
+      );
     }
   }
 
@@ -65,16 +72,16 @@ export class RewardsService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Reward ID validation error:', error.message);
-        throw new Error(
-          'Reward DTO validation error: ' + JSON.stringify(error)
-        );
+        throw new BadRequestException(`Reward DTO validation error: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
           'An error occurred while retrieving the reward:',
           error.message
         );
-        throw new Error('An error occurred while retrieving the reward.');
+        throw new InternalServerErrorException(
+          `An error occurred while retrieving the reward: ${error}`
+        );
       }
     }
   }
@@ -96,16 +103,16 @@ export class RewardsService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Reward DTO validation error:', error.message);
-        throw new Error(
-          'Reward DTO validation error: ' + JSON.stringify(error)
-        );
+        throw new BadRequestException(`Reward DTO validation error: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
           'An error occurred while updating the reward:',
           error.message
         );
-        throw new Error('An error occurred while updating the reward.');
+        throw new InternalServerErrorException(
+          `An error occurred while updating the reward: ${error}`
+        );
       }
     }
   }
@@ -123,16 +130,16 @@ export class RewardsService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Reward ID validation error:', error.message);
-        throw new Error(
-          'Reward DTO validation error: ' + JSON.stringify(error)
-        );
+        throw new BadRequestException(`Reward DTO validation error: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
           'An error occurred while deleting the reward:',
           error.message
         );
-        throw new Error('An error occurred while deleting the reward.');
+        throw new InternalServerErrorException(
+          `An error occurred while deleting the reward: ${error}`
+        );
       }
     }
   }

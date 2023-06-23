@@ -1,4 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { Achievement, Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
@@ -28,15 +33,19 @@ export class AchievementService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error(
-          `Achievement DTO validation error: : ${error.message}`
+          `Achievement DTO validation error : ${error.message}`
         );
-        throw new Error(
-          'Achievement DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Achievement DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
-        this.logger.error('An error occurred while updating the achievement.');
-        throw new Error('An error occurred while creating the achievement.');
+        this.logger.error(
+          `An error occurred while creating the achievement : ${error.message}`
+        );
+        throw new InternalServerErrorException(
+          `An error occurred while creating the achievement: ${error}`
+        );
       }
     }
   }
@@ -54,8 +63,12 @@ export class AchievementService {
         include: { category: true, rewards: true, badges: true },
       });
     } catch (error) {
-      this.logger.log(`Error while retrieving achievements: ${error}`);
-      throw new Error('Failed to retrieve achievements.');
+      this.logger.error(
+        `Error while retrieving achievements: ${error.messager}`
+      );
+      throw new InternalServerErrorException(
+        `Failed to retrieve achievements: ${error}`
+      );
     }
   }
 
@@ -76,13 +89,15 @@ export class AchievementService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error(`Achievement ID validation error: ${error.message}`);
-        throw new Error(
-          'Achievement DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Achievement DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
         this.logger.error('An error occurred while retrieving achievement');
-        throw new Error('An error occurred while retrieving achievement.');
+        throw new InternalServerErrorException(
+          `'An error occurred while retrieving achievement: ${error}`
+        );
       }
     }
   }
@@ -113,13 +128,17 @@ export class AchievementService {
         // Handle validation errors
         this.logger.error(`Achievement DTO validation error: ${error.message}`);
 
-        throw new Error(
-          'Achievement DTO validation error: ' + JSON.stringify(id)
+        throw new BadRequestException(
+          `Achievement DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
-        this.logger.error('An error occurred while updating the achievement.');
-        throw new Error('An error occurred while updating the achievement.');
+        this.logger.error(
+          `An error occurred while updating the achievement: ${error.message}`
+        );
+        throw new InternalServerErrorException(
+          `An error occurred while updating the achievement: ${error}`
+        );
       }
     }
   }
@@ -144,13 +163,17 @@ export class AchievementService {
         // Handle validation errors
         this.logger.error(` Achievement ID validation error:${error.message}`);
 
-        throw new Error(
-          'Achievement DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Achievement DTO validation error:${error}`
         );
       } else {
         // Handle other errors
-        this.logger.error('An error occurred while deleting the achievement.');
-        throw new Error('An error occurred while deleting achievement.');
+        this.logger.error(
+          `An error occurred while deleting the achievement: ${error.message}`
+        );
+        throw new InternalServerErrorException(
+          `An error occurred while deleting achievement : ${error}`
+        );
       }
     }
   }

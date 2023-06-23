@@ -1,4 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { Prisma, Ressource } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
@@ -23,8 +28,8 @@ export class RessourceService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Ressource DTO validation error:', error.message);
-        throw new Error(
-          'Ressource DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Ressource DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
@@ -32,7 +37,9 @@ export class RessourceService {
           'An error occurred while creating the ressource:',
           error.message
         );
-        throw new Error('An error occurred while creating the ressource.');
+        throw new InternalServerErrorException(
+          `An error occurred while creating the ressource: ${error}`
+        );
       }
     }
   }
@@ -49,7 +56,9 @@ export class RessourceService {
       });
     } catch (error) {
       this.logger.error('Error while retrieving resources:', error);
-      throw new Error('Failed to retrieve resources.');
+      throw new InternalServerErrorException(
+        `Failed to retrieve resources: ${error}`
+      );
     }
   }
 
@@ -66,8 +75,8 @@ export class RessourceService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Ressource ID validation error:', error.message);
-        throw new Error(
-          'Ressource DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Ressource DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
@@ -75,7 +84,9 @@ export class RessourceService {
           'An error occurred while retrieving the resource:',
           error.message
         );
-        throw new Error('An error occurred while retrieving the resource.');
+        throw new InternalServerErrorException(
+          `An error occurred while retrieving the resource: ${error}`
+        );
       }
     }
   }
@@ -100,8 +111,8 @@ export class RessourceService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Ressource DTO validation error:', error.message);
-        throw new Error(
-          'Ressource DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Ressource DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
@@ -109,7 +120,9 @@ export class RessourceService {
           'An error occurred while updating the resource:',
           error.message
         );
-        throw new Error('An error occurred while updating the resource.');
+        throw new InternalServerErrorException(
+          `An error occurred while updating the resource: ${error}`
+        );
       }
     }
   }
@@ -127,8 +140,8 @@ export class RessourceService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Ressource ID validation error:', error.message);
-        throw new Error(
-          'Ressource DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Ressource DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
@@ -136,7 +149,9 @@ export class RessourceService {
           'An error occurred while deleting the resource:',
           error.message
         );
-        throw new Error('An error occurred while deleting the resource.');
+        throw new InternalServerErrorException(
+          `An error occurred while deleting the resource: ${error}`
+        );
       }
     }
   }

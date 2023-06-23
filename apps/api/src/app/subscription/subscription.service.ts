@@ -1,4 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { Prisma, Subscription } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
@@ -22,8 +27,8 @@ export class SubscriptionService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Subscription DTO validation error:', error.message);
-        throw new Error(
-          'Subscription DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Subscription DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
@@ -31,7 +36,9 @@ export class SubscriptionService {
           'An error occurred while creating the subscription:',
           error.message
         );
-        throw new Error('An error occurred while creating the subscription.');
+        throw new InternalServerErrorException(
+          `An error occurred while creating the subscription: ${error}`
+        );
       }
     }
   }
@@ -48,7 +55,9 @@ export class SubscriptionService {
       });
     } catch (error) {
       this.logger.error('Error while retrieving subscriptions:', error);
-      throw new Error('Failed to retrieve subscriptions.');
+      throw new InternalServerErrorException(
+        `Failed to retrieve subscriptions: ${error}`
+      );
     }
   }
 
@@ -65,8 +74,8 @@ export class SubscriptionService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Subscription ID validation error:', error.message);
-        throw new Error(
-          'Subscription DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Subscription DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
@@ -74,7 +83,9 @@ export class SubscriptionService {
           'An error occurred while retrieving the subscription:',
           error.message
         );
-        throw new Error('An error occurred while retrieving the subscription.');
+        throw new InternalServerErrorException(
+          `An error occurred while retrieving the subscription: ${error}`
+        );
       }
     }
   }
@@ -99,8 +110,8 @@ export class SubscriptionService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Subscription DTO validation error:', error.message);
-        throw new Error(
-          'Subscription DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Subscription DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
@@ -108,7 +119,9 @@ export class SubscriptionService {
           'An error occurred while updating the subscription:',
           error.message
         );
-        throw new Error('An error occurred while updating the subscription.');
+        throw new InternalServerErrorException(
+          `An error occurred while updating the subscription: ${error}`
+        );
       }
     }
   }
@@ -126,8 +139,8 @@ export class SubscriptionService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Subscription ID validation error:', error.message);
-        throw new Error(
-          'Subscription DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Subscription DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
@@ -135,7 +148,9 @@ export class SubscriptionService {
           'An error occurred while deleting the subscription.:',
           error.message
         );
-        throw new Error('An error occurred while deleting the subscription.');
+        throw new InternalServerErrorException(
+          `An error occurred while deleting the subscription: ${error}`
+        );
       }
     }
   }

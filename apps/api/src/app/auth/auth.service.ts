@@ -30,9 +30,19 @@ export class AuthService {
     const { password, firstName, lastName, id, email } =
       (await this.usersService.findOne({ email: emailInput })) ?? {};
 
+    if (!email || !password) {
+      this.logger.error('User login failed. Incorrect email or password.');
+      throw new UnauthorizedException(
+        'User login failed. Incorrect email or password.'
+      );
+    }
     const isPasswordMatch = await bcrypt.compare(pass, password);
 
-    if (!isPasswordMatch) throw new UnauthorizedException();
+    if (!isPasswordMatch) {
+      this.logger.error('User login failed. Incorrect password.');
+      throw new UnauthorizedException('User login failed. Incorrect password.');
+    }
+
     const payload = {
       firstName,
       lastName,
@@ -63,6 +73,7 @@ export class AuthService {
     } = profile._json ?? {};
 
     if (!email_verified) {
+      this.logger.error('Email is not verified.');
       throw new Error('Email is not verified');
     }
 

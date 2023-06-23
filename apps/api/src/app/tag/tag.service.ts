@@ -1,4 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { Prisma, Tag } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
@@ -22,14 +27,16 @@ export class TagService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Tag DTO validation error:', error.message);
-        throw new Error('Tag DTO validation error: ' + JSON.stringify(error));
+        throw new BadRequestException(`Tag DTO validation error: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
           'An error occurred while creating the tag:',
           error.message
         );
-        throw new Error('An error occurred while creating the tag.');
+        throw new InternalServerErrorException(
+          `An error occurred while creating the tag: ${error}`
+        );
       }
     }
   }
@@ -46,7 +53,9 @@ export class TagService {
       });
     } catch (error) {
       this.logger.error('Error while retrieving tags:', error);
-      throw new Error('Failed to retrieve tags.');
+      throw new InternalServerErrorException(
+        `Failed to retrieve tags: ${error}`
+      );
     }
   }
 
@@ -63,14 +72,16 @@ export class TagService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Tag ID validation error:', error.message);
-        throw new Error('Tag DTO validation error: ' + JSON.stringify(error));
+        throw new BadRequestException(`Tag DTO validation error: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
           'An error occurred while retrieving tag:',
           error.message
         );
-        throw new Error('An error occurred while retrieving tag.');
+        throw new InternalServerErrorException(
+          `An error occurred while retrieving tag: ${error}`
+        );
       }
     }
   }
@@ -92,14 +103,16 @@ export class TagService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Tag DTO validation error:', error.message);
-        throw new Error('Tag DTO validation error: ' + JSON.stringify(error));
+        throw new BadRequestException(`Tag DTO validation error: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
           'An error occurred while updating the tag:',
           error.message
         );
-        throw new Error('An error occurred while updating the tag.');
+        throw new InternalServerErrorException(
+          `An error occurred while updating the tag: ${error}`
+        );
       }
     }
   }
@@ -117,14 +130,16 @@ export class TagService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Tag ID validation error:', error.message);
-        throw new Error('Tag DTO validation error: ' + JSON.stringify(error));
+        throw new BadRequestException(`Tag DTO validation error: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
           'An error occurred while deleting tag:',
           error.message
         );
-        throw new Error('An error occurred while deleting tag.');
+        throw new InternalServerErrorException(
+          `An error occurred while deleting tag: ${error}`
+        );
       }
     }
   }

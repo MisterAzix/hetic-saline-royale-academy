@@ -1,4 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { Course, Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
@@ -23,16 +28,16 @@ export class CourseService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Course DTO validation error:', error.message);
-        throw new Error(
-          'Course DTO validation error: ' + JSON.stringify(error)
-        );
+        throw new BadRequestException(`Course DTO validation error: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
           'An error occurred while creating the course:',
           error.message
         );
-        throw new Error('An error occurred while creating the course.');
+        throw new InternalServerErrorException(
+          `An error occurred while creating the course : ${error}`
+        );
       }
     }
   }
@@ -50,7 +55,9 @@ export class CourseService {
       });
     } catch (error) {
       this.logger.error('Error while retrieving courses:', error);
-      throw new Error('Failed to retrieve courses.');
+      throw new InternalServerErrorException(
+        `Failed to retrieve courses : ${error}`
+      );
     }
   }
 
@@ -68,16 +75,16 @@ export class CourseService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Course ID validation error:', error.message);
-        throw new Error(
-          'Course DTO validation error: ' + JSON.stringify(error)
-        );
+        throw new BadRequestException(`Course DTO validation error: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
           'An error occurred while retrieving the course:',
           error.message
         );
-        throw new Error('An error occurred while retrieving the course.');
+        throw new InternalServerErrorException(
+          `An error occurred while retrieving the course : ${error}`
+        );
       }
     }
   }
@@ -100,16 +107,16 @@ export class CourseService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Course DTO validation error:', error.message);
-        throw new Error(
-          'Course DTO validation error: ' + JSON.stringify(error)
-        );
+        throw new BadRequestException(`Course DTO validation error: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
           'An error occurred while updating the course:',
           error.message
         );
-        throw new Error('An error occurred while updating the course.');
+        throw new InternalServerErrorException(
+          `An error occurred while updating the course : ${error}`
+        );
       }
     }
   }
@@ -128,16 +135,16 @@ export class CourseService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Course ID validation error:', error.message);
-        throw new Error(
-          'Course DTO validation error: ' + JSON.stringify(error)
-        );
+        throw new BadRequestException(`Course DTO validation error: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
           'An error occurred while deleting the course:',
           error.message
         );
-        throw new Error('An error occurred while deleting the course.');
+        throw new InternalServerErrorException(
+          `An error occurred while deleting the course : ${error}`
+        );
       }
     }
   }

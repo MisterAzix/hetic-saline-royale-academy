@@ -1,4 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { Badge, Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
@@ -23,10 +28,15 @@ export class BadgeService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error(`Badge DTO validation error: ${error.message}`);
-        throw new Error('Badge DTO validation error: ' + JSON.stringify(error));
+        throw new BadRequestException(`'Badge DTO validation error: ${error}`);
       } else {
         // Handle other errors
-        throw new Error('An error occurred while creating the badge.');
+        this.logger.error(
+          `An error occurred while creating the badge.: ${error.message}`
+        );
+        throw new InternalServerErrorException(
+          `An error occurred while creating the badge. ${error}`
+        );
       }
     }
   }
@@ -42,8 +52,10 @@ export class BadgeService {
         where: { deleted: false },
       });
     } catch (error) {
-      console.error('Error while retrieving badges:', error);
-      throw new Error('Failed to retrieve badges.');
+      this.logger.error(`Error while retrieving badges: ${error.message}`);
+      throw new InternalServerErrorException(
+        `Failed to retrieve badges: ${error}`
+      );
     }
   }
 
@@ -59,11 +71,16 @@ export class BadgeService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        console.error('Badge ID validation error:', error.message);
-        throw new Error('Badge DTO validation error: ' + JSON.stringify(error));
+        this.logger.error(`Badge ID validation error: ${error.message}`);
+        throw new BadRequestException(`Badge DTO validation error: ${error}`);
       } else {
         // Handle other errors
-        throw new Error('An error occurred while retrieving badge.');
+        this.logger.error(
+          `An error occurred while retrieving badge : ${error.message}`
+        );
+        throw new InternalServerErrorException(
+          `An error occurred while retrieving badge: ${error}`
+        );
       }
     }
   }
@@ -87,10 +104,16 @@ export class BadgeService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error(`Badge DTO validation error: ${error.message}`);
-        throw new Error('Badge DTO validation error: ' + JSON.stringify(error));
+
+        throw new BadRequestException(`Badge DTO validation error: ${error}`);
       } else {
         // Handle other errors
-        throw new Error('An error occurred while updating the badge.');
+        this.logger.error(
+          `An error occurred while updating the badge: ${error.message}`
+        );
+        throw new InternalServerErrorException(
+          `An error occurred while updating the badge: ${error}`
+        );
       }
     }
   }
@@ -110,10 +133,16 @@ export class BadgeService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error(`Badge DTO validation error: ${error.message}`);
-        throw new Error('Badge DTO validation error: ' + JSON.stringify(error));
+
+        throw new BadRequestException(`Badge DTO validation error: ${error}`);
       } else {
         // Handle other errors
-        throw new Error('An error occurred while deleting badge.');
+        this.logger.error(
+          `An error occurred while deleting badge: ${error.message}`
+        );
+        throw new InternalServerErrorException(
+          `An error occurred while deleting badge : ${error}`
+        );
       }
     }
   }

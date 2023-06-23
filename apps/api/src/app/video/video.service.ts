@@ -1,4 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { Prisma, Video } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
@@ -23,14 +28,16 @@ export class VideoService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Video DTO validation error:', error.message);
-        throw new Error('Video DTO validation error: ' + JSON.stringify(error));
+        throw new BadRequestException(`Video DTO validation error: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
           'An error occurred while creating the video:',
           error.message
         );
-        throw new Error('An error occurred while creating the video.');
+        throw new InternalServerErrorException(
+          `An error occurred while creating the video: ${error}`
+        );
       }
     }
   }
@@ -47,7 +54,9 @@ export class VideoService {
       });
     } catch (error) {
       this.logger.error('Error while retrieving videos:', error);
-      throw new Error('Failed to retrieve videos.');
+      throw new InternalServerErrorException(
+        `Failed to retrieve videos: ${error}`
+      );
     }
   }
 
@@ -64,14 +73,16 @@ export class VideoService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Video ID validation error:', error.message);
-        throw new Error('Video DTO validation error: ' + JSON.stringify(error));
+        throw new BadRequestException(`Video DTO validation error: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
           'An error occurred while retrieving video:',
           error.message
         );
-        throw new Error('An error occurred while retrieving video.');
+        throw new InternalServerErrorException(
+          `An error occurred while retrieving video: ${error}`
+        );
       }
     }
   }
@@ -96,14 +107,16 @@ export class VideoService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Video DTO validation error:', error.message);
-        throw new Error('Video DTO validation error: ' + JSON.stringify(error));
+        throw new BadRequestException(`Video DTO validation error: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
           'An error occurred while updating the video:',
           error.message
         );
-        throw new Error('An error occurred while updating the video.');
+        throw new InternalServerErrorException(
+          `An error occurred while updating the video: ${error}`
+        );
       }
     }
   }
@@ -121,14 +134,16 @@ export class VideoService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Video ID validation error:', error.message);
-        throw new Error('Video DTO validation error: ' + JSON.stringify(error));
+        throw new BadRequestException(`Video DTO validation error: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
           'An error occurred while deleting video:',
           error.message
         );
-        throw new Error('An error occurred while deleting video.');
+        throw new InternalServerErrorException(
+          `An error occurred while deleting video: ${error}`
+        );
       }
     }
   }

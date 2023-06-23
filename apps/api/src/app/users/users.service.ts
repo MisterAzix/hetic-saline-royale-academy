@@ -1,4 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../../prisma.service';
@@ -25,7 +30,7 @@ export class UsersService {
       });
     } catch (error) {
       this.logger.error('Error finding user:', error);
-      throw new Error('Failed to find user.');
+      throw new InternalServerErrorException(`Failed to find user: ${error}`);
     }
   }
 
@@ -49,7 +54,7 @@ export class UsersService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('Validation error:', error.message);
-        throw new Error('Invalid user data.');
+        throw new BadRequestException(`Invalid user data: ${error}`);
       }
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         // Handle the unique constraint violation for email
@@ -58,11 +63,11 @@ export class UsersService {
             'There is a unique constraint violation, a new user cannot be created with this email'
           );
         }
-        throw new Error('Unique email constraint violation');
+        throw new BadRequestException('Unique email constraint violation');
       }
       // Handle unknown errors
       this.logger.error('Error creating user:', error);
-      throw new Error('Failed to create user.');
+      throw new InternalServerErrorException(`Failed to create user: ${error}`);
     }
   }
 
@@ -78,7 +83,9 @@ export class UsersService {
       });
     } catch (error) {
       this.logger.error('Error while retrieving users:', error);
-      throw new Error('Failed to retrieve users.');
+      throw new InternalServerErrorException(
+        `Failed to retrieve users: ${error}`
+      );
     }
   }
 
@@ -99,14 +106,16 @@ export class UsersService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('User DTO validation error:', error.message);
-        throw new Error('User DTO validation error: ' + JSON.stringify(error));
+        throw new BadRequestException(`User DTO validation error: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
           'An error occurred while updating the user:',
           error.message
         );
-        throw new Error('An error occurred while updating the user.');
+        throw new InternalServerErrorException(
+          `An error occurred while updating the user: ${error}`
+        );
       }
     }
   }
@@ -124,14 +133,16 @@ export class UsersService {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
         this.logger.error('User ID validation error:', error.message);
-        throw new Error('User DTO validation error: ' + JSON.stringify(error));
+        throw new BadRequestException(`User DTO validation error: ${error}`);
       } else {
         // Handle other errors
         this.logger.error(
           'An error occurred while deleting user:',
           error.message
         );
-        throw new Error('An error occurred while deleting user.');
+        throw new InternalServerErrorException(
+          `An error occurred while deleting user: ${error}`
+        );
       }
     }
   }

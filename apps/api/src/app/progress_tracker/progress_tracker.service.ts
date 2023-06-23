@@ -1,4 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { Prisma, ProgressTracker } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
@@ -30,8 +35,8 @@ export class ProgressTrackerService {
           'Progress tracker DTO validation error:',
           error.message
         );
-        throw new Error(
-          'Progress tracker DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Progress tracker DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
@@ -39,8 +44,8 @@ export class ProgressTrackerService {
           'An error occurred while creating the progress tracker:',
           error.message
         );
-        throw new Error(
-          'An error occurred while creating the progress tracker.'
+        throw new InternalServerErrorException(
+          `An error occurred while creating the progress tracker: ${error}`
         );
       }
     }
@@ -58,7 +63,9 @@ export class ProgressTrackerService {
       });
     } catch (error) {
       this.logger.error('Error while retrieving progress tracker:', error);
-      throw new Error('Failed to retrieve progress tracker.');
+      throw new InternalServerErrorException(
+        `Failed to retrieve progress tracker: ${error}`
+      );
     }
   }
 
@@ -78,8 +85,8 @@ export class ProgressTrackerService {
           'Progress tracker ID validation error:',
           error.message
         );
-        throw new Error(
-          'Progress tracker DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Progress tracker DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
@@ -87,7 +94,9 @@ export class ProgressTrackerService {
           'An error occurred while retrieving progress tracker.:',
           error.message
         );
-        throw new Error('An error occurred while retrieving progress tracker.');
+        throw new InternalServerErrorException(
+          `An error occurred while retrieving the progress tracker: ${error}`
+        );
       }
     }
   }
@@ -115,8 +124,8 @@ export class ProgressTrackerService {
           'Progress tracker DTO validation error:',
           error.message
         );
-        throw new Error(
-          'Progress tracker DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Progress tracker DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
@@ -124,8 +133,8 @@ export class ProgressTrackerService {
           'An error occurred while updating the progress tracker:',
           error.message
         );
-        throw new Error(
-          'An error occurred while updating the progress tracker.'
+        throw new InternalServerErrorException(
+          `An error occurred while updating the progress tracker: ${error}`
         );
       }
     }
@@ -147,8 +156,8 @@ export class ProgressTrackerService {
           'Progress tracker ID validation error:',
           error.message
         );
-        throw new Error(
-          'Progress tracker DTO validation error: ' + JSON.stringify(error)
+        throw new BadRequestException(
+          `Progress tracker DTO validation error: ${error}`
         );
       } else {
         // Handle other errors
@@ -156,7 +165,9 @@ export class ProgressTrackerService {
           'An error occurred while deleting progress tracker:',
           error.message
         );
-        throw new Error('An error occurred while deleting progress tracker.');
+        throw new InternalServerErrorException(
+          `An error occurred while deleting the progress tracker: ${error}`
+        );
       }
     }
   }
