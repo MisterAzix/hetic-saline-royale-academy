@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
+import { AchievementModule } from '../achievement/achievement.module';
 import { UsersModule } from '../users/users.module';
 import { AuthController } from './auth.controller';
 import { AuthGuard } from './auth.guard';
@@ -13,6 +14,7 @@ import { GoogleStrategy } from './google.strategy';
     //Config variable d'environnement
     ConfigModule.forRoot({ isGlobal: true }),
     UsersModule,
+    AchievementModule,
     //Config JWT globalement
     JwtModule.register({
       global: true,

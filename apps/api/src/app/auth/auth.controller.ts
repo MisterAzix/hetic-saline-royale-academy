@@ -9,11 +9,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiExcludeEndpoint } from '@nestjs/swagger';
-import { Users as UserModel } from '@prisma/client';
+import { ApiCreatedResponse, ApiExcludeEndpoint } from '@nestjs/swagger';
+import { User as UserModel } from '@prisma/client';
 import { Public } from '../decorators/public.decorator';
 import { UserCreateDto } from '../users/dto/create-user.dto';
 import { UserSignDto } from '../users/dto/signin-user.dto';
+import { UsersEntity } from '../users/entities/user.entity';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 
@@ -25,15 +26,26 @@ export class AuthController {
     private userService: UsersService
   ) {}
 
-  //Local login
+  /**
+   * Sign in with email and password.
+   *
+   * @param {UserSignDto} signInDto - The DTO containing the sign-in data.
+   * @returns {Promise<UsersEntity>} - The signed-in user entity.
+   */
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login') // http://localhost:3000/api/auth/login
+  @ApiCreatedResponse({ type: UsersEntity })
   signIn(@Body() signInDto: UserSignDto) {
     return this.authService.signIn(signInDto.email, signInDto.password);
   }
 
-  //Google OAuth
+  /**
+   * Perform Google OAuth authentication.
+   * This endpoint is excluded from the API documentation.
+   *
+   * @returns {Promise<void>} - No return value.
+   */
   @ApiExcludeEndpoint()
   @Public()
   @Get('google')
@@ -42,6 +54,13 @@ export class AuthController {
     /*  */
   }
 
+  /**
+   * Handle the callback after successful Google OAuth authentication.
+   * This endpoint is excluded from the API documentation.
+   *
+   * @param {Request} req - The request object.
+   * @returns {Promise<object>} - The user information.
+   */
   @ApiExcludeEndpoint()
   @Public()
   @Get('google/callback')
@@ -54,9 +73,18 @@ export class AuthController {
     };
   }
 
+  /**
+   * Sign up a new user.
+   *
+   * @param {UserCreateDto} userData - The DTO containing the user data.
+   * @returns {Promise<UserModel>} - The created user.
+   */
   @Public()
   @Post('signup')
+  @ApiCreatedResponse({ type: UsersEntity })
   async signupUser(@Body() userData: UserCreateDto): Promise<UserModel> {
-    return this.userService.createUser(userData);
+    return this.userService.createUser({
+      ...userData,
+    });
   }
 }
