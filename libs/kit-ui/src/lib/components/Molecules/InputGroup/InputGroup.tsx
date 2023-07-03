@@ -1,15 +1,15 @@
+import { ComponentProps } from 'react';
 import { FormControl } from '@mui/base';
 import { Label, Input, HelperText } from '../../Atoms';
 
-interface InputGroupProps {
-  name: string;
+type InputGroupProps = ComponentProps<typeof Input> & {
   label: string;
   defaultValue?: string;
   helperText: string;
   error?: boolean;
   required?: boolean;
   disabled?: boolean;
-}
+};
 
 const InputGroup = ({
   name,
