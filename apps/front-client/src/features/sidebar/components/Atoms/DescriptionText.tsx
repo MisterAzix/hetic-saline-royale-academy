@@ -9,7 +9,7 @@ const Text = styled(Typography)`
 `;
 
 const DescriptionText = ({ children }: PropsWithChildren) => {
-  return <Text sx={{ fontSize: '12px' }}>{children}</Text>;
+  return <Text>{children}</Text>;
 };
 
 export default DescriptionText;
