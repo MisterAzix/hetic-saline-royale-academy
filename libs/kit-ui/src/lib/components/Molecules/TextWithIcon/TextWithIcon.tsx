@@ -11,7 +11,7 @@ interface TextWithIconProps extends PropsWithChildren {
 
 const StyledTypography = styled(Typography)<{ color: string }>`
   color: ${({ color }) => color || palette.gray[900]};
-  ${typography.md.regular};
+  ${typography.md.medium};
 `;
 
 const TextWithIcon = ({ children, ...props }: TextWithIconProps) => (

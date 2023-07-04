@@ -7,14 +7,9 @@ const StyledPage = styled.div`
 `;
 
 export function Index() {
-  /*
-   * Replace the elements below with your own.
-   *
-   * Note: The corresponding styles are in the ./index.styled-components file.
-   */
   return (
     <StyledPage>
-      <DashboardLayout /> 
+      <DashboardLayout />
     </StyledPage>
   );
 }

@@ -11,6 +11,7 @@ import { palette, typography } from '@hetic-saline-royale-academy/kit-ui';
 import { TextWithIcon } from '@hetic-saline-royale-academy/kit-ui';
 import { Search, AutoGraph, School } from '@mui/icons-material';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const SidebarContainer = styled(Stack)`
   background-color: ${palette.gray[900]};
@@ -77,25 +78,37 @@ const StatsContainer = styled(Stack)`
   align-items: flex-start;
 `;
 
+const Logo = styled(Image)`
+  padding: 0 10px;
+`;
+
 const Sidebar = () => {
   return (
     <SidebarContainer>
-      <Stack spacing={0.5}>
-        <NavLink href="/explore">
-          <TextWithIcon icon={<Search />} color={palette.gray[100]}>
-            Explorer
-          </TextWithIcon>
-        </NavLink>
-        <NavLink href="/classes">
-          <TextWithIcon icon={<School />} color={palette.gray[100]}>
-            Mes cours
-          </TextWithIcon>
-        </NavLink>
-        <NavLink href="/stats">
-          <TextWithIcon icon={<AutoGraph />} color={palette.gray[100]}>
-            Progression
-          </TextWithIcon>
-        </NavLink>
+      <Stack spacing={3}>
+        <Logo
+          src="/assets/svg/sra_logo.svg"
+          width={173}
+          height={53}
+          alt="Saline Royale Academy Logo"
+        />
+        <Stack spacing={0.5}>
+          <NavLink href="/explore">
+            <TextWithIcon icon={<Search />} color={palette.gray[100]}>
+              Explorer
+            </TextWithIcon>
+          </NavLink>
+          <NavLink href="/classes">
+            <TextWithIcon icon={<School />} color={palette.gray[100]}>
+              Mes cours
+            </TextWithIcon>
+          </NavLink>
+          <NavLink href="/stats">
+            <TextWithIcon icon={<AutoGraph />} color={palette.gray[100]}>
+              Progression
+            </TextWithIcon>
+          </NavLink>
+        </Stack>
       </Stack>
       <Stack spacing={2}>
         <StatsContainer>
