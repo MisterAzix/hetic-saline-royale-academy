@@ -4,6 +4,11 @@ import { Box } from '@mui/material';
 import HeaderTitle from '../Atoms/HeaderTitle';
 import HeaderSubtitle from '../Atoms/HeaderSubtitle';
 
+interface HeaderProps {
+  title: string;
+  subtitle: string;
+}
+
 const HeaderContainer = styled(Box)`
   background-color: ${palette.gray[100]};
   min-height: 70px;
@@ -13,11 +18,11 @@ const HeaderContainer = styled(Box)`
   padding: 0 40px;
 `;
 
-const Header = () => {
+const Header = ({ title, subtitle }: HeaderProps) => {
   return (
     <HeaderContainer>
-      <HeaderTitle>Mon profil</HeaderTitle>
-      <HeaderSubtitle>Modifier mes informations personnelles</HeaderSubtitle>
+      <HeaderTitle>{title}</HeaderTitle>
+      <HeaderSubtitle>{subtitle}</HeaderSubtitle>
     </HeaderContainer>
   );
 };

@@ -5,6 +5,11 @@ import Profile from '../Molecules/Profile';
 import Progress from '../Molecules/Progress';
 import Image from 'next/image';
 import Navigation from '../Molecules/Navigation';
+import { routes } from '../../../../routes';
+
+interface SidebarProps {
+  activeRoute: (typeof routes)[keyof typeof routes];
+}
 
 const SidebarContainer = styled(Stack)`
   background-color: ${palette.gray[900]};
@@ -17,7 +22,7 @@ const Logo = styled(Image)`
   padding: 0 10px;
 `;
 
-const Sidebar = () => {
+const Sidebar = ({ activeRoute }: SidebarProps) => {
   return (
     <SidebarContainer>
       <Stack spacing={3}>
@@ -27,7 +32,7 @@ const Sidebar = () => {
           height={53}
           alt="Saline Royale Academy Logo"
         />
-        <Navigation />
+        <Navigation activeRoute={activeRoute} />
       </Stack>
       <Stack spacing={2}>
         <Progress />
