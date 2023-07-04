@@ -2,12 +2,12 @@ import { Box, Stack } from '@mui/material';
 import Header from '../features/header/components/Organisms/Header';
 import Sidebar from '../features/sidebar/components/Organisms/Sidebar';
 import { PropsWithChildren } from 'react';
-import { routes } from '../routes';
+import { DashboardRoutes } from '../routes';
 
 interface DashboardLayoutProps extends PropsWithChildren {
   title: string;
   subtitle: string;
-  activeRoute: (typeof routes)[keyof typeof routes];
+  activeRoute: DashboardRoutes;
 }
 
 const DashboardLayout = ({

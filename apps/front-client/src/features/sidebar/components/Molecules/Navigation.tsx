@@ -3,10 +3,10 @@ import { TextWithIcon, palette } from '@hetic-saline-royale-academy/kit-ui';
 import { AutoGraph, School, Search } from '@mui/icons-material';
 import { Stack } from '@mui/material';
 import Link from 'next/link';
-import { routes } from '../../../../routes';
+import { DashboardRoutes, routes } from '../../../../routes';
 
 interface NavigationProps {
-  activeRoute: (typeof routes)[keyof typeof routes];
+  activeRoute: DashboardRoutes;
 }
 
 const NavLink = styled(Link)<{ active?: boolean }>`

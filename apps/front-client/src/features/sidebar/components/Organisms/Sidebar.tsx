@@ -5,10 +5,10 @@ import Profile from '../Molecules/Profile';
 import Progress from '../Molecules/Progress';
 import Image from 'next/image';
 import Navigation from '../Molecules/Navigation';
-import { routes } from '../../../../routes';
+import { DashboardRoutes } from '../../../../routes';
 
 interface SidebarProps {
-  activeRoute: (typeof routes)[keyof typeof routes];
+  activeRoute: DashboardRoutes;
 }
 
 const SidebarContainer = styled(Stack)`

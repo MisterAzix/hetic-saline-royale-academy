@@ -6,3 +6,5 @@ export const routes = {
   courses: '/courses',
   progress: '/progress',
 } as const;
+
+export type DashboardRoutes = (typeof routes)[keyof typeof routes];
