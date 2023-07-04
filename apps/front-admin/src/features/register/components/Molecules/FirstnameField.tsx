@@ -13,7 +13,7 @@ const FirstnameField = ({ control }: EmailFieldProps) => {
 
   return (
     <Controller
-      name="email"
+      name="firstname"
       control={control}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <InputGroup
