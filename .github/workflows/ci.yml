@@ -173,7 +173,7 @@ jobs:
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           SCRIPT_AFTER: |
-            cd /var/www/${{ vars.API_URL }} && npm install
+            cd /var/www/${{ vars.API_URL }} && npm install && npx prisma generate
             [[ $((pm2 info ${{ vars.API_URL }} || echo 'status|stopped') | grep status) =~ 'stopped' ]] && pm2 start main.js --name ${{ vars.API_URL }} || pm2 restart ${{ vars.API_URL }}
             cd /var/www/${{ vars.DASHBOARD_URL }} && npm install
             [[ $((pm2 info ${{ vars.DASHBOARD_URL }} || echo 'status|stopped') | grep status) =~ 'stopped' ]] && pm2 start npm --name ${{ vars.DASHBOARD_URL }} -- start -- -p 3002 || pm2 restart ${{ vars.DASHBOARD_URL }}
