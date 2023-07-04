@@ -5,7 +5,7 @@ const StyledPage = styled.div`
   }
 `;
 
-export function Index() {
+export function Dashboard() {
   /*
    * Replace the elements below with your own.
    *
@@ -420,4 +420,4 @@ export function Index() {
   );
 }
 
-export default Index;
+export default Dashboard;
