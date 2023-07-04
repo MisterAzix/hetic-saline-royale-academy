@@ -25,7 +25,7 @@ function AdminApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <>
       <Head>
-        <title>Saline Royale Academie | Admin</title>
+        <title>Saline Royale Academy | Admin</title>
       </Head>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>

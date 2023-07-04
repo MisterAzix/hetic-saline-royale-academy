@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import AuthLayout from '../../layout/AuthLayout';
 import RegisterForm from '../../features/register/components/Organisms/RegisterForm';
 
-export function Register() {
+function Register() {
   return <RegisterForm />;
 }
 
