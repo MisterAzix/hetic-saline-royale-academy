@@ -24,7 +24,6 @@ export function useSizesFromBreakpoints(
   src: ImageProps['src'],
   screens: ImageProps['screens']
 ) {
-  console.log(screens)
   const processedSizes = useMemo(() => {
     let processed;
     if (sizesFromBreakpoints?.length > 0) {
