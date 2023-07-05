@@ -13,7 +13,7 @@ const nextConfig = {
     svgr: false,
   },
   env: {
-    API_URL: process.env.API_URL || 'http://localhost:4200/api',
+    API_URL: process.env.API_URL || 'http://localhost:3000/api',
   },
 };
 
