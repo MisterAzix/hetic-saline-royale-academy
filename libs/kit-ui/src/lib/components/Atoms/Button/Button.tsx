@@ -5,7 +5,7 @@ import { palette } from '../../../palette';
 import { typography } from '../../../typography';
 
 type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type ButtonColor = 'primary' | 'secondary';
+type ButtonColor = 'primary' | 'secondary' | 'destructive';
 
 const _Button = styled(Button)<{ size?: ButtonSize; color?: ButtonColor }>`
   ${({ size }) => {
@@ -81,6 +81,25 @@ const _Button = styled(Button)<{ size?: ButtonSize; color?: ButtonColor }>`
             box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05),
               0 0 0 4px ${palette.gray[100]};
             color: ${palette.gray[700]};
+            outline: none;
+          }
+        `;
+      case 'destructive':
+        return css`
+          background-color: ${palette.error[600]};
+          border: 1px solid ${palette.error[600]};
+          color: ${palette.white};
+
+          &:hover {
+            background-color: ${palette.error[700]};
+            border: 1px solid ${palette.error[700]};
+          }
+
+          &.${buttonClasses.active}, &.${buttonClasses.focusVisible} {
+            background-color: ${palette.error[600]};
+            border: 1px solid ${palette.error[600]};
+            box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05),
+              0 0 0 4px ${palette.error[100]};
             outline: none;
           }
         `;

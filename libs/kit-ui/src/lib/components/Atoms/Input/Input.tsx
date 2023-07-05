@@ -1,4 +1,4 @@
-import { Input, inputBaseClasses } from '@mui/material';
+import { Input, InputAdornment, inputBaseClasses } from '@mui/material';
 import { useFormControlContext } from '@mui/base';
 import styled from '@emotion/styled';
 import { palette } from '../../../palette';
@@ -17,7 +17,7 @@ const StyledInput = styled(Input)`
     color: ${palette.gray[500]};
   }
 
-  ${typography.md.regular};
+  ${typography.sm.medium};
   width: 100%;
   color: ${palette.gray[900]};
   background: ${palette.white};
@@ -53,7 +53,10 @@ const StyledInput = styled(Input)`
   }
 `;
 
-const _Input = (props: ComponentProps<typeof Input>) => {
+const _Input = ({
+  icon,
+  ...props
+}: ComponentProps<typeof Input> & { icon?: React.ReactNode }) => {
   const formControlContext = useFormControlContext();
 
   if (formControlContext === undefined) {
@@ -66,6 +69,9 @@ const _Input = (props: ComponentProps<typeof Input>) => {
     <StyledInput
       {...props}
       className={clsx(error ? inputBaseClasses.error : '')}
+      startAdornment={
+        icon ? <InputAdornment position="start">{icon}</InputAdornment> : null
+      }
     />
   );
 };
