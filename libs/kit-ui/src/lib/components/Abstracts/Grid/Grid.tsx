@@ -8,8 +8,8 @@ const GridComponent = styled.section`
   max-width: 100%;
   margin-inline: auto;
   ${getColumnConfig('mobile')};
-  ${from('md', getColumnConfig('tablet', true))}
-  ${from('lg', getColumnConfig('desktop', true))}
+  ${from('md', getColumnConfig('tablet'))}
+  ${from('lg', getColumnConfig('desktop'))}
   ${from(
     'maxGridWidth',
     `

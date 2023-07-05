@@ -5,7 +5,7 @@ import { StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof Label> = {
   component: Label,
-  title: 'Atom/Label',
+  title: 'Atoms/Label',
 };
 export default meta;
 type Story = StoryObj<typeof Label>;

@@ -5,7 +5,7 @@ import { FormControl } from '@mui/base';
 
 const meta: Meta<typeof HelperText> = {
   component: HelperText,
-  title: 'Atom/HelperText',
+  title: 'Atoms/HelperText',
 };
 export default meta;
 type Story = StoryObj<typeof HelperText>;

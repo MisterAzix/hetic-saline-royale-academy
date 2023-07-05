@@ -1,5 +1,3 @@
-import { em } from './mixins';
-
 const COLORS = {
   white: '#FFFFFF',
   black: '#000000',
@@ -48,9 +46,9 @@ const GUTTERS = {
   MOBILE: 3,
   TABLET: 5,
   DESKTOP: 11,
-  MOBILE_SPACING: "16px",
-  TABLET_SPACING: "32px",
-  DESKTOP_SPACING: "32px",
+  MOBILE_SPACING: '16px',
+  TABLET_SPACING: '32px',
+  DESKTOP_SPACING: '32px',
 };
 
 const MARGINS = {
@@ -106,18 +104,19 @@ const SPACING = {
   224: '224px',
 } as const;
 
+const ROOT_FONT_SIZE = 16;
 const SCREENS = {
-  base: em(1),
-  xxxs: em(375),
-  xxs: em(480),
-  xs: em(576),
-  sm: em(640),
-  md: em(768),
-  l: em(930),
-  lg: em(1024),
-  xl: em(1280),
-  xxl: em(1440),
-  maxGridWidth: em(2560),
+  base: `${1 / ROOT_FONT_SIZE}em`,
+  xxxs: `${375 / ROOT_FONT_SIZE}em`,
+  xxs: `${480 / ROOT_FONT_SIZE}em`,
+  xs: `${576 / ROOT_FONT_SIZE}em`,
+  sm: `${640 / ROOT_FONT_SIZE}em`,
+  md: `${768 / ROOT_FONT_SIZE}em`,
+  l: `${930 / ROOT_FONT_SIZE}em`,
+  lg: `${1024 / ROOT_FONT_SIZE}em`,
+  xl: `${1280 / ROOT_FONT_SIZE}em`,
+  xxl: `${1440 / ROOT_FONT_SIZE}em`,
+  maxGridWidth: `${2560 / ROOT_FONT_SIZE}em`,
 } as const;
 
 const MAX = {

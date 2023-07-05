@@ -4,7 +4,7 @@ import { StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof Button> = {
   component: Button,
-  title: 'Atom/Button',
+  title: 'Atoms/Button',
   argTypes: {
     size: {
       control: {
