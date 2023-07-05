@@ -6,6 +6,8 @@ import {
   Stack,
   Typography,
   circularProgressClasses,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import TitleText from '../Atoms/TitleText';
 import DescriptionText from '../Atoms/DescriptionText';
@@ -17,9 +19,22 @@ const StatsContainer = styled(Stack)`
   min-height: 150px;
   justify-content: space-between;
   align-items: flex-start;
+
+  @media (max-width: 899px) {
+    min-height: auto;
+  }
+`;
+
+const DescriptionProgress = styled(Box)`
+  @media (max-width: 899px) {
+    display: none;
+  }
 `;
 
 const Progress = () => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
     <StatsContainer>
       <Box sx={{ position: 'relative', display: 'inline-flex' }}>
@@ -32,7 +47,7 @@ const Progress = () => {
               strokeLinecap: 'round',
             },
           }}
-          size={50}
+          size={matches ? 40 : 60}
           thickness={5}
         />
         <Box
@@ -52,10 +67,12 @@ const Progress = () => {
           </Typography>
         </Box>
       </Box>
-      <TitleText>Mes points</TitleText>
-      <DescriptionText>
-        Regarder des masterclass et gagner des points !
-      </DescriptionText>
+      <DescriptionProgress>
+        <TitleText>Mes points</TitleText>
+        <DescriptionText>
+          Regarder des masterclass et gagner des points !
+        </DescriptionText>
+      </DescriptionProgress>
     </StatsContainer>
   );
 };

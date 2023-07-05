@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { palette } from '@hetic-saline-royale-academy/kit-ui';
-import { Divider, Stack } from '@mui/material';
+import { Divider, Stack, useMediaQuery, useTheme } from '@mui/material';
 import Profile from '../Molecules/Profile';
 import Progress from '../Molecules/Progress';
 import Image from 'next/image';
@@ -16,19 +16,37 @@ const SidebarContainer = styled(Stack)`
   min-height: 100vh;
   padding: 10px;
   justify-content: space-between;
+  transition: width 0.2s ease-in-out;
+  width: 100%;
+
+  @media (max-width: 899px) {
+    width: 80px;
+  }
 `;
 
 const Logo = styled(Image)`
   padding: 0 10px;
+
+  @media (max-width: 899px) {
+    padding: 0;
+    margin: 0 auto;
+  }
 `;
 
 const Sidebar = ({ activeRoute }: SidebarProps) => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
     <SidebarContainer>
       <Stack spacing={3}>
         <Logo
-          src="/assets/svg/sra_logo.svg"
-          width={173}
+          src={
+            matches
+              ? '/assets/svg/sra_logo_minimized.svg'
+              : '/assets/svg/sra_logo.svg'
+          }
+          width={matches ? 40 : 153}
           height={53}
           alt="Saline Royale Academy Logo"
         />

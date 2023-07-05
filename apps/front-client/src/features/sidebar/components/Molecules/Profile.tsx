@@ -18,6 +18,12 @@ const ProfileContainer = styled(Stack)`
   }
 `;
 
+const ProfileDescription = styled(Box)`
+  @media (max-width: 899px) {
+    display: none;
+  }
+`;
+
 const Profile = () => {
   return (
     <Link href={routes.profile}>
@@ -30,10 +36,10 @@ const Profile = () => {
             height: '40px',
           }}
         />
-        <Stack>
+        <ProfileDescription>
           <TitleText>John Doe</TitleText>
           <DescriptionText>john.doe@example.fr</DescriptionText>
-        </Stack>
+        </ProfileDescription>
       </ProfileContainer>
     </Link>
   );
