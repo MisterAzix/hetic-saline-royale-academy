@@ -50,7 +50,11 @@
     "swagger-ui-express": "^4.6.3",
     "tslib": "^2.3.0"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "devDependencies": {
+    "@faker-js/faker": "^8.0.2",
     "@nestjs/schematics": "^9.1.0",
     "@nestjs/testing": "^9.1.1",
     "@nx/cypress": "16.1.3",
