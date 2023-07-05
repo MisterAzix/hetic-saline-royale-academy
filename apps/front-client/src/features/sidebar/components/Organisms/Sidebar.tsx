@@ -6,6 +6,7 @@ import Progress from '../Molecules/Progress';
 import Image from 'next/image';
 import Navigation from '../Molecules/Navigation';
 import { DashboardRoutes } from '../../../../routes';
+import Link from 'next/link';
 
 interface SidebarProps {
   activeRoute: DashboardRoutes;
@@ -40,16 +41,18 @@ const Sidebar = ({ activeRoute }: SidebarProps) => {
   return (
     <SidebarContainer>
       <Stack spacing={3}>
-        <Logo
-          src={
-            matches
-              ? '/assets/svg/sra_logo_minimized.svg'
-              : '/assets/svg/sra_logo.svg'
-          }
-          width={matches ? 40 : 153}
-          height={53}
-          alt="Saline Royale Academy Logo"
-        />
+        <Link href="/">
+          <Logo
+            src={
+              matches
+                ? '/assets/svg/sra_logo_minimized.svg'
+                : '/assets/svg/sra_logo.svg'
+            }
+            width={matches ? 40 : 153}
+            height={53}
+            alt="Saline Royale Academy Logo"
+          />
+        </Link>
         <Navigation activeRoute={activeRoute} />
       </Stack>
       <Stack spacing={2}>

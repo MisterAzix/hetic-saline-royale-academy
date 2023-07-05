@@ -11,6 +11,8 @@ import {
 } from '@mui/material';
 import TitleText from '../Atoms/TitleText';
 import DescriptionText from '../Atoms/DescriptionText';
+import Link from 'next/link';
+import { routes } from '../../../../routes';
 
 const StatsContainer = styled(Stack)`
   padding: 10px;
@@ -19,6 +21,10 @@ const StatsContainer = styled(Stack)`
   min-height: 150px;
   justify-content: space-between;
   align-items: flex-start;
+
+  &:hover {
+    background-color: ${palette.gray[600]};
+  }
 
   @media (max-width: 899px) {
     min-height: auto;
@@ -36,44 +42,46 @@ const Progress = () => {
   const matches = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <StatsContainer>
-      <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-        <CircularProgress
-          variant="determinate"
-          value={63}
-          sx={{
-            color: palette.gray[100],
-            [`& .${circularProgressClasses.circle}`]: {
-              strokeLinecap: 'round',
-            },
-          }}
-          size={matches ? 40 : 60}
-          thickness={5}
-        />
-        <Box
-          sx={{
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0,
-            position: 'absolute',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Typography color={palette.gray[100]} sx={{ fontSize: '12px' }}>
-            920
-          </Typography>
+    <Link href={routes.progress}>
+      <StatsContainer>
+        <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+          <CircularProgress
+            variant="determinate"
+            value={63}
+            sx={{
+              color: palette.gray[100],
+              [`& .${circularProgressClasses.circle}`]: {
+                strokeLinecap: 'round',
+              },
+            }}
+            size={matches ? 40 : 60}
+            thickness={5}
+          />
+          <Box
+            sx={{
+              top: 0,
+              left: 0,
+              bottom: 0,
+              right: 0,
+              position: 'absolute',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Typography color={palette.gray[100]} sx={{ fontSize: '12px' }}>
+              920
+            </Typography>
+          </Box>
         </Box>
-      </Box>
-      <DescriptionProgress>
-        <TitleText>Mes points</TitleText>
-        <DescriptionText>
-          Regarder des masterclass et gagner des points !
-        </DescriptionText>
-      </DescriptionProgress>
-    </StatsContainer>
+        <DescriptionProgress>
+          <TitleText>Mes points</TitleText>
+          <DescriptionText>
+            Regarder des masterclass et gagner des points !
+          </DescriptionText>
+        </DescriptionProgress>
+      </StatsContainer>
+    </Link>
   );
 };
 
