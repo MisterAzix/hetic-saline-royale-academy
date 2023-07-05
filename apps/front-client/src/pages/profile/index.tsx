@@ -111,7 +111,7 @@ Profile.getLayout = (page: ReactElement) => {
   return (
     <DashboardLayout
       title="Mon profil"
-      subtitle="Modifier mon profil"
+      subtitle="Modifier mes infos personnelles et mes modes de paiement"
       activeRoute={routes.profile}
     >
       {page}

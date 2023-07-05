@@ -25,7 +25,7 @@ const SidebarContainer = styled(Stack)`
   }
 `;
 
-const Logo = styled(Image)`
+const Logo = styled(Link)`
   padding: 0 10px;
 
   @media (max-width: 899px) {
@@ -41,8 +41,8 @@ const Sidebar = ({ activeRoute }: SidebarProps) => {
   return (
     <SidebarContainer>
       <Stack spacing={3}>
-        <Link href="/">
-          <Logo
+        <Logo href="/">
+          <Image
             src={
               matches
                 ? '/assets/svg/sra_logo_minimized.svg'
@@ -52,7 +52,7 @@ const Sidebar = ({ activeRoute }: SidebarProps) => {
             height={53}
             alt="Saline Royale Academy Logo"
           />
-        </Link>
+        </Logo>
         <Navigation activeRoute={activeRoute} />
       </Stack>
       <Stack spacing={2}>
