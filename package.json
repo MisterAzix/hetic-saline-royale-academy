@@ -51,7 +51,7 @@
     "tslib": "^2.3.0"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",

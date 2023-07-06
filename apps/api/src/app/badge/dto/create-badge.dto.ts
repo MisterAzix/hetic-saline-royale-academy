@@ -39,13 +39,13 @@ export class CreateBadgeDto {
 
   @ApiProperty({ type: String, required: false })
   @IsString()
-  achievementId: string;
+  achievementId?: string;
 
   @ApiProperty({ type: Object, required: false })
   @IsObject()
-  category: Prisma.BadgeCreateInput['category'];
+  category?: Prisma.BadgeCreateInput['category'];
 
   @ApiProperty({ type: Object, required: false })
   @IsObject()
-  ressource: Prisma.BadgeCreateInput['ressource'];
+  ressource?: Prisma.BadgeCreateInput['ressource'];
 }
