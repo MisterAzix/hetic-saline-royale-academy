@@ -83,6 +83,7 @@ export class AuthController {
   @Post('signup')
   @ApiCreatedResponse({ type: UsersEntity })
   async signupUser(@Body() userData: UserCreateDto): Promise<UserModel> {
+    console.log('userData', userData);
     return this.userService.createUser({
       ...userData,
     });
