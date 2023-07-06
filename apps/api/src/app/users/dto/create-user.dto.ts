@@ -1,39 +1,70 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString, Min } from 'class-validator';
-import { HasLowercase } from '../../decorators/has-lowercase-letter.decorator';
-import { HasNumber } from '../../decorators/has-number.decorator';
-import { HasSpecialCharacter } from '../../decorators/has-special-character.decorator';
-import { HasUppercaseLetter } from '../../decorators/has-uppercase-letter.decorator';
+import { Prisma, Role } from '@prisma/client';
+import {
+  IsArray,
+  IsBoolean,
+  IsEmail,
+  IsNotEmpty,
+  IsObject,
+  IsString,
+} from 'class-validator';
 
-// Valider les données entrantes des endpoints
 export class UserCreateDto {
+  @ApiProperty({ type: String, required: false })
   @IsString()
-  @IsNotEmpty()
-  userId: string;
+  displayName?: string;
 
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  @IsEmail()
-  email: string;
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  @Min(8)
-  @HasUppercaseLetter()
-  @HasLowercase()
-  @HasNumber()
-  @HasSpecialCharacter()
-  password: string;
-
-  @ApiProperty()
+  @ApiProperty({ type: String })
   @IsString()
   @IsNotEmpty()
   firstName: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   @IsString()
   @IsNotEmpty()
   lastName: string;
+
+  @ApiProperty({ type: String, required: false })
+  @IsEmail()
+  email: string;
+
+  @ApiProperty({ type: Boolean, required: false, default: false })
+  @IsBoolean()
+  deleted?: boolean;
+
+  @ApiProperty({ required: false, default: 'USER' })
+  role?: Role;
+
+  @ApiProperty({ type: String, required: false })
+  @IsString()
+  @IsNotEmpty()
+  password: string;
+
+  @ApiProperty({ type: String, required: false })
+  @IsString()
+  preferences?: string;
+
+  @ApiProperty({ type: String, required: false })
+  @IsString()
+  ecole?: string;
+
+  @ApiProperty({ type: Object, required: false })
+  @IsObject()
+  image?: object;
+
+  @ApiProperty({ type: Object, required: false })
+  @IsObject()
+  gamefication?: object;
+
+  @ApiProperty({ type: Object, required: false })
+  @IsObject()
+  notification?: object;
+
+  @ApiProperty({ type: Object, required: false })
+  @IsObject()
+  subscription?: object;
+
+  @ApiProperty({ type: Array, required: false })
+  @IsArray()
+  courses?: Prisma.UserCreateInput['courses'];
 }

@@ -1,7 +1,7 @@
 {
   "name": "api",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/api/src",
+  "sourceRoot": "apps/api",
   "projectType": "application",
   "targets": {
     "migrate": {
@@ -20,7 +20,7 @@
         "outputPath": "dist/apps/api",
         "main": "apps/api/src/main.ts",
         "tsConfig": "apps/api/tsconfig.app.json",
-        "assets": ["apps/api/src/assets"],
+        "assets": ["apps/api/prisma"],
         "isolatedConfig": true,
         "webpackConfig": "apps/api/webpack.config.js",
         "generatePackageJson": true

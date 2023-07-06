@@ -107,6 +107,18 @@ jobs:
           name: bundle
           path: dist
 
+      - name: Create API Env
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_PORT: ${{ secrets.API_PORT }}
+          envkey_JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          envkey_GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          envkey_GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          envkey_GOOGLE_CLIENT_CALLBACK_URL: ${{ secrets.GOOGLE_CLIENT_CALLBACK_URL }}
+          directory: "dist/apps/api/"
+          file_name: .env
+          fail_on_empty: false
+
       - name: Deploy API
         uses: easingthemes/ssh-deploy@main
         env:
@@ -117,6 +129,14 @@ jobs:
           SOURCE: "dist/apps/api/"
           TARGET: "/var/www/${{ vars.API_URL }}"
 
+      - name: Create Dashboard Env
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_API_URL: ${{ vars.API_URL }}
+          directory: "dist/apps/front-admin/"
+          file_name: .env
+          fail_on_empty: false
+
       - name: Deploy Dashboard
         uses: easingthemes/ssh-deploy@main
         env:
@@ -126,6 +146,14 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           SOURCE: "dist/apps/front-admin/"
           TARGET: "/var/www/${{ vars.DASHBOARD_URL }}"
+
+      - name: Create Client Env
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_API_URL: ${{ vars.API_URL }}
+          directory: "dist/apps/front-client/"
+          file_name: .env
+          fail_on_empty: false
 
       - name: Deploy Client
         uses: easingthemes/ssh-deploy@main
@@ -145,7 +173,7 @@ jobs:
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           SCRIPT_AFTER: |
-            cd /var/www/${{ vars.API_URL }} && npm install
+            cd /var/www/${{ vars.API_URL }} && npm install && npx prisma generate
             [[ $((pm2 info ${{ vars.API_URL }} || echo 'status|stopped') | grep status) =~ 'stopped' ]] && pm2 start main.js --name ${{ vars.API_URL }} || pm2 restart ${{ vars.API_URL }}
             cd /var/www/${{ vars.DASHBOARD_URL }} && npm install
             [[ $((pm2 info ${{ vars.DASHBOARD_URL }} || echo 'status|stopped') | grep status) =~ 'stopped' ]] && pm2 start npm --name ${{ vars.DASHBOARD_URL }} -- start -- -p 3002 || pm2 restart ${{ vars.DASHBOARD_URL }}

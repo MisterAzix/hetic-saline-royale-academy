@@ -7,12 +7,14 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app/app.module';
+import { AuthorInterceptor } from './interceptors/author.interceptor';
 import { config } from './swagger.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
+  app.useGlobalInterceptors(new AuthorInterceptor());
   const port = process.env.PORT || 3000;
 
   const document = SwaggerModule.createDocument(app, config);
