@@ -32,10 +32,6 @@ export class CreateGamificationDto {
 
   @ApiProperty({ type: String, required: false })
   @IsString()
-  ressourceId?: string;
-
-  @ApiProperty({ type: String, required: false })
-  @IsString()
   progressTrackingId?: string;
 
   @ApiProperty({ type: Object, required: false })

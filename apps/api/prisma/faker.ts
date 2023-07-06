@@ -254,10 +254,13 @@ const generateRandomImages = async (
 ): Promise<CreateImageDto[]> => {
   const images: CreateImageDto[] = Array.from({ length: count }, () => ({
     description: faker.lorem.sentence(),
-    height: faker.number.int({ max: 200 }),
-    width: faker.number.int({ max: 200 }),
-    //TODO: slapsh API
-    url: faker.string.sample(),
+    height: faker.number.int({ max: 128 }),
+    width: faker.number.int({ max: 128 }),
+    url: faker.image.urlLoremFlickr({
+      height: 128,
+      width: 128,
+      category: 'music',
+    }),
     deleted: faker.datatype.boolean(),
   }));
   return images;
@@ -382,7 +385,11 @@ const generateRandomRessource = async (
     { length: count },
     () => ({
       title: faker.string.alpha(10),
-      path: faker.string.sample(),
+      path: faker.image.urlLoremFlickr({
+        height: 128,
+        width: 128,
+        category: 'music',
+      }),
       type: faker.string.alpha(10),
       accessLevel: faker.string.alpha(10),
       duration: faker.number.int({ max: 60 }),
@@ -500,6 +507,26 @@ export const randomTags = async (count: number) => {
 };
 
 /**
+ * Generates a random video URL.
+ * @returns {string} - The generated video URL.
+ */
+const generateRandomVideoUrl = (): string => {
+  const videoUrls = [
+    'https://www.youtube.com/watch?v=htjRBaAhGRw&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix',
+    'https://www.youtube.com/watch?v=woO7Tf0ONao&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=2',
+    'https://www.youtube.com/watch?v=gGd5u5DwvuE&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=3',
+    'https://www.youtube.com/watch?v=ujLr_6t5Mlg&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=4',
+    'https://www.youtube.com/watch?v=wrgJKCgXGEA&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=5',
+    'https://www.youtube.com/watch?v=BzT-xTW2qP0&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=6',
+    'https://www.youtube.com/watch?v=145QLgpAivU&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=7',
+    'https://www.youtube.com/watch?v=vFhdn91jACY&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=8',
+    'https://www.youtube.com/watch?v=-wEh2BJnsTg&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=9',
+  ];
+  const randomIndex = faker.number.int({ min: 0, max: videoUrls.length - 1 });
+  return videoUrls[randomIndex];
+};
+
+/**
  * Generates random videos.
  * @param {number} count - The number of videos to generate.
  * @returns {Promise<CreateVideoDto[]>} - A promise that resolves to an array of generated videos.
@@ -511,8 +538,7 @@ const generateRandomVideos = async (
     description: faker.lorem.sentence(),
     height: faker.number.int({ max: 200 }),
     width: faker.number.int({ max: 200 }),
-    //TODO: slapsh Video API
-    url: faker.string.sample(),
+    url: generateRandomVideoUrl(),
     deleted: faker.datatype.boolean(),
   }));
   return videos;
