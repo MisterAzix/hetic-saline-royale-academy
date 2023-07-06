@@ -15,10 +15,21 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   app.useGlobalInterceptors(new AuthorInterceptor());
+
   const port = process.env.PORT || 3000;
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+
+  app.enableCors({
+    origin: [
+      'http://localhost:8080',
+      'http://localhost:8081',
+      'http://localhost:3000',
+    ],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
 
   await app.listen(port);
   Logger.log(

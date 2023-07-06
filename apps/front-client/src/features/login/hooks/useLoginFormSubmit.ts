@@ -22,7 +22,7 @@ export const useLoginFormSubmit = () => {
   const { mutate, isLoading, isError } = useMutation(fetchLoginFormSubmit, {
     onSuccess: async (data: ILoginResponse) => {
       localStorage.setItem('access_token', data.access_token);
-      await router.push('/dashboard');
+      await router.push('/');
     },
   });
 
