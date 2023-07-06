@@ -4,7 +4,7 @@ import { FormControl } from '@mui/base';
 
 const meta: Meta<typeof Input> = {
   component: Input,
-  title: 'Atom/Input',
+  title: 'Atoms/Input',
 };
 export default meta;
 type Story = StoryObj<typeof Input>;
