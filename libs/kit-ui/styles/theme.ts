@@ -1,3 +1,13 @@
+import { createTheme } from '@mui/material';
+import {
+  FONT_SIZES,
+  FONT_STYLES,
+  FONT_WEIGHTS,
+  LINE_HEIGHTS,
+  ROOT_FONT_SIZE,
+} from './typograhy';
+import { TEXT_PRESETS } from './typograhy/text-presets';
+
 const COLORS = {
   white: '#FFFFFF',
   black: '#000000',
@@ -78,33 +88,25 @@ const DESKTOP = {
   margin: MARGINS.DESKTOP,
 } as const;
 
-const FONT_WEIGHTS = {
-  regular: 400,
-  medium: 500,
-  semiBold: 600,
-  bold: 700,
-} as const;
-
 const SPACING = {
-  4: '4px',
-  8: '8px',
-  12: '12px',
-  16: '16px',
-  20: '20px',
-  24: '24px',
-  32: '32px',
-  40: '40px',
-  48: '48px',
-  64: '64px',
-  80: '80px',
-  96: '96px',
-  128: '128px',
-  160: '160px',
-  192: '192px',
-  224: '224px',
+  '4': '4px',
+  '8': '8px',
+  '12': '12px',
+  '16': '16px',
+  '20': '20px',
+  '24': '24px',
+  '32': '32px',
+  '40': '40px',
+  '48': '48px',
+  '64': '64px',
+  '80': '80px',
+  '96': '96px',
+  '128': '128px',
+  '160': '160px',
+  '192': '192px',
+  '224': '224px',
 } as const;
 
-const ROOT_FONT_SIZE = 16;
 const SCREENS = {
   base: `${1 / ROOT_FONT_SIZE}em`,
   xxxs: `${375 / ROOT_FONT_SIZE}em`,
@@ -124,16 +126,41 @@ const MAX = {
   width: 1940,
 };
 
+const muiTheme = createTheme({
+  typography: {
+    fontFamily: ['Inter', 'sans-serif'].join(','),
+    ...TEXT_PRESETS,
+  },
+});
+
+export const THEME = [
+  SCREENS,
+  COLORS,
+  COLUMNS,
+  SPACING,
+  GUTTERS,
+  MARGINS,
+  MOBILE,
+  TABLET,
+  DESKTOP,
+  FONT_STYLES,
+  FONT_WEIGHTS,
+  FONT_SIZES,
+  FONT_WEIGHTS,
+  LINE_HEIGHTS,
+  MAX,
+] as const;
+
 export {
   SCREENS,
   COLORS,
   COLUMNS,
   SPACING,
-  FONT_WEIGHTS,
   GUTTERS,
   MARGINS,
   MOBILE,
   TABLET,
   DESKTOP,
   MAX,
+  muiTheme,
 };
