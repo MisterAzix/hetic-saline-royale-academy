@@ -18,6 +18,18 @@ const NavLink = styled(Link)<{ active?: boolean }>`
   &:hover {
     background-color: ${palette.gray[700]};
   }
+
+  @media (max-width: 899px) {
+    .MuiSvgIcon-root {
+      margin: 0 auto;
+      width: 24px;
+      height: 24px;
+    }
+    .nav-text,
+    p {
+      display: none;
+    }
+  }
 `;
 
 const Navigation = ({ activeRoute }: NavigationProps) => {
@@ -25,17 +37,17 @@ const Navigation = ({ activeRoute }: NavigationProps) => {
     <Stack spacing={0.5}>
       <NavLink href={routes.explore} active={activeRoute === routes.explore}>
         <TextWithIcon icon={<Search />} color={palette.gray[100]}>
-          Explorer
+          <span className="nav-text">Explorer</span>
         </TextWithIcon>
       </NavLink>
       <NavLink href={routes.courses} active={activeRoute === routes.courses}>
         <TextWithIcon icon={<School />} color={palette.gray[100]}>
-          Mes cours
+          <span className="nav-text">Mes cours</span>
         </TextWithIcon>
       </NavLink>
       <NavLink href={routes.progress} active={activeRoute === routes.progress}>
         <TextWithIcon icon={<AutoGraph />} color={palette.gray[100]}>
-          Progression
+          <span className="nav-text">Progression</span>
         </TextWithIcon>
       </NavLink>
     </Stack>

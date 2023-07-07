@@ -1,4 +1,4 @@
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, useMediaQuery, useTheme } from '@mui/material';
 import Header from '../features/header/components/Organisms/Header';
 import Sidebar from '../features/sidebar/components/Organisms/Sidebar';
 import { PropsWithChildren } from 'react';
@@ -16,10 +16,12 @@ const DashboardLayout = ({
   subtitle,
   activeRoute,
 }: DashboardLayoutProps) => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('md'));
   return (
     <Box
       display="grid"
-      gridTemplateColumns="250px 1fr"
+      gridTemplateColumns={matches ? '80px 1fr' : '250px 1fr'}
       gridTemplateRows="60px 1fr"
       sx={{ height: '100vh' }}
     >

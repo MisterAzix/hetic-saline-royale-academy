@@ -9,6 +9,7 @@ type InputGroupProps = ComponentProps<typeof Input> & {
   error?: boolean;
   required?: boolean;
   disabled?: boolean;
+  icon?: React.ReactNode;
 };
 
 const InputGroup = ({
@@ -19,6 +20,7 @@ const InputGroup = ({
   error = false,
   required = false,
   disabled = false,
+  icon,
   ...props
 }: InputGroupProps) => (
   <FormControl
@@ -28,7 +30,7 @@ const InputGroup = ({
     disabled={disabled}
   >
     <Label>{label}</Label>
-    <Input name={name} {...props} />
+    <Input icon={icon} name={name} {...props} />
     <HelperText>{helperText}</HelperText>
   </FormControl>
 );
