@@ -6,10 +6,13 @@ export class GamificationEntity implements Gamification {
   id: string;
 
   @ApiProperty()
-  userId: string;
+  description: string;
 
   @ApiProperty()
-  achievementId: string;
+  experiencePoint: number;
+
+  @ApiProperty()
+  level: string;
 
   @ApiProperty()
   createdAt: Date;
@@ -21,17 +24,11 @@ export class GamificationEntity implements Gamification {
   deleted: boolean;
 
   @ApiProperty()
-  description: string;
-
-  @ApiProperty()
-  experiencePoint: number;
-
-  @ApiProperty()
-  level: string;
-
-  @ApiProperty()
   ressourceId: string;
 
   @ApiProperty()
   progressTrackingId: string;
+
+  @ApiProperty()
+  userId: string;
 }

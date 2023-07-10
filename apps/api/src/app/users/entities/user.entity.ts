@@ -37,22 +37,4 @@ export class UsersEntity implements User {
 
   @ApiProperty()
   ecole: string;
-
-  @ApiProperty()
-  gamificationId: string;
-
-  @ApiProperty()
-  notificationId: string;
-
-  @ApiProperty()
-  subscriptionId: string;
-
-  @ApiProperty()
-  progressTrackerId: string;
-
-  @ApiProperty()
-  courseId: string;
-
-  @ApiProperty()
-  imageId: string;
 }

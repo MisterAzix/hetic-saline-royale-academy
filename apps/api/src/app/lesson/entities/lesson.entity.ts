@@ -12,6 +12,9 @@ export class LessonEntity implements Lesson {
   description: string;
 
   @ApiProperty()
+  duration: number;
+
+  @ApiProperty()
   createdAt: Date;
 
   @ApiProperty()
@@ -19,18 +22,6 @@ export class LessonEntity implements Lesson {
 
   @ApiProperty()
   deleted: boolean;
-
-  @ApiProperty()
-  imageId: string;
-
-  @ApiProperty()
-  videoId: string;
-
-  @ApiProperty()
-  tagId: string;
-
-  @ApiProperty()
-  duration: number;
 
   @ApiProperty()
   chapterId: string;

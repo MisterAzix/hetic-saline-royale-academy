@@ -6,10 +6,7 @@ export class ProgressTrackerEntity implements ProgressTracker {
   id: string;
 
   @ApiProperty()
-  userId: string;
-
-  @ApiProperty()
-  courseId: string;
+  progress: number;
 
   @ApiProperty()
   completedLessons: number;
@@ -33,5 +30,5 @@ export class ProgressTrackerEntity implements ProgressTracker {
   deleted: boolean;
 
   @ApiProperty()
-  progress: number;
+  userId: string;
 }

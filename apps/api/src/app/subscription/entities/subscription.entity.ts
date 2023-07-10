@@ -9,6 +9,9 @@ export class SubscriptionEntity implements Subscription {
   plan: string;
 
   @ApiProperty()
+  payed: boolean;
+
+  @ApiProperty()
   createdAt: Date;
 
   @ApiProperty()
@@ -16,9 +19,6 @@ export class SubscriptionEntity implements Subscription {
 
   @ApiProperty()
   deleted: boolean;
-
-  @ApiProperty()
-  payed: boolean;
 
   @ApiProperty()
   userId: string;

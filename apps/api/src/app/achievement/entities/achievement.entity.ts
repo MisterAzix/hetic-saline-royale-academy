@@ -36,14 +36,5 @@ export class AchievementEntity implements Achievement {
   deleted: boolean;
 
   @ApiProperty()
-  rewardId: string;
-
-  @ApiProperty()
-  badgeId: string;
-
-  @ApiProperty()
-  categoryId: string;
-
-  @ApiProperty()
   gamificationId: string;
 }
