@@ -30,17 +30,5 @@ export class CourseEntity implements Course {
   userId: string;
 
   @ApiProperty()
-  chapterId: string;
-
-  @ApiProperty()
-  tagId: string;
-
-  @ApiProperty()
-  ressourceId: string;
-
-  @ApiProperty()
-  categoryId: string;
-
-  @ApiProperty()
   progressTrackingId: string;
 }

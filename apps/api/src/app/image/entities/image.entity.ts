@@ -6,7 +6,16 @@ export class ImageEntity implements Image {
   id: string;
 
   @ApiProperty()
+  description: string;
+
+  @ApiProperty()
   url: string;
+
+  @ApiProperty()
+  height: number;
+
+  @ApiProperty()
+  width: number;
 
   @ApiProperty()
   createdAt: Date;
@@ -16,15 +25,6 @@ export class ImageEntity implements Image {
 
   @ApiProperty()
   deleted: boolean;
-
-  @ApiProperty()
-  description: string;
-
-  @ApiProperty()
-  height: number;
-
-  @ApiProperty()
-  width: number;
 
   @ApiProperty()
   lessonId: string;

@@ -9,6 +9,15 @@ export class RessourceEntity implements Ressource {
   title: string;
 
   @ApiProperty()
+  path: string;
+
+  @ApiProperty()
+  type: string;
+
+  @ApiProperty()
+  accessLevel: string;
+
+  @ApiProperty()
   duration: number;
 
   @ApiProperty()
@@ -19,15 +28,6 @@ export class RessourceEntity implements Ressource {
 
   @ApiProperty()
   deleted: boolean;
-
-  @ApiProperty()
-  path: string;
-
-  @ApiProperty()
-  type: string;
-
-  @ApiProperty()
-  accessLevel: string;
 
   @ApiProperty()
   courseId: string;

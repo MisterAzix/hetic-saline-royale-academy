@@ -9,6 +9,9 @@ export class NotificationEntity implements Notification {
   message: string;
 
   @ApiProperty()
+  published: boolean;
+
+  @ApiProperty()
   createdAt: Date;
 
   @ApiProperty()
@@ -16,9 +19,6 @@ export class NotificationEntity implements Notification {
 
   @ApiProperty()
   deleted: boolean;
-
-  @ApiProperty()
-  published: boolean;
 
   @ApiProperty()
   userId: string;

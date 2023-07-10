@@ -21,8 +21,5 @@ export class ChapterEntity implements Chapter {
   deleted: boolean;
 
   @ApiProperty()
-  lessonId: string;
-
-  @ApiProperty()
   courseId: string;
 }

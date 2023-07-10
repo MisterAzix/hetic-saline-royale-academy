@@ -48,8 +48,5 @@ export class RewardEntity implements Reward {
   accessLevel: number;
 
   @ApiProperty()
-  categoryId: string;
-
-  @ApiProperty()
   achievementId: string;
 }

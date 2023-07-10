@@ -43,8 +43,5 @@ export class BadgeEntity implements Badge {
   deleted: boolean;
 
   @ApiProperty()
-  categoryId: string;
-
-  @ApiProperty()
   achievementId: string;
 }
