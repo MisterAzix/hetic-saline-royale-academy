@@ -6,6 +6,8 @@ import { css } from '@emotion/react';
 
 type TextProps = {
   preset: TextPresets;
+  color: string;
+  fontSize: string;
   css?: string;
   tag?: ElementType;
 } & PropsWithChildren;
@@ -19,10 +21,24 @@ const TextWrapper = styled.div<{ css: string }>`
   ${dynamicStyle}
 `;
 
-function Text({ css = '', preset, children, tag = 'p' }: TextProps) {
+function Text({
+  css = '',
+  preset,
+  color,
+  fontSize,
+  children,
+  tag = 'p',
+}: TextProps) {
   return (
     <TextWrapper css={css}>
-      <Typography variant={preset} component={tag}>
+      <Typography
+        sx={{
+          color: `${color}.main`,
+        }}
+        fontSize={fontSize}
+        variant={preset}
+        component={tag}
+      >
         {children}
       </Typography>
     </TextWrapper>
