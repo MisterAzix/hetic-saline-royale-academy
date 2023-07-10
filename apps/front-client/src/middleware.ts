@@ -7,6 +7,6 @@ export const config = {
 
 export function middleware(req: NextRequest) {
   if (req.nextUrl.pathname === routes.root) {
-    return NextResponse.redirect(new URL(routes.dashboard, req.url));
+    return NextResponse.redirect(new URL(routes.explore, req.url));
   }
 }

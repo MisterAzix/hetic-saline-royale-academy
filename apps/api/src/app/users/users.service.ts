@@ -41,8 +41,11 @@ export class UsersService {
    * @returns {Promise<User>} - The created user.
    */
   async createUser(data: Prisma.UserCreateInput): Promise<User> {
+    if (!data.password) {
+      this.logger.error('Password is null or undefined');
+      throw new BadRequestException('Password is null or undefined');
+    }
     const cryptedPassword = await bcrypt.hash(data.password, SALT_ROUND);
-
     try {
       return await this.prisma.user.create({
         data: {

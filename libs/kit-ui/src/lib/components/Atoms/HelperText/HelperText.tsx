@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useState } from 'react';
+import { PropsWithChildren } from 'react';
 import { useFormControlContext } from '@mui/base';
 import styled from '@emotion/styled';
 import clsx from 'clsx';
@@ -20,28 +20,17 @@ const StyledP = styled.p`
 
 const _HelperText = ({ children, ...props }: PropsWithChildren) => {
   const formControlContext = useFormControlContext();
-  const [isDirty, setIsDirty] = useState(false);
-
-  useEffect(() => {
-    if (formControlContext?.filled) {
-      setIsDirty(true);
-    }
-  }, [formControlContext]);
 
   if (formControlContext === undefined) {
     return null;
   }
 
-  const { error, required, filled, disabled } = formControlContext;
-  const showRequiredError = isDirty && required && !filled;
+  const { error, disabled } = formControlContext;
 
-  return showRequiredError ? (
+  return error ? (
     <StyledP
       {...props}
-      className={clsx(
-        error || showRequiredError ? 'error' : '',
-        disabled && 'disabled'
-      )}
+      className={clsx(error ? 'error' : '', disabled && 'disabled')}
     >
       {children}
     </StyledP>
