@@ -15,17 +15,17 @@ const dynamicStyle = ({ css: style }: { css: string }) =>
     ${style}
   `;
 
-const SomeComp = styled.div<{ css: string }>`
+const TextWrapper = styled.div<{ css: string }>`
   ${dynamicStyle}
 `;
 
 function Text({ css = '', preset, children, tag = 'p' }: TextProps) {
   return (
-    <SomeComp css={css}>
+    <TextWrapper css={css}>
       <Typography variant={preset} component={tag}>
         {children}
       </Typography>
-    </SomeComp>
+    </TextWrapper>
   );
 }
 
