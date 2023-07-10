@@ -1,4 +1,5 @@
 import { Controller } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Course } from '@prisma/client';
 import { CreatedBy } from '../decorators/created-by.decorator';
 import { LastUpdatedBy } from '../decorators/last-updated-by.decorator';
@@ -7,6 +8,7 @@ import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 
 @Controller('course')
+@ApiTags('course')
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
 

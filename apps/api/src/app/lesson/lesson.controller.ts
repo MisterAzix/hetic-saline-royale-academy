@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { Lesson } from '@prisma/client';
 import { CreateLessonDto } from './dto/create-lesson.dto';
 import { UpdateLessonDto } from './dto/update-lesson.dto';
@@ -15,6 +15,7 @@ import { LessonEntity } from './entities/lesson.entity';
 import { LessonService } from './lesson.service';
 
 @Controller('lesson')
+@ApiTags('lesson')
 export class LessonController {
   constructor(private readonly lessonService: LessonService) {}
   /**

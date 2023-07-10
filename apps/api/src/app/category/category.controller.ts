@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { Category } from '@prisma/client';
 import { CreatedBy } from '../decorators/created-by.decorator';
 import { LastUpdatedBy } from '../decorators/last-updated-by.decorator';
@@ -17,6 +17,7 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 import { CategoryEntity } from './entities/category.entity';
 
 @Controller('category')
+@ApiTags('category')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 

@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { Tag } from '@prisma/client';
 import { CreateTagDto } from './dto/create-tag.dto';
 import { UpdateTagDto } from './dto/update-tag.dto';
@@ -15,6 +15,7 @@ import { TagEntity } from './entities/tag.entity';
 import { TagService } from './tag.service';
 
 @Controller('tag')
+@ApiTags('tag')
 export class TagController {
   constructor(private readonly tagService: TagService) {}
 

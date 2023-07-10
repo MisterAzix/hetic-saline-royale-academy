@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { Video } from '@prisma/client';
 import { CreateVideoDto } from './dto/create-video.dto';
 import { UpdateVideoDto } from './dto/update-video.dto';
@@ -15,6 +15,7 @@ import { VideoEntity } from './entities/video.entity';
 import { VideoService } from './video.service';
 
 @Controller('video')
+@ApiTags('video')
 export class VideoController {
   constructor(private readonly videoService: VideoService) {}
 

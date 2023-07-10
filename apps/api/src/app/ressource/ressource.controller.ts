@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { Ressource } from '@prisma/client';
 import { CreateRessourceDto } from './dto/create-ressource.dto';
 import { UpdateRessourceDto } from './dto/update-ressource.dto';
@@ -15,6 +15,7 @@ import { RessourceEntity } from './entities/ressource.entity';
 import { RessourceService } from './ressource.service';
 
 @Controller('ressource')
+@ApiTags('ressource')
 export class RessourceController {
   constructor(private readonly ressourceService: RessourceService) {}
 
