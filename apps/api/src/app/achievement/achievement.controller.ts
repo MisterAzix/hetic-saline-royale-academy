@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Achievement } from '@prisma/client';
 import { CreatedBy } from '../decorators/created-by.decorator';
 import { LastUpdatedBy } from '../decorators/last-updated-by.decorator';
@@ -17,6 +17,7 @@ import { UpdateAchievementDto } from './dto/update-achievement.dto';
 import { AchievementEntity } from './entities/achievement.entity';
 
 @Controller('achievement')
+@ApiTags('achievement')
 export class AchievementController {
   constructor(private readonly achievementService: AchievementService) {}
   /**

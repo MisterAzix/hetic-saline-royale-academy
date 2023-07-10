@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { Badge } from '@prisma/client';
 import { CreatedBy } from '../decorators/created-by.decorator';
 import { LastUpdatedBy } from '../decorators/last-updated-by.decorator';
@@ -17,6 +17,7 @@ import { UpdateBadgeDto } from './dto/update-badge.dto';
 import { BadgeEntity } from './entities/badge.entity';
 
 @Controller('badge')
+@ApiTags('badge')
 export class BadgeController {
   constructor(private readonly badgeService: BadgeService) {}
   /**

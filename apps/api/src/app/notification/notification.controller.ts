@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { Notification } from '@prisma/client';
 import { CreateNotificationDto } from './dto/create-notification.dto';
 import { UpdateNotificationDto } from './dto/update-notification.dto';
@@ -15,6 +15,7 @@ import { NotificationEntity } from './entities/notification.entity';
 import { NotificationService } from './notification.service';
 
 @Controller('notification')
+@ApiTags('notification')
 export class NotificationController {
   constructor(private readonly notificationService: NotificationService) {}
 

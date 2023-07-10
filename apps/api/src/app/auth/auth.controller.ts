@@ -9,7 +9,11 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiCreatedResponse, ApiExcludeEndpoint } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiExcludeEndpoint,
+  ApiTags,
+} from '@nestjs/swagger';
 import { User as UserModel } from '@prisma/client';
 import { Public } from '../decorators/public.decorator';
 import { UserCreateDto } from '../users/dto/create-user.dto';
@@ -19,6 +23,7 @@ import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
+@ApiTags('authentification')
 export class AuthController {
   //Dependency Injection
   constructor(

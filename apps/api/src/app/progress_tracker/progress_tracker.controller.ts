@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { ProgressTracker } from '@prisma/client';
 import { CreateProgressTrackerDto } from './dto/create-progress_tracker.dto';
 import { UpdateProgressTrackerDto } from './dto/update-progress_tracker.dto';
@@ -15,6 +15,7 @@ import { ProgressTrackerEntity } from './entities/progress_tracker.entity';
 import { ProgressTrackerService } from './progress_tracker.service';
 
 @Controller('progress-tracker')
+@ApiTags('progressTracker')
 export class ProgressTrackerController {
   constructor(
     private readonly progressTrackerService: ProgressTrackerService

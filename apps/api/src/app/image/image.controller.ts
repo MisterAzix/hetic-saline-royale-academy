@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { Image } from '@prisma/client';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
@@ -15,6 +15,7 @@ import { ImageEntity } from './entities/image.entity';
 import { ImageService } from './image.service';
 
 @Controller('image')
+@ApiTags('image')
 export class ImageController {
   constructor(private readonly imageService: ImageService) {}
 

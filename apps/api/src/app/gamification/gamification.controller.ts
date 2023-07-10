@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { Gamification } from '@prisma/client';
 import { CreateGamificationDto } from './dto/create-gamification.dto';
 import { UpdateGamificationDto } from './dto/update-gamification.dto';
@@ -15,6 +15,7 @@ import { GamificationEntity } from './entities/gamification.entity';
 import { GamificationService } from './gamification.service';
 
 @Controller('gamification')
+@ApiTags('gamification')
 export class GamificationController {
   constructor(private readonly gamificationService: GamificationService) {}
 

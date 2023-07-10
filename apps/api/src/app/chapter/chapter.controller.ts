@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { Chapter } from '@prisma/client';
 import { ChapterService } from './chapter.service';
 import { CreateChapterDto } from './dto/create-chapter.dto';
@@ -15,6 +15,7 @@ import { UpdateChapterDto } from './dto/update-chapter.dto';
 import { ChapterEntity } from './entities/chapter.entity';
 
 @Controller('chapter')
+@ApiTags('chapter')
 export class ChapterController {
   constructor(private readonly chapterService: ChapterService) {}
 
