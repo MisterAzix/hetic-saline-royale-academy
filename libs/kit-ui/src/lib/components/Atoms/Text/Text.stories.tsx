@@ -3,6 +3,7 @@ import Text from './Text';
 import { StoryObj } from '@storybook/react';
 import { StorybookTitle } from '../../../../../@types';
 import { textPresets } from '../../../../../styles/typograhy/text-presets';
+import { tagName } from './_data/mock';
 
 const meta: Meta<typeof Text> & { title: StorybookTitle<'Text'> } = {
   title: 'Atoms/Text',
@@ -19,6 +20,14 @@ const meta: Meta<typeof Text> & { title: StorybookTitle<'Text'> } = {
       options: textPresets,
       defaultValue: 'text-md-regular',
       description: 'Set text preset',
+    },
+    tag: {
+      control: {
+        type: 'select',
+      },
+      options: tagName,
+      defaultValue: 'p',
+      description: 'Set tag name',
     },
   },
 };
