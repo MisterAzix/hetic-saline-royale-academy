@@ -7,6 +7,7 @@ import {
   ROOT_FONT_SIZE,
 } from './typograhy';
 import { TEXT_PRESETS } from './typograhy/text-presets';
+import type {ColorInHexadecimal, Colors, MuiColors} from './@types'
 const COLORS = {
   white: '#FFFFFF',
   black: '#000000',
@@ -153,15 +154,14 @@ const COLORS = {
   'orange-700': '#C4320A',
   'orange-800': '#9C2A10',
   'orange-900': '#7E2410',
-} as const;
+} as const satisfies Record<Colors, ColorInHexadecimal>;
 
-type Colors = keyof typeof COLORS;
+const colorsFormattedForMuiPalette = {} as MuiColors;
 
-const colorsFormatedForMuiPalette = {} as Record<Colors, { main: string }>;
-Object.keys(COLORS).forEach((key) => {
+for (const key in COLORS) {
   const colorKey = key as Colors;
-  colorsFormatedForMuiPalette[colorKey] = { main: COLORS[colorKey] };
-});
+  colorsFormattedForMuiPalette[colorKey] = { main: COLORS[colorKey] };
+}
 
 const COLUMNS = {
   MOBILE: 4,
@@ -243,15 +243,7 @@ const MAX = {
   width: 1940,
 };
 
-declare module '@mui/material/styles' {
-  interface Palette {
-    white: Palette['primary'];
-  }
 
-  interface PaletteOptions {
-    white: PaletteOptions['primary'];
-  }
-}
 
 const muiTheme = createTheme({
   typography: {
@@ -259,7 +251,7 @@ const muiTheme = createTheme({
     ...TEXT_PRESETS,
   },
   palette: {
-    ...colorsFormatedForMuiPalette,
+    ...colorsFormattedForMuiPalette,
   },
 });
 
