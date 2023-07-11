@@ -1,4 +1,3 @@
-import type { TextPresetsBoolean, TextPresetsObject } from './text';
 /**
  * @description
  * I don't really know why but eslint is complaining about this import,
@@ -15,18 +14,6 @@ import type {PaletteOptions, Palette} from '@mui/material'
  * This file is present in front-admin and kit-ui.
  * NX will throw a type error when trying to push if we don't put it in all workspaces.
  */
-declare module '@mui/material/styles' {
-  //eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface TypographyVariants extends TextPresetsObject {}
-  //eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface TypographyVariantsOptions extends TextPresetsObject {}
-}
-
-declare module '@mui/material/Typography' {
-  //eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface TypographyPropsVariantOverrides extends TextPresetsBoolean {}
-}
-
 declare module '@mui/material/styles' {
   interface Palette {
     white: Palette['primary'];
