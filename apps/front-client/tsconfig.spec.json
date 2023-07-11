@@ -7,7 +7,6 @@
     "jsx": "react"
   },
   "include": [
-    "../../libs/kit-ui/styles/@types/mui.d.ts",
     "jest.config.ts",
     "src/**/*.test.ts",
     "src/**/*.spec.ts",
