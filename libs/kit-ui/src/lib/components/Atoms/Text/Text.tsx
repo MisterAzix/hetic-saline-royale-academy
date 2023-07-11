@@ -7,7 +7,6 @@ import { css } from '@emotion/react';
 export type TextProps = {
   preset: TextPresets;
   color: string;
-  fontSize: string;
   css?: string;
   tag?: ElementType;
 } & PropsWithChildren;
@@ -25,7 +24,6 @@ function Text({
   css = '',
   preset,
   color,
-  fontSize,
   children,
   tag = 'p',
 }: TextProps) {
@@ -35,7 +33,6 @@ function Text({
         sx={{
           color: `${color}.main`,
         }}
-        fontSize={fontSize}
         variant={preset}
         component={tag}
       >
