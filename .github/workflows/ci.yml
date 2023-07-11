@@ -111,6 +111,7 @@ jobs:
         uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_PORT: ${{ secrets.API_PORT }}
+          envkey_DATABASE_URL: ${{ secrets.DATABASE_URL }}
           envkey_JWT_SECRET: ${{ secrets.JWT_SECRET }}
           envkey_GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           envkey_GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
@@ -173,7 +174,7 @@ jobs:
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           SCRIPT_AFTER: |
-            cd /var/www/${{ vars.API_URL }} && npm install && npx prisma generate
+            cd /var/www/${{ vars.API_URL }} && npm install && npm install prisma-dbml-generator && npx prisma generate && npm prisma migrate deploy
             [[ $((pm2 info ${{ vars.API_URL }} || echo 'status|stopped') | grep status) =~ 'stopped' ]] && pm2 start main.js --name ${{ vars.API_URL }} || pm2 restart ${{ vars.API_URL }}
             cd /var/www/${{ vars.DASHBOARD_URL }} && npm install
             [[ $((pm2 info ${{ vars.DASHBOARD_URL }} || echo 'status|stopped') | grep status) =~ 'stopped' ]] && pm2 start npm --name ${{ vars.DASHBOARD_URL }} -- start -- -p 3002 || pm2 restart ${{ vars.DASHBOARD_URL }}

@@ -1,20 +1,20 @@
 import { faker } from '@faker-js/faker';
 import { PrismaClient } from '@prisma/client';
-import { CreateBadgeDto } from '../src/app/badge/dto/create-badge.dto';
-import { CreateCategoryDto } from '../src/app/category/dto/create-category.dto';
-import { CreateChapterDto } from '../src/app/chapter/dto/create-chapter.dto';
-import { CreateGamificationDto } from '../src/app/gamification/dto/create-gamification.dto';
-import { CreateImageDto } from '../src/app/image/dto/create-image.dto';
-import { CreateLessonDto } from '../src/app/lesson/dto/create-lesson.dto';
-import { CreateNotificationDto } from '../src/app/notification/dto/create-notification.dto';
-import { CreateProgressTrackerDto } from '../src/app/progress_tracker/dto/create-progress_tracker.dto';
-import { CreateRessourceDto } from '../src/app/ressource/dto/create-ressource.dto';
-import { CreateRewardDto } from '../src/app/rewards/dto/create-reward.dto';
-import { CreateSubscriptionDto } from '../src/app/subscription/dto/create-subscription.dto';
-import { CreateTagDto } from '../src/app/tag/dto/create-tag.dto';
-import { CreateVideoDto } from '../src/app/video/dto/create-video.dto';
-import { CreateAchievementDto } from './../src/app/achievement/dto/create-achievement.dto';
-import { UserCreateDto } from './../src/app/users/dto/create-user.dto';
+import { CreateBadgeDto } from '../apps/api/src/app/badge/dto/create-badge.dto';
+import { CreateCategoryDto } from '../apps/api/src/app/category/dto/create-category.dto';
+import { CreateChapterDto } from '../apps/api/src/app/chapter/dto/create-chapter.dto';
+import { CreateGamificationDto } from '../apps/api/src/app/gamification/dto/create-gamification.dto';
+import { CreateImageDto } from '../apps/api/src/app/image/dto/create-image.dto';
+import { CreateLessonDto } from '../apps/api/src/app/lesson/dto/create-lesson.dto';
+import { CreateNotificationDto } from '../apps/api/src/app/notification/dto/create-notification.dto';
+import { CreateProgressTrackerDto } from '../apps/api/src/app/progress_tracker/dto/create-progress_tracker.dto';
+import { CreateRessourceDto } from '../apps/api/src/app/ressource/dto/create-ressource.dto';
+import { CreateRewardDto } from '../apps/api/src/app/rewards/dto/create-reward.dto';
+import { CreateSubscriptionDto } from '../apps/api/src/app/subscription/dto/create-subscription.dto';
+import { CreateTagDto } from '../apps/api/src/app/tag/dto/create-tag.dto';
+import { CreateVideoDto } from '../apps/api/src/app/video/dto/create-video.dto';
+import { CreateAchievementDto } from '../apps/api/src/app/achievement/dto/create-achievement.dto';
+import { UserCreateDto } from '../apps/api/src/app/users/dto/create-user.dto';
 
 const prisma = new PrismaClient();
 
