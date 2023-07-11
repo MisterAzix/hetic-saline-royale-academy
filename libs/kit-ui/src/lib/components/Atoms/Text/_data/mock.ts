@@ -1,3 +1,6 @@
+import { COLORS } from '../../../../../../styles/theme';
+import { Colors } from '../../../../../../styles/@types';
+
 export const tagName = [
   'p',
   'address',
@@ -11,3 +14,5 @@ export const tagName = [
   'h5',
   'h6',
 ] as const;
+
+export const colorPresets = Object.keys(COLORS) as Colors[];

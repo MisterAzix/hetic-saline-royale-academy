@@ -4,7 +4,7 @@ import { ElementType, PropsWithChildren } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
-type TextProps = {
+export type TextProps = {
   preset: TextPresets;
   color: string;
   fontSize: string;

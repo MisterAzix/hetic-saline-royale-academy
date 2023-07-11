@@ -1,9 +1,10 @@
 import type { Meta } from '@storybook/react';
-import Text from './Text';
+import Text, { TextProps } from './Text';
 import { StoryObj } from '@storybook/react';
 import { StorybookTitle } from '../../../../../@types';
 import { textPresets } from '../../../../../styles/typograhy/text-presets';
-import { tagName } from './_data/mock';
+import { colorPresets, tagName } from './_data/mock';
+import { generateStorybookControl } from '../../../../../../utils';
 
 const meta: Meta<typeof Text> & { title: StorybookTitle<'Text'> } = {
   title: 'Atoms/Text',
@@ -13,22 +14,23 @@ const meta: Meta<typeof Text> & { title: StorybookTitle<'Text'> } = {
     layout: 'centered',
   },
   argTypes: {
-    preset: {
-      control: {
-        type: 'select',
-      },
+    ...generateStorybookControl<TextProps, typeof textPresets>('preset', {
+      type: 'select',
       options: textPresets,
       defaultValue: 'text-md-regular',
       description: 'Set text preset',
-    },
-    tag: {
-      control: {
-        type: 'select',
-      },
+    }),
+    ...generateStorybookControl<TextProps, typeof tagName>('tag', {
+      type: 'select',
       options: tagName,
       defaultValue: 'p',
-      description: 'Set tag name',
-    },
+      description: 'Set text preset',
+    }),
+    ...generateStorybookControl<TextProps, typeof colorPresets>('color', {
+      type: 'select',
+      options: colorPresets,
+      defaultValue: 'success-500',
+    }),
   },
 };
 export default meta;
