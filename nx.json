@@ -3,16 +3,10 @@
   "npmScope": "hetic-saline-royale-academy",
   "tasksRunnerOptions": {
     "default": {
-      "runner": "nx-cloud",
+      "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e",
-          "build-storybook"
-        ],
-        "accessToken": "N2Q1MjdkNjMtNmQyMi00ZTA1LWE1MzUtN2Q4ZDBjZDJkYWNifHJlYWQtd3JpdGU="
+        "cacheableOperations": ["build", "lint", "test", "e2e", "build-storybook"],
+        "parallel": 1
       }
     }
   },
