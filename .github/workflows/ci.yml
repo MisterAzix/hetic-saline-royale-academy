@@ -1,5 +1,10 @@
 name: CI
 
+env:
+  DIST_API_PATH: dist/apps/api
+  DIST_CLIENT_PATH: dist/apps/client
+  DIST_ADMIN_PATH: dist/apps/admin
+
 on:
   pull_request:
   push:
@@ -53,7 +58,7 @@ jobs:
 
       - name: Lint project
         run: |
-          npm run lint
+          npm run affected:lint
 
   build:
     runs-on: ubuntu-latest
@@ -76,7 +81,7 @@ jobs:
 
       - name: Build project
         run: |
-          npm run build:all
+          npm run affected:build
 
       - name: Download project as artifact
         uses: actions/upload-artifact@main
@@ -116,7 +121,7 @@ jobs:
           envkey_GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           envkey_GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           envkey_GOOGLE_CLIENT_CALLBACK_URL: ${{ secrets.GOOGLE_CLIENT_CALLBACK_URL }}
-          directory: "dist/apps/api/"
+          directory: $DIST_API_PATH
           file_name: .env
           fail_on_empty: false
 
@@ -127,14 +132,14 @@ jobs:
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          SOURCE: "dist/apps/api/"
+          SOURCE: $DIST_API_PATH
           TARGET: "/var/www/${{ vars.API_URL }}"
 
       - name: Create Dashboard Env
         uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_API_URL: ${{ vars.API_URL }}
-          directory: "dist/apps/front-admin/"
+          directory: $DIST_ADMIN_PATH
           file_name: .env
           fail_on_empty: false
 
@@ -145,14 +150,14 @@ jobs:
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          SOURCE: "dist/apps/front-admin/"
+          SOURCE: $DIST_ADMIN_PATH
           TARGET: "/var/www/${{ vars.DASHBOARD_URL }}"
 
       - name: Create Client Env
         uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_API_URL: ${{ vars.API_URL }}
-          directory: "dist/apps/front-client/"
+          directory: $DIST_CLIENT_PATH
           file_name: .env
           fail_on_empty: false
 
@@ -163,7 +168,7 @@ jobs:
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          SOURCE: "dist/apps/front-client/"
+          SOURCE: $DIST_CLIENT_PATH
           TARGET: "/var/www/${{ vars.CLIENT_URL }}"
 
       - name: Restart Apps
