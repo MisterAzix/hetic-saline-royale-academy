@@ -11,6 +11,9 @@ import type {PaletteOptions, Palette} from '@mui/material'
  * @description
  * We need to extend the MUI theme types to add our custom typography and colors.
  * Otherwise, we'll get a type error when trying to use them.
+ *
+ * This file is present in front-admin, front-client and kit-ui.
+ * NX will throw a type error when trying to push if we don't put it in all workspaces.
  */
 declare module '@mui/material/styles' {
   //eslint-disable-next-line @typescript-eslint/no-empty-interface
