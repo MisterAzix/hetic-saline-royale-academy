@@ -6,6 +6,10 @@ import SearchIcon from '@mui/icons-material/Search';
 const meta: Meta<typeof TextWithIcon> = {
   component: TextWithIcon,
   title: 'Molecules/TextWithIcon',
+  parameters: {
+    layout: 'centered',
+  },
+  tags: ['autodocs'],
 };
 export default meta;
 type Story = StoryObj<typeof TextWithIcon>;

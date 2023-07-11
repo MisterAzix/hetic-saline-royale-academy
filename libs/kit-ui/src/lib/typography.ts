@@ -1,203 +1,211 @@
 // xs: 12px
 import { css } from '@emotion/react';
+import {
+  FONT_SIZES,
+  FONT_STYLES,
+  FONT_WEIGHTS,
+  LINE_HEIGHTS,
+} from '../../styles/typograhy';
+
+import { getTheme } from '../../styles/mixins';
 
 const textXsBase = css`
   font-family: 'Inter', sans-serif;
-  font-style: normal;
-  font-size: 12px;
-  line-height: 18px;
+  font-style: ${getTheme(FONT_STYLES, 'normal')};
+  font-size: ${getTheme(FONT_SIZES, 'text-xs')};
+  line-height: ${getTheme(LINE_HEIGHTS, 'text-xs')};
 `;
 
 const textXsRegular = css`
   ${textXsBase};
-  font-weight: 400;
+  font-weight: ${getTheme(FONT_WEIGHTS, 'regular')};
 `;
 
 const textXsMedium = css`
   ${textXsBase};
-  font-weight: 500;
+  font-weight: ${getTheme(FONT_WEIGHTS, 'medium')};
 `;
 
 const textXsSemiBold = css`
   ${textXsBase};
-  font-weight: 600;
+  font-weight: ${getTheme(FONT_WEIGHTS, 'semibold')};
 `;
 
 const textXsBold = css`
   ${textXsBase};
-  font-weight: 700;
+  font-weight: ${getTheme(FONT_WEIGHTS, 'bold')};
 `;
 
 // sm: 14px
 const textSmBase = css`
   font-family: 'Inter', sans-serif;
-  font-style: normal;
-  font-size: 14px;
-  line-height: 20px;
+  font-style: ${getTheme(FONT_STYLES, 'normal')};
+  font-size: ${getTheme(FONT_SIZES, 'text-sm')};
+  line-height: ${getTheme(LINE_HEIGHTS, 'text-sm')};
 `;
 
 const textSmRegular = css`
   ${textSmBase};
-  font-weight: 400;
+  font-weight: ${getTheme(FONT_WEIGHTS, 'regular')};
 `;
 
 const textSmMedium = css`
   ${textSmBase};
-  font-weight: 500;
+  font-weight: ${getTheme(FONT_WEIGHTS, 'medium')};
 `;
 
 const textSmSemiBold = css`
   ${textSmBase};
-  font-weight: 600;
+  font-weight: ${getTheme(FONT_WEIGHTS, 'semibold')};
 `;
 
 const textSmBold = css`
   ${textSmBase};
-  font-weight: 700;
+  font-weight: ${getTheme(FONT_WEIGHTS, 'bold')};
 `;
 
 // md: 16px
 const textMdBase = css`
   font-family: 'Inter', sans-serif;
-  font-style: normal;
-  font-size: 16px;
-  line-height: 24px;
+  font-style: ${getTheme(FONT_STYLES, 'normal')};
+  font-size: ${getTheme(FONT_SIZES, 'text-md')};
+  line-height: ${getTheme(LINE_HEIGHTS, 'text-md')};
 `;
 
 const textMdRegular = css`
   ${textMdBase};
-  font-weight: 400;
+  font-weight: ${getTheme(FONT_WEIGHTS, 'regular')};
 `;
 
 const textMdMedium = css`
   ${textMdBase};
-  font-weight: 500;
+  font-weight: ${getTheme(FONT_WEIGHTS, 'medium')};
 `;
 
 const textMdSemiBold = css`
   ${textMdBase};
-  font-weight: 600;
+  font-weight: ${getTheme(FONT_WEIGHTS, 'semibold')};
 `;
 
 const textMdBold = css`
   ${textMdBase};
-  font-weight: 700;
+  font-weight: ${getTheme(FONT_WEIGHTS, 'bold')};
 `;
 
 const textMdRegularItalic = css`
   ${textMdRegular};
-  font-style: italic;
+  font-style: ${getTheme(FONT_STYLES, 'italic')};
 `;
 
 const textMdMediumItalic = css`
   ${textMdMedium};
-  font-style: italic;
+  font-style: ${getTheme(FONT_STYLES, 'italic')};
 `;
 
 const textMdSemiBoldItalic = css`
   ${textMdSemiBold};
-  font-style: italic;
+  font-style: ${getTheme(FONT_STYLES, 'italic')};
 `;
 
 const textMdBoldItalic = css`
   ${textMdBold};
-  font-style: italic;
+  font-style: ${getTheme(FONT_STYLES, 'italic')};
 `;
 
 // lg: 18px
 const textLgBase = css`
   font-family: 'Inter', sans-serif;
-  font-style: normal;
-  font-size: 18px;
-  line-height: 28px;
+  font-style: ${getTheme(FONT_STYLES, 'normal')};
+  font-size: ${getTheme(FONT_SIZES, 'text-lg')};
+  line-height: ${getTheme(LINE_HEIGHTS, 'text-lg')};
 `;
 
 const textLgRegular = css`
   ${textLgBase};
-  font-weight: 400;
+  font-weight: ${getTheme(FONT_WEIGHTS, 'regular')};
 `;
 
 const textLgMedium = css`
   ${textLgBase};
-  font-weight: 500;
+  font-weight: ${getTheme(FONT_WEIGHTS, 'medium')};
 `;
 
 const textLgSemiBold = css`
   ${textLgBase};
-  font-weight: 600;
+  font-weight: ${getTheme(FONT_WEIGHTS, 'semibold')};
 `;
 
 const textLgBold = css`
   ${textLgBase};
-  font-weight: 700;
+  font-weight: ${getTheme(FONT_WEIGHTS, 'bold')};
 `;
 
 const textLgRegularItalic = css`
   ${textLgRegular};
-  font-style: italic;
+  font-style: ${getTheme(FONT_STYLES, 'italic')};
 `;
 
 const textLgMediumItalic = css`
   ${textLgMedium};
-  font-style: italic;
+  font-style: ${getTheme(FONT_STYLES, 'italic')};
 `;
 
 const textLgSemiBoldItalic = css`
   ${textLgSemiBold};
-  font-style: italic;
+  font-style: ${getTheme(FONT_STYLES, 'italic')};
 `;
 
 const textLgBoldItalic = css`
   ${textLgBold};
-  font-style: italic;
+  font-style: ${getTheme(FONT_STYLES, 'italic')};
 `;
 
 // xl: 20px
 const textXlBase = css`
   font-family: 'Inter', sans-serif;
-  font-style: normal;
-  font-size: 20px;
-  line-height: 30px;
+  font-style: ${getTheme(FONT_STYLES, 'normal')};
+  font-size: ${getTheme(FONT_SIZES, 'text-xl')};
+  line-height: ${getTheme(LINE_HEIGHTS, 'text-xl')};
 `;
 
 const textXlRegular = css`
   ${textXlBase};
-  font-weight: 400;
+  font-weight: ${getTheme(FONT_WEIGHTS, 'regular')};
 `;
 
 const textXlMedium = css`
   ${textXlBase};
-  font-weight: 500;
+  font-weight: ${getTheme(FONT_WEIGHTS, 'medium')};
 `;
 
 const textXlSemiBold = css`
   ${textXlBase};
-  font-weight: 600;
+  font-weight: ${getTheme(FONT_WEIGHTS, 'semibold')};
 `;
 
 const textXlBold = css`
   ${textXlBase};
-  font-weight: 700;
+  font-weight: ${getTheme(FONT_WEIGHTS, 'bold')};
 `;
 
 const textXlRegularItalic = css`
   ${textXlRegular};
-  font-style: italic;
+  font-style: ${getTheme(FONT_STYLES, 'italic')};
 `;
 
 const textXlMediumItalic = css`
   ${textXlMedium};
-  font-style: italic;
+  font-style: ${getTheme(FONT_STYLES, 'italic')};
 `;
 
 const textXlSemiBoldItalic = css`
   ${textXlSemiBold};
-  font-style: italic;
+  font-style: ${getTheme(FONT_STYLES, 'italic')};
 `;
 
 const textXlBoldItalic = css`
   ${textXlBold};
-  font-style: italic;
+  font-style: ${getTheme(FONT_STYLES, 'italic')};
 `;
 
 export const typography = {

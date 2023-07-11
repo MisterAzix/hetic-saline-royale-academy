@@ -1,28 +1,5 @@
-import {
-  COLORS,
-  DESKTOP,
-  FONT_WEIGHTS,
-  MAX,
-  MOBILE,
-  SCREENS,
-  SPACING,
-  TABLET,
-} from '../theme';
-
-type Theme =
-  | typeof SPACING
-  | typeof FONT_WEIGHTS
-  | typeof MOBILE
-  | typeof TABLET
-  | typeof DESKTOP
-  | typeof COLORS
-  | typeof MAX
-  | typeof SCREENS;
-
-type Breakpoint = keyof typeof SCREENS;
-
-type ColumnConfig = 'mobile' | 'tablet' | 'desktop';
-
-type ScreenSize = typeof MOBILE | typeof TABLET | typeof DESKTOP;
-
-export type { Breakpoint, Theme, ColumnConfig, ScreenSize };
+export * from './colors';
+export * from './screens';
+export * from './utils';
+export * from './theme';
+export * from './text';
