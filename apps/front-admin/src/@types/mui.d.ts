@@ -1,3 +1,7 @@
+import type {
+  TextPresetsBoolean,
+  TextPresetsObject,
+} from '@hetic-saline-royale-academy/kit-ui';
 /**
  * @description
  * I don't really know why but eslint is complaining about this import,
@@ -8,12 +12,24 @@ import type { PaletteOptions, Palette } from '@mui/material';
 
 /**
  * @description
- * We need to extend the MUI theme types to add our custom colors.
+ * We need to extend the MUI theme types to add our custom typography and colors.
  * Otherwise, we'll get a type error when trying to use them.
  *
  * This file is present in front-admin, front-client and kit-ui.
- * NX will throw a type error when trying to push if we don't put it in this three workspaces.
+ * NX will throw a type error when trying to push if we don't put it in all workspaces.
  */
+declare module '@mui/material/styles' {
+  //eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface TypographyVariants extends TextPresetsObject {}
+  //eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface TypographyVariantsOptions extends TextPresetsObject {}
+}
+
+declare module '@mui/material/Typography' {
+  //eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface TypographyPropsVariantOverrides extends TextPresetsBoolean {}
+}
+
 declare module '@mui/material/styles' {
   interface Palette {
     white: Palette['primary'];
