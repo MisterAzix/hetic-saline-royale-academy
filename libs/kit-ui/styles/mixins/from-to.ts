@@ -1,10 +1,13 @@
-import { SCREENS } from '../../theme';
-import type { Breakpoint } from '../../@types';
-import { getTheme } from '../get-theme';
+import { SCREENS } from '../theme';
+import type { Breakpoint } from '../@types';
+import { getTheme } from './get-theme';
 import { SerializedStyles } from '@emotion/react';
-import { raiseError } from '../../../../utils';
+import { raiseError } from '../../../utils';
 
-const from = (breakpoint: Breakpoint, content: string | SerializedStyles | undefined) => {
+const from = (
+  breakpoint: Breakpoint,
+  content: string | SerializedStyles | undefined
+) => {
   if (typeof content === 'string')
     return `@media screen and (min-width: ${getTheme(SCREENS, breakpoint)}) {
     ${content}
@@ -20,7 +23,10 @@ const from = (breakpoint: Breakpoint, content: string | SerializedStyles | undef
   );
 };
 
-const fromTo = (breakpoint: Breakpoint, content: string | SerializedStyles | undefined) => {
+const fromTo = (
+  breakpoint: Breakpoint,
+  content: string | SerializedStyles | undefined
+) => {
   if (typeof content === 'string') {
     return `@media screen and (min-width: ${getTheme(
       SCREENS,
