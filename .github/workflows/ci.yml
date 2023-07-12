@@ -96,11 +96,12 @@ jobs:
       url: ${{ vars.CLIENT_URL }}
     needs:
       - build
-    if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' }}
+    # if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' }}
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
       - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
@@ -112,7 +113,15 @@ jobs:
           name: bundle
           path: dist
 
+      - name: ECHO
+        run: |
+          ls -la
+          if [[ -d $DIST_API_PATH ]]; then echo "API"; fi
+          if [[ -d $DIST_CLIENT_PATH ]]; then echo "CLIENT"; fi
+          if [[ -d $DIST_ADMIN_PATH ]]; then echo "ADMIN"; fi
+
       - name: Create API Env
+        if: ${{ if [[ -d $DIST_API_PATH ]] then true; fi }}
         uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_PORT: ${{ secrets.API_PORT }}
@@ -126,6 +135,7 @@ jobs:
           fail_on_empty: false
 
       - name: Deploy API
+        if: ${{ if [[ -d $DIST_API_PATH ]] then true; fi }}
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -136,6 +146,7 @@ jobs:
           TARGET: "/var/www/${{ vars.API_URL }}"
 
       - name: Create Dashboard Env
+        if: ${{ if [[ -d $DIST_ADMIN_PATH ]] then true; fi }}
         uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_API_URL: ${{ vars.API_URL }}
@@ -144,6 +155,7 @@ jobs:
           fail_on_empty: false
 
       - name: Deploy Dashboard
+        if: ${{ if [[ -d $DIST_ADMIN_PATH ]] then true; fi }}
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -154,6 +166,7 @@ jobs:
           TARGET: "/var/www/${{ vars.DASHBOARD_URL }}"
 
       - name: Create Client Env
+        if: ${{ if [[ -d $DIST_CLIENT_PATH ]] then true; fi }}
         uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_API_URL: ${{ vars.API_URL }}
@@ -162,6 +175,7 @@ jobs:
           fail_on_empty: false
 
       - name: Deploy Client
+        if: ${{ if [[ -d $DIST_CLIENT_PATH ]] then true; fi }}
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
