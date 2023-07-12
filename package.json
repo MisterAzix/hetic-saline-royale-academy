@@ -6,12 +6,14 @@
     "node": "18.16.0"
   },
   "scripts": {
-    "lint": "nx workspace-lint && nx run-many --all --target=lint  --maxWarnings=0",
+    "lint": "nx workspace-lint && nx run-many --all --target=lint --maxWarnings=0",
     "test": "nx test",
     "test:all": "npx nx run-many --all --target=test --parallel",
     "build": "nx build",
     "build:all": "npx nx run-many --all --target=build --parallel --with-deps",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "affected:lint": "nx affected:lint --base=remotes/origin/main --parallel=4 --maxWarnings=0",
+    "affected:build": "nx affected:build --base=remotes/origin/main --parallel=4 --with-deps"
   },
   "private": true,
   "dependencies": {
