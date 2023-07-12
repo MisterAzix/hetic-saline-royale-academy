@@ -7,7 +7,7 @@ import {
   ROOT_FONT_SIZE,
 } from './typograhy';
 import { TEXT_PRESETS } from './typograhy/text-presets';
-import type {ColorInHexadecimal, Colors, MuiColors} from './@types'
+import type { ColorInHexadecimal, Colors, MuiColors } from './@types';
 const COLORS = {
   white: '#FFFFFF',
   black: '#000000',
@@ -242,8 +242,6 @@ const MAX = {
   designWidth: 1440,
   width: 1940,
 };
-
-
 
 const muiTheme = createTheme({
   typography: {
