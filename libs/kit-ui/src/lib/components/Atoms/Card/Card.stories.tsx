@@ -26,10 +26,10 @@ export const Playground: Story = {
   render: (args) => (
     <Card {...args}>
       <CardContent>
-        <Text preset="text-lg-semibold" color="gray_900">
+        <Text preset="text-lg-semibold" color="gray-900">
           Exemple de titre de carte
         </Text>
-        <Text preset="text-xs-regular" color="gray_700">
+        <Text preset="text-xs-regular" color="gray-500">
           Il y a 2 jours
         </Text>
         <Divider sx={{ my: 1 }} />

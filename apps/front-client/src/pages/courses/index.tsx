@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import DashboardLayout from '../../layout/DashboardLayout';
 import { routes } from '../../routes';
-import { Card } from '@hetic-saline-royale-academy/kit-ui';
+import { Card, Text } from '@hetic-saline-royale-academy/kit-ui';
 import { CardContent, Stack } from '@mui/material';
 import styled from '@emotion/styled';
 
@@ -14,7 +14,11 @@ function Courses() {
   return (
     <CardContainer>
       <Card orientation="horizontal" image="/images/default_cover.png">
-        <CardContent>Cours 1 : Le violon</CardContent>
+        <CardContent>
+          <Text color="gray-900" preset="text-lg-semibold">
+            Cours 1 : Le violon
+          </Text>
+        </CardContent>
       </Card>
       <Card orientation="horizontal" image="/images/default_cover.png">
         <CardContent>Cours 2 : Le violoncelle</CardContent>

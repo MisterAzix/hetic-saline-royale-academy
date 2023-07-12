@@ -1,8 +1,8 @@
 import { Image as AbstractImage } from '../../Abstracts/Image';
 import type { ImageProps as AbstractImageProps } from '../../Abstracts/Image';
 import { ClassNames, SerializedStyles } from '@emotion/react';
-import { SCREENS } from '../../../../../styles/theme';
-import { applyPercentRatio } from '../../../../../styles/mixins';
+import { SCREENS } from '../../../styles/theme';
+import { applyPercentRatio } from '../../../styles/mixins';
 
 type ImageProps = Omit<AbstractImageProps, 'style' | 'ratio'> & {
   style: SerializedStyles;

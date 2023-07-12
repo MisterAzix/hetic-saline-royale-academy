@@ -5,9 +5,9 @@ import {
   FONT_STYLES,
   FONT_WEIGHTS,
   LINE_HEIGHTS,
-} from '../../styles/typograhy';
+} from './styles/typograhy';
 
-import { getTheme } from '../../styles/mixins';
+import { getTheme } from './styles/mixins';
 
 const textXsBase = css`
   font-family: 'Inter', sans-serif;

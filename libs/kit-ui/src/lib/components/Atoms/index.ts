@@ -4,8 +4,9 @@ import HelperText from './HelperText';
 import Input from './Input';
 import Label from './Label';
 import Card from './Card';
+import Text from './Text';
 
 // Icons
 import GoogleIcon from './Icons/GoogleIcon';
 
-export { Button, Checkbox, HelperText, GoogleIcon, Input, Label, Card };
+export { Button, Checkbox, HelperText, GoogleIcon, Input, Label, Card, Text };

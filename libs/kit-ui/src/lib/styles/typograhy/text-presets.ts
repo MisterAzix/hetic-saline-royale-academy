@@ -6,7 +6,7 @@ import {
 } from '../@types';
 import { getTheme } from '../mixins';
 import { FONT_SIZES, FONT_STYLES, FONT_WEIGHTS, LINE_HEIGHTS } from './index';
-import { raiseError } from '../../../utils';
+import { raiseError } from '../../../../../utils';
 
 type Base = ReturnType<typeof getBaseText>;
 

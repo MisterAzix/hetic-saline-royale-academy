@@ -5,7 +5,7 @@ import type { TextPresetsBoolean, TextPresetsObject } from './text';
  * but we need it to expand our types.
  * **/
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type {PaletteOptions, Palette} from '@mui/material'
+import type { PaletteOptions, Palette } from '@mui/material';
 
 /**
  * @description

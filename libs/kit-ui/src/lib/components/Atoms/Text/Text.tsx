@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import { TextPresets } from '../../../../../styles/@types';
+import { TextPresets } from '../../../styles/@types';
 import { ElementType, PropsWithChildren } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
@@ -20,13 +20,7 @@ const TextWrapper = styled.div<{ css: string }>`
   ${dynamicStyle}
 `;
 
-function Text({
-  css = '',
-  preset,
-  color,
-  children,
-  tag = 'p',
-}: TextProps) {
+function Text({ css = '', preset, color, children, tag = 'p' }: TextProps) {
   return (
     <TextWrapper css={css}>
       <Typography

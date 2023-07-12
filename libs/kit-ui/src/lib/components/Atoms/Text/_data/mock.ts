@@ -1,5 +1,5 @@
-import { COLORS } from '../../../../../../styles/theme';
-import { Colors } from '../../../../../../styles/@types';
+import { COLORS } from '../../../../styles/theme';
+import { Colors } from '../../../../styles/@types';
 
 export const tagName = [
   'p',
