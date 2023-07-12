@@ -33,7 +33,7 @@ export const Playground: Story = {
           Il y a 2 jours
         </Text>
         <Divider sx={{ my: 1 }} />
-        <Text preset="text-sm-regular" color="gray_500">
+        <Text preset="text-sm-regular" color="gray-500">
           Exemple de description de carte : Lorem ipsum dolor sit amet
           consectetur adipisicing elit. Quae, id deleniti. Hic, beatae
           blanditiis aspernatur mollitia autem ea voluptas nostrum enim a quia
