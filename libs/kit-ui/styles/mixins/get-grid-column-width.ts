@@ -1,6 +1,6 @@
-import { ColumnConfig, ScreenSize } from '../../@types';
-import { getTheme } from '../get-theme';
-import { DESKTOP, MOBILE, TABLET } from '../../theme';
+import { ColumnConfig, ScreenSize } from '../@types';
+import { getTheme } from './get-theme';
+import { DESKTOP, MOBILE, TABLET } from '../theme';
 
 export const getGridColumnWidth = (
   size: ColumnConfig,

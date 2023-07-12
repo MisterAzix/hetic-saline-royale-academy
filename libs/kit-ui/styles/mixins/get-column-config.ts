@@ -1,6 +1,6 @@
-import { getTheme } from '../get-theme';
-import { DESKTOP, MOBILE, TABLET } from '../../theme';
-import { ColumnConfig } from '../../@types';
+import { getTheme } from './get-theme';
+import { DESKTOP, MOBILE, TABLET } from '../theme';
+import { ColumnConfig } from '../@types';
 
 export const getColumnConfig = (config: ColumnConfig, withDebug?: boolean) => {
   switch (config) {
