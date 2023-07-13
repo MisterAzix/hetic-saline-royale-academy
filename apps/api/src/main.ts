@@ -25,6 +25,7 @@ async function bootstrap() {
     origin: [
       process.env.CLIENT_URL || 'http://localhost:8080',
       process.env.DASHBOARD_URL || 'http://localhost:8081',
+      process.env.API_URL || 'http://localhost:3000',
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,

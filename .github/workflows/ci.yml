@@ -57,6 +57,8 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref == 'refs/heads/main' && 'production' || 'develop' }}
     needs:
       - lint
     steps:
@@ -74,6 +76,22 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-npm-v3-${{ hashFiles('package-lock.json') }}
 
+      - name: Create Dashboard Env
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_API_URL: http://${{ vars.API_URL }}
+          directory: "apps/front-admin/"
+          file_name: .env
+          fail_on_empty: false
+
+      - name: Create Client Env
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_API_URL: http://${{ vars.API_URL }}
+          directory: "apps/front-client/"
+          file_name: .env
+          fail_on_empty: false
+
       - name: Build project
         run: |
           npm run build:all
@@ -88,7 +106,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.ref == 'refs/heads/main' && 'production' || 'develop' }}
-      url: ${{ vars.CLIENT_URL }}
+      url: http://${{ vars.CLIENT_URL }}
     needs:
       - build
     if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' }}
@@ -116,8 +134,9 @@ jobs:
           envkey_GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           envkey_GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           envkey_GOOGLE_CLIENT_CALLBACK_URL: ${{ secrets.GOOGLE_CLIENT_CALLBACK_URL }}
-          envkey_CLIENT_URL: ${{ vars.CLIENT_URL }}
-          envkey_DASHBOARD_URL: ${{ vars.DASHBOARD_URL }}
+          envkey_API_URL: http://${{ vars.API_URL }}
+          envkey_CLIENT_URL: http://${{ vars.CLIENT_URL }}
+          envkey_DASHBOARD_URL: http://${{ vars.DASHBOARD_URL }}
           directory: "dist/apps/api/"
           file_name: .env
           fail_on_empty: false
@@ -132,15 +151,6 @@ jobs:
           SOURCE: "dist/apps/api/"
           TARGET: "/var/www/${{ vars.API_URL }}"
 
-      - name: Create Dashboard Env
-        uses: SpicyPizza/create-envfile@v2.0
-        with:
-          envkey_API_URL: ${{ vars.API_URL }}
-          envkey_NEXT_PUBLIC_API_URL: ${{ vars.API_URL }}
-          directory: "dist/apps/front-admin/"
-          file_name: .env
-          fail_on_empty: false
-
       - name: Deploy Dashboard
         uses: easingthemes/ssh-deploy@main
         env:
@@ -150,15 +160,6 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           SOURCE: "dist/apps/front-admin/"
           TARGET: "/var/www/${{ vars.DASHBOARD_URL }}"
-
-      - name: Create Client Env
-        uses: SpicyPizza/create-envfile@v2.0
-        with:
-          envkey_API_URL: ${{ vars.API_URL }}
-          envkey_NEXT_PUBLIC_API_URL: ${{ vars.API_URL }}
-          directory: "dist/apps/front-client/"
-          file_name: .env
-          fail_on_empty: false
 
       - name: Deploy Client
         uses: easingthemes/ssh-deploy@main
