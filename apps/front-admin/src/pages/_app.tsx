@@ -22,8 +22,6 @@ const queryClient = new QueryClient();
 
 function AdminApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout || ((page) => page);
-  console.log('API_URL', process.env.API_URL);
-  console.log('NEXT_PUBLIC_API_URL', process.env.NEXT_PUBLIC_API_URL);
 
   return (
     <>

@@ -57,6 +57,9 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref == 'refs/heads/main' && 'production' || 'develop' }}
+      url: ${{ vars.CLIENT_URL }}
     needs:
       - lint
     steps:
@@ -132,15 +135,6 @@ jobs:
           SOURCE: "dist/apps/api/"
           TARGET: "/var/www/${{ vars.API_URL }}"
 
-      - name: Create Dashboard Env
-        uses: SpicyPizza/create-envfile@v2.0
-        with:
-          envkey_API_URL: ${{ vars.API_URL }}
-          envkey_NEXT_PUBLIC_API_URL: ${{ vars.API_URL }}
-          directory: "dist/apps/front-admin/"
-          file_name: .env
-          fail_on_empty: false
-
       - name: Deploy Dashboard
         uses: easingthemes/ssh-deploy@main
         env:
@@ -150,15 +144,6 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           SOURCE: "dist/apps/front-admin/"
           TARGET: "/var/www/${{ vars.DASHBOARD_URL }}"
-
-      - name: Create Client Env
-        uses: SpicyPizza/create-envfile@v2.0
-        with:
-          envkey_API_URL: ${{ vars.API_URL }}
-          envkey_NEXT_PUBLIC_API_URL: ${{ vars.API_URL }}
-          directory: "dist/apps/front-client/"
-          file_name: .env
-          fail_on_empty: false
 
       - name: Deploy Client
         uses: easingthemes/ssh-deploy@main
