@@ -1,6 +1,6 @@
 import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Prisma } from '@prisma/client';
+import { Prisma, Role } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { generateRandomPassword } from '../../helper/helper.services';
 import { UsersService } from '../users/users.service';
@@ -27,7 +27,7 @@ export class AuthService {
     emailInput: string,
     pass: string
   ): Promise<{ access_token: string }> {
-    const { password, firstName, lastName, id, email } =
+    const { password, firstName, lastName, id, email, role } =
       (await this.usersService.findOne({ email: emailInput })) ?? {};
 
     if (!email || !password) {
@@ -48,6 +48,7 @@ export class AuthService {
       lastName,
       sub: id,
       email,
+      role,
     };
     this.logger.log(`User login successfully : ${id}`);
 
@@ -90,6 +91,7 @@ export class AuthService {
       firstName,
       lastName,
       password: oAuthUserPwd,
+      role: Role.USER,
     };
 
     const createdUser = await this.usersService.createUser(userData);
@@ -99,6 +101,7 @@ export class AuthService {
       lastName: createdUser.lastName,
       sub: createdUser.id,
       email: createdUser.email,
+      role: createdUser.role,
     };
     this.logger.log(`User login from google OAuth : ${createdUser.id}`);
 

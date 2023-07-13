@@ -6,9 +6,11 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { Video } from '@prisma/client';
+import { AdminGuard } from '../admin.guard';
 import { CreateVideoDto } from './dto/create-video.dto';
 import { UpdateVideoDto } from './dto/update-video.dto';
 import { VideoEntity } from './entities/video.entity';
@@ -25,6 +27,7 @@ export class VideoController {
    * @param {CreateVideoDto} createVideoDto - The data for creating the video.
    * @returns {Promise<Video>} - The created video.
    */
+  @UseGuards(AdminGuard)
   @Post()
   @ApiCreatedResponse({ type: VideoEntity })
   create(@Body() createVideoDto: CreateVideoDto): Promise<Video> {
@@ -36,6 +39,7 @@ export class VideoController {
    *
    * @returns {Promise<Video[]>} - An array of videos.
    */
+  @UseGuards(AdminGuard)
   @Get()
   @ApiCreatedResponse({ type: VideoEntity, isArray: true })
   findAll(): Promise<Video[]> {
@@ -48,6 +52,7 @@ export class VideoController {
    * @param {string} id - The ID of the video.
    * @returns {Promise<Video>} - The video found.
    */
+  @UseGuards(AdminGuard)
   @Get(':id')
   @ApiCreatedResponse({ type: VideoEntity })
   findOne(@Param('id') id: string): Promise<Video> {
@@ -61,6 +66,7 @@ export class VideoController {
    * @param {UpdateVideoDto} updateVideoDto - The data for updating the video.
    * @returns {Promise<Video>} - The updated video.
    */
+  @UseGuards(AdminGuard)
   @Patch(':id')
   @ApiCreatedResponse({ type: VideoEntity })
   update(
@@ -76,7 +82,9 @@ export class VideoController {
    * @param {string} id - The ID of the video to remove.
    * @returns {Promise<Video>} - The removed video.
    */
+  @UseGuards(AdminGuard)
   @Delete(':id')
+  @ApiCreatedResponse({ type: VideoEntity })
   remove(@Param('id') id: string): Promise<Video> {
     return this.videoService.remove(id);
   }

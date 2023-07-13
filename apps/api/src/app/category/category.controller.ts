@@ -6,9 +6,11 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { Category } from '@prisma/client';
+import { AdminGuard } from '../admin.guard';
 import { CreatedBy } from '../decorators/created-by.decorator';
 import { LastUpdatedBy } from '../decorators/last-updated-by.decorator';
 import { CategoryService } from './category.service';
@@ -27,6 +29,7 @@ export class CategoryController {
    * @param {CreateCategoryDto} createCategoryDto - The DTO containing the category data.
    * @returns {Promise<Category>} - The created category.
    */
+  @UseGuards(AdminGuard)
   @Post()
   @ApiCreatedResponse({ type: CategoryEntity })
   create(
@@ -46,6 +49,7 @@ export class CategoryController {
    *
    * @returns {Promise<Category[]>} - An array of categories.
    */
+  @UseGuards(AdminGuard)
   @Get()
   @ApiCreatedResponse({ type: CategoryEntity, isArray: true })
   findAll(): Promise<Category[]> {
@@ -58,6 +62,7 @@ export class CategoryController {
    * @param {string} id - The ID of the category to retrieve.
    * @returns {Promise<Category>} - The category with the specified ID.
    */
+  @UseGuards(AdminGuard)
   @Get(':id')
   @ApiCreatedResponse({ type: CategoryEntity })
   findOne(@Param('id') id: string): Promise<Category> {
@@ -71,6 +76,7 @@ export class CategoryController {
    * @param {UpdateCategoryDto} updateCategoryDto - The DTO containing the updated category data.
    * @returns {Promise<Category>} - The updated category.
    */
+  @UseGuards(AdminGuard)
   @Patch(':id')
   @ApiCreatedResponse({ type: CategoryEntity })
   update(
@@ -90,6 +96,7 @@ export class CategoryController {
    * @param {string} id - The ID of the category to remove.
    * @returns {Promise<Category>} - The removed category.
    */
+  @UseGuards(AdminGuard)
   @Delete(':id')
   @ApiCreatedResponse({ type: CategoryEntity })
   remove(@Param('id') id: string): Promise<Category> {
