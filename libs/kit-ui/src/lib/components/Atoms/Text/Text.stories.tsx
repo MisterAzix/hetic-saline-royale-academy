@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react';
 import Text, { TextProps } from './Text';
 import { StoryObj } from '@storybook/react';
 import { StorybookTitle } from '../../../../../@types';
-import { textPresets } from '../../../../../styles/typograhy/text-presets';
+import { textPresets } from '../../../styles/typograhy/text-presets';
 import { colorPresets, tagName } from './_data/mock';
 import { generateStorybookControl } from '../../../../../../utils';
 

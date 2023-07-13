@@ -12,8 +12,8 @@ import { Ratio } from '../Ratio';
 import { Sizes, useSizesFromBreakpoints } from './math';
 import clsx from 'clsx';
 import { CldImage } from 'next-cloudinary';
-import { getTheme } from '../../../../../styles/mixins';
-import { COLORS } from '../../../../../styles/theme';
+import { getTheme } from '../../../styles/mixins';
+import { COLORS } from '../../../styles/theme';
 
 export type ImageProps = Omit<NexImageProps, 'src' | 'width' | 'height'> & {
   sizesFromBreakpoints?: Sizes;
@@ -73,7 +73,7 @@ function ImageForwarded(
     pointerEvents: 'none',
     transition: 'opacity 0.3s ease-out',
     opacity: loaded ? 0 : 1,
-    background: getTheme(COLORS, 'gray_300'),
+    background: getTheme(COLORS, 'gray-300'),
   };
 
   const imageStyle: CSSProperties = {

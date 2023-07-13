@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { ImageProps } from './index';
-import {Breakpoint} from '../../../../../styles/@types'
+import { Breakpoint } from '../../../styles/@types';
 
 export type Size = {
-  breakpoint?: Breakpoint | number ;
+  breakpoint?: Breakpoint | number;
   ratio: number;
 };
 
