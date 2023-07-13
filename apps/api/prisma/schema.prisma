@@ -9,7 +9,7 @@ generator dbml {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres:password@localhost:5555/saline?schema=public"
+  url      = "postgresql://postgres:password@localhost:5432/saline?schema=public"
 }
 
 model Achievement {
