@@ -28,7 +28,7 @@ export class AuthGuard implements CanActivate {
     const token = this.extractTokenFromHeader(request);
     if (!token) {
       throw new UnauthorizedException(
-         `Failed to extract token. Invalid token or incorrect email/password.`
+         `Failed to extract token. Invalid token.`
       );
     }
     try {
