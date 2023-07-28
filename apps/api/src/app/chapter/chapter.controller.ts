@@ -6,9 +6,11 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { Chapter } from '@prisma/client';
+import { AdminGuard } from '../admin.guard';
 import { ChapterService } from './chapter.service';
 import { CreateChapterDto } from './dto/create-chapter.dto';
 import { UpdateChapterDto } from './dto/update-chapter.dto';
@@ -25,6 +27,7 @@ export class ChapterController {
    * @param {CreateChapterDto} createChapterDto - The data for creating the chapter.
    * @returns {Promise<Chapter>} - The created chapter.
    */
+  @UseGuards(AdminGuard)
   @Post()
   @ApiCreatedResponse({ type: ChapterEntity })
   create(@Body() createChapterDto: CreateChapterDto): Promise<Chapter> {
@@ -36,6 +39,7 @@ export class ChapterController {
    *
    * @returns {Promise<Chapter[]>} - An array of chapters.
    */
+  @UseGuards(AdminGuard)
   @Get()
   @ApiCreatedResponse({ type: ChapterEntity, isArray: true })
   findAll(): Promise<Chapter[]> {
@@ -48,7 +52,9 @@ export class ChapterController {
    * @param {string} id - The ID of the chapter to retrieve.
    * @returns {Promise<Chapter>} - The chapter with the specified ID.
    */
+  @UseGuards(AdminGuard)
   @Get(':id')
+  @ApiCreatedResponse({ type: ChapterEntity })
   findOne(@Param('id') id: string): Promise<Chapter> {
     return this.chapterService.findOne(id);
   }
@@ -60,6 +66,7 @@ export class ChapterController {
    * @param {UpdateChapterDto} updateChapterDto - The data for updating the chapter.
    * @returns {Promise<Chapter>} - The updated chapter.
    */
+  @UseGuards(AdminGuard)
   @Patch(':id')
   @ApiCreatedResponse({ type: ChapterEntity })
   update(
@@ -75,6 +82,7 @@ export class ChapterController {
    * @param {string} id - The ID of the chapter to remove.
    * @returns {Promise<Chapter>} - The removed chapter.
    */
+  @UseGuards(AdminGuard)
   @Delete(':id')
   @ApiCreatedResponse({ type: ChapterEntity })
   remove(@Param('id') id: string): Promise<Chapter> {
