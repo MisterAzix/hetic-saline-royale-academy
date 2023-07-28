@@ -74,7 +74,13 @@
           "ci": true,
           "codeCoverage": true
         }
-      }
+      },
+      "dependsOn": [
+        {
+          "target": "migrate",
+          "projects": "self"
+        }
+      ]
     }
   },
   "tags": []
