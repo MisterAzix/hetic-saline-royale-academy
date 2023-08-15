@@ -1,19 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Prisma, Role } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import {
-  IsArray,
-  IsBoolean,
   IsEmail,
   IsNotEmpty,
-  IsObject,
   IsString,
+  IsStrongPassword,
 } from 'class-validator';
 
-export class UserCreateDto {
-  @ApiProperty({ type: String, required: false })
-  @IsString()
-  displayName?: string;
-
+export class UserCreateDto implements Prisma.UserCreateInput {
   @ApiProperty({ type: String })
   @IsString()
   @IsNotEmpty()
@@ -25,46 +19,13 @@ export class UserCreateDto {
   lastName: string;
 
   @ApiProperty({ type: String, required: false })
+  @IsString()
   @IsEmail()
   email: string;
-
-  @ApiProperty({ type: Boolean, required: false, default: false })
-  @IsBoolean()
-  deleted?: boolean;
-
-  @ApiProperty({ required: false, default: 'USER' })
-  role?: Role;
 
   @ApiProperty({ type: String, required: false })
   @IsString()
   @IsNotEmpty()
+  @IsStrongPassword()
   password: string;
-
-  @ApiProperty({ type: String, required: false })
-  @IsString()
-  preferences?: string;
-
-  @ApiProperty({ type: String, required: false })
-  @IsString()
-  ecole?: string;
-
-  @ApiProperty({ type: Object, required: false })
-  @IsObject()
-  image?: object;
-
-  @ApiProperty({ type: Object, required: false })
-  @IsObject()
-  gamefication?: object;
-
-  @ApiProperty({ type: Object, required: false })
-  @IsObject()
-  notification?: object;
-
-  @ApiProperty({ type: Object, required: false })
-  @IsObject()
-  subscription?: object;
-
-  @ApiProperty({ type: Array, required: false })
-  @IsArray()
-  courses?: Prisma.UserCreateInput['courses'];
 }

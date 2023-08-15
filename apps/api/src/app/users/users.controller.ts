@@ -28,12 +28,7 @@ export class UsersController {
   @Post()
   @ApiCreatedResponse({ type: UsersEntity })
   create(@Body() userCreateDto: UserCreateDto): Promise<User> {
-    const courses = getElementIds(userCreateDto.courses);
-
-    return this.usersService.createUser({
-      ...userCreateDto,
-      courses: { connect: courses },
-    });
+    return this.usersService.createUser(userCreateDto);
   }
 
   /**
