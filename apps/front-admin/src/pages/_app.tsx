@@ -8,6 +8,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
+import { SessionProvider } from 'next-auth/react';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -27,11 +28,15 @@ function AdminApp({ Component, pageProps }: AppPropsWithLayout) {
       <Head>
         <title>Saline Royale Academy | Admin</title>
       </Head>
-      <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
-          <main className="app">{getLayout(<Component {...pageProps} />)}</main>
-        </Hydrate>
-      </QueryClientProvider>
+      <SessionProvider session={pageProps.session}>
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps.dehydratedState}>
+            <main className="app">
+              {getLayout(<Component {...pageProps} />)}
+            </main>
+          </Hydrate>
+        </QueryClientProvider>
+      </SessionProvider>
     </>
   );
 }

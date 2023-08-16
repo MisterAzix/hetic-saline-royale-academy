@@ -18,7 +18,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getServerSession(context.req, context.res, authOptions);
 
   if (session) {
-    return { redirect: { destination: routes.explore } };
+    return { redirect: { destination: routes.dashboard } };
   }
 
   return {

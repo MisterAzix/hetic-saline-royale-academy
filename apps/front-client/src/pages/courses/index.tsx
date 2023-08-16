@@ -4,6 +4,9 @@ import { routes } from '../../routes';
 import { Card, Text } from '@hetic-saline-royale-academy/kit-ui';
 import { CardContent, Divider, Stack } from '@mui/material';
 import styled from '@emotion/styled';
+import { GetServerSidePropsContext } from 'next';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../api/auth/[...nextauth]';
 
 const CardContainer = styled(Stack)`
   gap: 1rem;
@@ -62,5 +65,15 @@ Courses.getLayout = (page: ReactElement) => {
     </DashboardLayout>
   );
 };
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+
+  if (!session) {
+    return { redirect: { destination: routes.login } };
+  }
+
+  return { props: { session } };
+}
 
 export default Courses;
