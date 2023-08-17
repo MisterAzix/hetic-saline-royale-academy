@@ -10,6 +10,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query';
 import { muiTheme } from '@hetic-saline-royale-academy/kit-ui';
+import { SessionProvider } from 'next-auth/react';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -29,15 +30,17 @@ function ClientApp({ Component, pageProps }: AppPropsWithLayout) {
       <Head>
         <title>Saline Royale Academy</title>
       </Head>
-      <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
-          <ThemeProvider theme={muiTheme}>
-            <main className="app">
-              {getLayout(<Component {...pageProps} />)}
-            </main>
-          </ThemeProvider>
-        </Hydrate>
-      </QueryClientProvider>
+      <SessionProvider session={pageProps.session}>
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps.dehydratedState}>
+            <ThemeProvider theme={muiTheme}>
+              <main className="app">
+                {getLayout(<Component {...pageProps} />)}
+              </main>
+            </ThemeProvider>
+          </Hydrate>
+        </QueryClientProvider>
+      </SessionProvider>
     </>
   );
 }

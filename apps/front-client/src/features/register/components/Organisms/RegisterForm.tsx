@@ -10,14 +10,13 @@ import {
   Checkbox,
   palette,
   typography,
-  GoogleIcon,
 } from '@hetic-saline-royale-academy/kit-ui';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import FirstnameField from '../Molecules/FirstnameField';
 import LastnameField from '../Molecules/LastnameField';
 
-const FormContainer = styled.div`
+const FormContainer = styled.form`
   max-width: 360px;
   width: 100%;
 `;
@@ -83,24 +82,6 @@ const RegisterForm = () => {
             type={'submit'}
           >
             Sign up
-          </Button>
-
-          <Button
-            onClick={() => console.log('Not implemented yet')}
-            color={'secondary'}
-            type={'button'}
-          >
-            <Stack
-              direction={'row'}
-              spacing={1}
-              alignItems={'center'}
-              justifyContent={'center'}
-            >
-              <Typography fontSize={'1.5rem'}>
-                <GoogleIcon />
-              </Typography>
-              <Typography>Sign up with Google</Typography>
-            </Stack>
           </Button>
         </Stack>
       </Stack>

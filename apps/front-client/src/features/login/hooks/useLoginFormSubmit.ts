@@ -1,30 +1,29 @@
-import { useMutation } from '@tanstack/react-query';
-import { ILoginForm, ILoginResponse } from '../types';
-import * as process from 'process';
+import { ILoginForm } from '../types';
+import { signIn, SignInResponse } from 'next-auth/react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
-
-const fetchLoginFormSubmit = async (data: ILoginForm) => {
-  const response = await fetch(`${process.env.API_URL}/auth/login`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
-  if (response.ok) {
-    return await response.json();
-  }
-};
+import { routes } from '../../../routes';
 
 export const useLoginFormSubmit = () => {
+  const [isError, setIsError] = useState(false);
   const router = useRouter();
 
-  const { mutate, isLoading, isError } = useMutation(fetchLoginFormSubmit, {
-    onSuccess: async (data: ILoginResponse) => {
-      localStorage.setItem('access_token', data.access_token);
-      await router.push('/');
-    },
-  });
+  const submitLoginForm = async (data: ILoginForm) => {
+    if (isError) {
+      setIsError(false);
+    }
+    const { ok } = (await signIn('credentials', {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    })) as SignInResponse;
 
-  return { submitLoginForm: mutate, isLoading, isError };
+    if (ok) {
+      return router.push(routes.root);
+    }
+
+    setIsError(!ok);
+  };
+
+  return { submitLoginForm, isError };
 };

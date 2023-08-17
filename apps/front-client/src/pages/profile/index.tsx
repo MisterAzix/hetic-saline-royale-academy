@@ -13,6 +13,9 @@ import CreditCardIcon from '@mui/icons-material/CreditCard';
 import SellOutlinedIcon from '@mui/icons-material/SellOutlined';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import { GetServerSidePropsContext } from 'next';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../api/auth/[...nextauth]';
 
 const ProfileContainer = styled(Stack)`
   padding: 40px 0;
@@ -118,5 +121,15 @@ Profile.getLayout = (page: ReactElement) => {
     </DashboardLayout>
   );
 };
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+
+  if (!session) {
+    return { redirect: { destination: routes.login } };
+  }
+
+  return { props: { session } };
+}
 
 export default Profile;

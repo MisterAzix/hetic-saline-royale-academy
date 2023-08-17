@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { IRegisterForm } from '../types';
 import * as process from 'process';
 import { useRouter } from 'next/router';
+import { routes } from '../../../routes';
 
 const fetchRegisterFormSubmit = async (data: IRegisterForm) => {
   const response = await fetch(`${process.env.API_URL}/auth/signup`, {
@@ -18,7 +19,7 @@ export const useRegisterFormSubmit = () => {
 
   const { mutate, isLoading, isError } = useMutation(fetchRegisterFormSubmit, {
     onSuccess: async () => {
-      await router.push('/login');
+      await router.push(routes.login);
     },
   });
 

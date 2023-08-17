@@ -9,7 +9,6 @@ import {
   Button,
   palette,
   typography,
-  GoogleIcon,
 } from '@hetic-saline-royale-academy/kit-ui';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -71,24 +70,6 @@ const LoginForm = () => {
             type={'submit'}
           >
             Sign in
-          </Button>
-
-          <Button
-            onClick={() => console.log('Not implemented yet')}
-            color={'secondary'}
-            type={'button'}
-          >
-            <Stack
-              direction={'row'}
-              spacing={1}
-              alignItems={'center'}
-              justifyContent={'center'}
-            >
-              <Typography fontSize={'1.5rem'}>
-                <GoogleIcon />
-              </Typography>
-              <Typography>Sign in with Google</Typography>
-            </Stack>
           </Button>
         </Stack>
       </Stack>
