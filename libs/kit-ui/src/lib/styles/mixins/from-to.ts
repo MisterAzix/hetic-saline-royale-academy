@@ -2,7 +2,7 @@ import { SCREENS } from '../theme';
 import type { Breakpoint } from '../@types';
 import { getTheme } from './get-theme';
 import { SerializedStyles } from '@emotion/react';
-import { raiseError } from '../../../../../utils';
+import { raiseError } from '../../../../utils';
 
 const from = (
   breakpoint: Breakpoint,
