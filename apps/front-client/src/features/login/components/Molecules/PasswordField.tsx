@@ -33,8 +33,8 @@ const PasswordField = ({ control }: PasswordFieldProps) => {
             </IconButton>
           }
           name="password"
-          label={'Password'}
-          placeholder={'8+ characters'}
+          label={'Mot de passe'}
+          placeholder={'**********'}
           helperText={'Le mot de passe est obligatoire'}
           error={!!error}
           onChange={onChange}

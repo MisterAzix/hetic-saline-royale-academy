@@ -1,6 +1,7 @@
 import NextAuth, { AuthOptions, User } from 'next-auth';
 import CredentialsProviders from 'next-auth/providers/credentials';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { Role } from '@prisma/client';
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -23,6 +24,10 @@ export const authOptions: AuthOptions = {
         const data: { access_token: string } | null = await res.json();
         if (res.ok && data) {
           const payload = jwt.decode(data.access_token) as JwtPayload;
+          if (payload.role !== Role.ADMIN) {
+            return null;
+          }
+
           return {
             ...payload,
             access_token: data.access_token,

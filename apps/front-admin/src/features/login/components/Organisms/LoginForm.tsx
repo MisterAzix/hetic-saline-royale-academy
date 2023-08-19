@@ -13,7 +13,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-const FormContainer = styled.div`
+const FormContainer = styled.form`
   max-width: 360px;
   width: 100%;
 `;
@@ -46,10 +46,10 @@ const LoginForm = () => {
     <FormContainer>
       <Stack spacing={6}>
         <Stack spacing={2}>
-          <Title>Study with the world’s best musicians!</Title>
+          <Title>Bienvenue!</Title>
           <SubTitle>
-            Experience immersive video masterclasses wherever you are. New
-            masterclasses added every month.
+            Vous êtes ici sur le panneau d&apos;administration de Saline Royale
+            Academy.
           </SubTitle>
         </Stack>
         <Stack spacing={4}>
