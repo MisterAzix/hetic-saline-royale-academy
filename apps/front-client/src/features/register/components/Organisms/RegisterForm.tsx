@@ -51,10 +51,10 @@ const RegisterForm = () => {
     <FormContainer>
       <Stack spacing={6}>
         <Stack spacing={2}>
-          <Title>Study with the world’s best musicians!</Title>
+          <Title>Étudier avec les meilleurs musiciens du monde !</Title>
           <SubTitle>
-            Experience immersive video masterclasses wherever you are. New
-            masterclasses added every month.
+            Faites l&apos;expérience de masterclasses vidéo immersives où que
+            vous soyez. De nouvelles masterclasses sont ajoutées chaque mois.
           </SubTitle>
         </Stack>
         <Stack spacing={4}>
@@ -65,7 +65,7 @@ const RegisterForm = () => {
             </Stack>
             <EmailField control={control} />
             <PasswordField control={control} />
-            <Checkbox label={'You agree to our friendly privacy policy.'} />
+            <Checkbox label={'Acceptez notre politique de confidentialité.'} />
           </Stack>
 
           {isError && (
@@ -81,7 +81,7 @@ const RegisterForm = () => {
             color={'primary'}
             type={'submit'}
           >
-            Sign up
+            Rejoindre la Saline Royale Academy
           </Button>
         </Stack>
       </Stack>

@@ -23,7 +23,7 @@ const EmailField = ({ control }: EmailFieldProps) => {
           id={id}
           name={'email'}
           label={'Email'}
-          placeholder="you@company.com"
+          placeholder="john@example.com"
           helperText={"L'email est obligatoire"}
           error={!!error}
           onChange={onChange}

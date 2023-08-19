@@ -34,7 +34,7 @@ const PasswordField = ({ control }: PasswordFieldProps) => {
           }
           name="password"
           label={'Password'}
-          placeholder={'8+ characters'}
+          placeholder={'**********'}
           helperText={'Le mot de passe est obligatoire'}
           error={!!error}
           onChange={onChange}

@@ -19,9 +19,9 @@ const FirstnameField = ({ control }: EmailFieldProps) => {
         <InputGroup
           id={id}
           name={'firstName'}
-          label={'Firstname'}
-          placeholder="First name"
-          helperText={'The firstname is required'}
+          label={'Prénom'}
+          placeholder="John"
+          helperText={'Le prénom est requis'}
           error={!!error}
           onChange={onChange}
           value={value}

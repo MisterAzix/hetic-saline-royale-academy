@@ -12,8 +12,10 @@ import {
 } from '@hetic-saline-royale-academy/kit-ui';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
+import { routes } from '../../../../routes';
 
-const FormContainer = styled.div`
+const FormContainer = styled.form`
   max-width: 360px;
   width: 100%;
 `;
@@ -26,6 +28,17 @@ const Title = styled(Typography)`
 const SubTitle = styled(Typography)`
   ${typography.md.regular}
   color: ${palette.gray[500]};
+`;
+
+const RegisterCTA = styled(Typography)`
+  ${typography.md.regular}
+  color: ${palette.gray[500]};
+`;
+
+const LinkCTA = styled(Link)`
+  &:hover {
+    color: ${palette.gray[700]};
+  }
 `;
 
 const initialValues: ILoginForm = {
@@ -46,10 +59,10 @@ const LoginForm = () => {
     <FormContainer>
       <Stack spacing={6}>
         <Stack spacing={2}>
-          <Title>Study with the world’s best musicians!</Title>
+          <Title>Étudier avec les meilleurs musiciens du monde !</Title>
           <SubTitle>
-            Experience immersive video masterclasses wherever you are. New
-            masterclasses added every month.
+            Faites l&apos;expérience de masterclasses vidéo immersives où que
+            vous soyez. De nouvelles masterclasses sont ajoutées chaque mois.
           </SubTitle>
         </Stack>
         <Stack spacing={4}>
@@ -64,13 +77,21 @@ const LoginForm = () => {
             </Typography>
           )}
 
-          <Button
-            onClick={handleSubmit((data: ILoginForm) => submitLoginForm(data))}
-            color={'primary'}
-            type={'submit'}
-          >
-            Sign in
-          </Button>
+          <Stack spacing={1}>
+            <Button
+              onClick={handleSubmit((data: ILoginForm) =>
+                submitLoginForm(data)
+              )}
+              color={'primary'}
+              type={'submit'}
+            >
+              Se connecter
+            </Button>
+            <RegisterCTA>
+              Pas encore inscrit ?
+              <LinkCTA href={routes.register}> Créer un compte</LinkCTA>
+            </RegisterCTA>
+          </Stack>
         </Stack>
       </Stack>
     </FormContainer>
