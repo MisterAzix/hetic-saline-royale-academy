@@ -6,15 +6,15 @@ import { ReactElement } from 'react';
 import DashboardLayout from '../../layout/DashboardLayout';
 
 export function Dashboard() {
-  return <h1>Welcome to DASHBOARD!</h1>;
+  return <h1>Welcome to content page!</h1>;
 }
 
 Dashboard.getLayout = (page: ReactElement) => {
   return (
     <DashboardLayout
-      title="Dashboard"
-      subtitle="Toutes les informations importantes en un coup d'oeil"
-      activeRoute={routes.dashboard}
+      title="Contenu"
+      subtitle="Gérer les masterclasses et les chapitres"
+      activeRoute={routes.content}
     >
       {page}
     </DashboardLayout>

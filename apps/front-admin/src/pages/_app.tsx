@@ -9,6 +9,8 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query';
 import { SessionProvider } from 'next-auth/react';
+import { muiTheme } from '@hetic-saline-royale-academy/kit-ui';
+import { ThemeProvider } from '@emotion/react';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -31,9 +33,11 @@ function AdminApp({ Component, pageProps }: AppPropsWithLayout) {
       <SessionProvider session={pageProps.session}>
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>
-            <main className="app">
-              {getLayout(<Component {...pageProps} />)}
-            </main>
+            <ThemeProvider theme={muiTheme}>
+              <main className="app">
+                {getLayout(<Component {...pageProps} />)}
+              </main>
+            </ThemeProvider>
           </Hydrate>
         </QueryClientProvider>
       </SessionProvider>
