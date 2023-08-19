@@ -13,7 +13,10 @@ type UseSpringParams = {
     perfectStop: boolean;
     precisionStop: number;
   }>;
-  onUpdate: (currentValues: unknown, prevValues: unknown) => void;
+  onUpdate: (
+    currentValues: { x: number; y: number },
+    prevValues: unknown
+  ) => void;
 } & Record<string, number | object | void>;
 
 const defaultConfig = {

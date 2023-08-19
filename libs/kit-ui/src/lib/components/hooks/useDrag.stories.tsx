@@ -1,9 +1,9 @@
 import type { Meta } from '@storybook/react';
 import { StoryObj } from '@storybook/react';
-import { UseDragParams } from '../../../hooks/useDrag/@types';
+import { UseDragParams } from '../../../../hooks/useDrag/@types';
 import { useRef } from 'react';
-import { useSpring } from '../../../hooks/useSpring';
-import { useDrag } from '../../../hooks';
+import { useSpring } from '../../../../hooks/useSpring';
+import { useDrag } from '../../../../hooks';
 
 const meta: Meta = {
   title: 'hooks/useDrag',

@@ -29,7 +29,7 @@ export type DragEvent = Partial<{
 }>;
 
 export type UseDragParams = Partial<{
-  ref: RefObject<unknown>;
+  ref: RefObject<HTMLElement>;
   preventUnintentionalClick: boolean;
   isEnable: boolean;
   snap: (offset: Vector2, dragState: DragState) => Vector2;
