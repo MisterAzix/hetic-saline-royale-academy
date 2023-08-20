@@ -15,17 +15,17 @@ export class UpdateUserDto implements Prisma.UserUpdateInput {
   @ApiProperty({ type: String, required: false })
   @IsString()
   @IsOptional()
-  displayName?: string;
+  display_name?: string;
 
   @ApiProperty({ type: String })
   @IsString()
   @IsOptional()
-  firstName?: string;
+  first_name?: string;
 
   @ApiProperty({ type: String })
   @IsString()
   @IsOptional()
-  lastName?: string;
+  last_name?: string;
 
   @ApiProperty({ type: String, required: false })
   @IsString()
@@ -36,7 +36,7 @@ export class UpdateUserDto implements Prisma.UserUpdateInput {
   @ApiProperty({ type: Boolean, required: false, default: false })
   @IsBoolean()
   @IsOptional()
-  deleted?: boolean;
+  is_deleted?: boolean;
 
   @ApiProperty({ required: false, default: 'USER' })
   @IsEnum(Role)

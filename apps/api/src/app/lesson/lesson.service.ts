@@ -4,30 +4,32 @@ import {
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
-import { Lesson, Prisma } from '@prisma/client';
+import { Masterclass, Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 
 @Injectable()
-export class LessonService {
-  private logger = new Logger(LessonService.name);
+export class MasterclassService {
+  private logger = new Logger(MasterclassService.name);
 
   constructor(private prisma: PrismaService) {}
 
   /**
    * Create a new lesson.
    *
-   * @param {Prisma.LessonCreateInput} data - The data for creating the lesson.
-   * @returns {Promise<Lesson>} - The created lesson.
+   * @param {Prisma.MasterclassCreateInput} data - The data for creating the lesson.
+   * @returns {Promise<Masterclass>} - The created lesson.
    */
-  async create(data: Prisma.LessonCreateInput): Promise<Lesson> {
+  async create(data: Prisma.MasterclassCreateInput): Promise<Masterclass> {
     try {
-      const lesson = await this.prisma.lesson.create({ data });
+      const lesson = await this.prisma.masterclass.create({ data });
       return lesson;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        this.logger.error('Lesson DTO validation error:', error.message);
-        throw new BadRequestException(`Lesson DTO validation error: ${error}`);
+        this.logger.error('Masterclass DTO validation error:', error.message);
+        throw new BadRequestException(
+          `Masterclass DTO validation error: ${error}`
+        );
       } else {
         // Handle other errors
         this.logger.error(
@@ -42,19 +44,19 @@ export class LessonService {
   }
 
   /**
-   * Retrieve all lessons.
+   * Retrieve all masterclasses.
    *
-   * @returns {Promise<Lesson[]>} - An array of lessons.
+   * @returns {Promise<Masterclass[]>} - An array of masterclasses.
    */
-  async findAll(): Promise<Lesson[]> {
+  async findAll(): Promise<Masterclass[]> {
     try {
-      return await this.prisma.lesson.findMany({
-        where: { deleted: false },
+      return await this.prisma.masterclass.findMany({
+        where: { is_deleted: false },
       });
     } catch (error) {
-      this.logger.error('Error while retrieving lessons:', error);
+      this.logger.error('Error while retrieving masterclasses:', error);
       throw new InternalServerErrorException(
-        `Failed to retrieve lessons: ${error}`
+        `Failed to retrieve masterclasses: ${error}`
       );
     }
   }
@@ -63,16 +65,18 @@ export class LessonService {
    * Retrieve a specific lesson by ID.
    *
    * @param {string} id - The ID of the lesson to retrieve.
-   * @returns {Promise<Lesson>} - The lesson with the specified ID.
+   * @returns {Promise<Masterclass>} - The lesson with the specified ID.
    */
-  async findOne(id: string): Promise<Lesson> {
+  async findOne(id: string): Promise<Masterclass> {
     try {
-      return await this.prisma.lesson.findUnique({ where: { id } });
+      return await this.prisma.masterclass.findUnique({ where: { id } });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        this.logger.error('Lesson ID validation error:', error.message);
-        throw new BadRequestException(`Lesson DTO validation error: ${error}`);
+        this.logger.error('Masterclass ID validation error:', error.message);
+        throw new BadRequestException(
+          `Masterclass DTO validation error: ${error}`
+        );
       } else {
         // Handle other errors
         this.logger.error(
@@ -90,20 +94,25 @@ export class LessonService {
    * Update a lesson with new data.
    *
    * @param {string} id - The ID of the lesson to update.
-   * @param {Prisma.LessonUpdateInput} data - The data for updating the lesson.
-   * @returns {Promise<Lesson>} - The updated lesson.
+   * @param {Prisma.MasterclassUpdateInput} data - The data for updating the lesson.
+   * @returns {Promise<Masterclass>} - The updated lesson.
    */
-  async update(id: string, data: Prisma.LessonUpdateInput): Promise<Lesson> {
+  async update(
+    id: string,
+    data: Prisma.MasterclassUpdateInput
+  ): Promise<Masterclass> {
     try {
-      return await this.prisma.lesson.update({
+      return await this.prisma.masterclass.update({
         where: { id },
         data,
       });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        this.logger.error('Lesson DTO validation error:', error.message);
-        throw new BadRequestException(`Lesson DTO validation error: ${error}`);
+        this.logger.error('Masterclass DTO validation error:', error.message);
+        throw new BadRequestException(
+          `Masterclass DTO validation error: ${error}`
+        );
       } else {
         // Handle other errors
         this.logger.error(
@@ -121,16 +130,18 @@ export class LessonService {
    * Remove a lesson by ID.
    *
    * @param {string} id - The ID of the lesson to remove.
-   * @returns {Promise<Lesson>} - The removed lesson.
+   * @returns {Promise<Masterclass>} - The removed lesson.
    */
-  async remove(id: string): Promise<Lesson> {
+  async remove(id: string): Promise<Masterclass> {
     try {
-      return await this.prisma.lesson.delete({ where: { id } });
+      return await this.prisma.masterclass.delete({ where: { id } });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
-        this.logger.error('Lesson ID validation error:', error.message);
-        throw new BadRequestException(`Lesson DTO validation error: ${error}`);
+        this.logger.error('Masterclass ID validation error:', error.message);
+        throw new BadRequestException(
+          `Masterclass DTO validation error: ${error}`
+        );
       } else {
         // Handle other errors
         this.logger.error(

@@ -51,7 +51,7 @@ export class SubscriptionService {
   async findAll(): Promise<Subscription[]> {
     try {
       return await this.prisma.subscription.findMany({
-        where: { deleted: false },
+        where: { is_deleted: false },
       });
     } catch (error) {
       this.logger.error('Error while retrieving subscriptions:', error);

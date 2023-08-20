@@ -14,20 +14,20 @@ export class CreateCategoryDto {
 
   @ApiProperty({ type: Boolean, required: false, default: false })
   @IsBoolean()
-  deleted?: boolean;
+  is_deleted?: boolean;
 
   @ApiProperty({ type: String, required: false })
   @IsString()
   @IsString()
-  achievementId?: string;
+  achievement_id?: string;
 
   @ApiProperty({ type: String, required: false })
   @IsString()
   @IsString()
-  badgeId?: string;
+  badge_id?: string;
 
   @ApiProperty({ type: String, required: false })
   @IsString()
   @IsString()
-  courseId?: string;
+  course_id?: string;
 }

@@ -59,7 +59,7 @@ export class ProgressTrackerService {
   async findAll(): Promise<ProgressTracker[]> {
     try {
       return await this.prisma.progressTracker.findMany({
-        where: { deleted: false },
+        where: { is_deleted: false },
       });
     } catch (error) {
       this.logger.error('Error while retrieving progress tracker:', error);

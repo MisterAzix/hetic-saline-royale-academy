@@ -51,7 +51,7 @@ export class CategoryService {
   async findAll(): Promise<Category[]> {
     try {
       return await this.prisma.category.findMany({
-        where: { deleted: false },
+        where: { is_deleted: false },
       });
     } catch (error) {
       this.logger.error('Error while retrieving categories:', error);

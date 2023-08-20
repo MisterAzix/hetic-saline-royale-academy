@@ -59,7 +59,7 @@ export class AchievementService {
   async findAll(): Promise<Achievement[]> {
     try {
       return await this.prisma.achievement.findMany({
-        where: { deleted: false },
+        where: { is_deleted: false },
         include: { category: true, rewards: true, badges: true },
       });
     } catch (error) {
@@ -155,7 +155,7 @@ export class AchievementService {
       const achievement = await this.prisma.achievement.delete({
         where: { id },
       });
-      this.logger.warn(`Achievement has been deleted : ${id}`);
+      this.logger.warn(`Achievement has been is_deleted : ${id}`);
 
       return achievement;
     } catch (error) {

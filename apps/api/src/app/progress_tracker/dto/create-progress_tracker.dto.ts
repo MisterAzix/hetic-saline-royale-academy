@@ -5,7 +5,7 @@ import { IsBoolean, IsNumber, IsObject, IsString } from 'class-validator';
 export class CreateProgressTrackerDto {
   @ApiProperty({ type: String, required: false })
   @IsString()
-  userId: string;
+  user_id: string;
 
   @ApiProperty({ type: Number, required: false })
   @IsNumber()
@@ -13,27 +13,27 @@ export class CreateProgressTrackerDto {
 
   @ApiProperty({ type: String, required: false })
   @IsString()
-  courseId: string;
+  course_id: string;
 
   @ApiProperty({ type: Number, required: false })
   @IsNumber()
-  completedLessons?: number;
+  completedMasterclasses?: number;
 
   @ApiProperty({ type: Number, required: false })
   @IsNumber()
-  totalLessons?: number;
+  totalMasterclasses?: number;
 
   @ApiProperty({ type: Number, required: false })
   @IsNumber()
-  completedChapters?: number;
+  completed_chapters?: number;
 
   @ApiProperty({ type: Number, required: false })
   @IsNumber()
-  totalChapters?: number;
+  total_chapters?: number;
 
   @ApiProperty({ type: Boolean, required: false, default: false })
   @IsBoolean()
-  deleted?: boolean;
+  is_deleted?: boolean;
 
   @ApiProperty({ type: Object, required: false })
   @IsObject()

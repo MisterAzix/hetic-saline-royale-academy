@@ -13,14 +13,14 @@ export class AuthorInterceptor implements NestInterceptor {
     const request = context.switchToHttp().getRequest();
     const user = request.user;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { createdBy, lastUpdatedBy } = request.body;
+    const { created_by, updated_by } = request.body;
 
     if (user) {
-      // Set the createdBy and lastUpdatedBy fields
-      if (!createdBy) {
-        request.body.createdBy = user.sub;
+      // Set the created_by and updated_by fields
+      if (!created_by) {
+        request.body.created_by = user.sub;
       }
-      request.body.lastUpdatedBy = user.sub;
+      request.body.updated_by = user.sub;
     }
 
     return next.handle().pipe(

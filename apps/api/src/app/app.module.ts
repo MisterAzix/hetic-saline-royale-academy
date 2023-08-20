@@ -14,17 +14,14 @@ import { CategoryModule } from './category/category.module';
 import { ChapterModule } from './chapter/chapter.module';
 import { CourseModule } from './course/course.module';
 import { GamificationModule } from './gamification/gamification.module';
-import { ImageModule } from './image/image.module';
-import { LessonModule } from './lesson/lesson.module';
+import { MasterclassModule } from './lesson/lesson.module';
 import { NotificationModule } from './notification/notification.module';
 import { PrismaModule } from './prisma.module';
 import { ProgressTrackerModule } from './progress_tracker/progress_tracker.module';
-import { RessourceModule } from './ressource/ressource.module';
 import { RewardsModule } from './rewards/rewards.module';
 import { SubscriptionModule } from './subscription/subscription.module';
 import { TagModule } from './tag/tag.module';
 import { UsersModule } from './users/users.module';
-import { VideoModule } from './video/video.module';
 
 @Module({
   imports: [
@@ -51,15 +48,12 @@ import { VideoModule } from './video/video.module';
     ChapterModule,
     CourseModule,
     GamificationModule,
-    ImageModule,
-    LessonModule,
+    MasterclassModule,
     NotificationModule,
     ProgressTrackerModule,
-    RessourceModule,
     RewardsModule,
     SubscriptionModule,
     TagModule,
-    VideoModule,
   ],
   providers: [
     {

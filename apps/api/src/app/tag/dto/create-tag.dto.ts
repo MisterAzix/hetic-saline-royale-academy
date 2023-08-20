@@ -9,13 +9,13 @@ export class CreateTagDto {
 
   @ApiProperty({ type: Boolean, required: false, default: false })
   @IsBoolean()
-  deleted?: boolean;
+  is_deleted?: boolean;
 
   @ApiProperty({ type: String, required: false })
   @IsString()
-  courseId?: string;
+  course_id?: string;
 
   @ApiProperty({ type: String, required: false })
   @IsString()
-  lessonId?: string;
+  masterclass_id?: string;
 }

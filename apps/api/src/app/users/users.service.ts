@@ -82,7 +82,7 @@ export class UsersService {
   async findAll(): Promise<User[]> {
     try {
       return await this.prisma.user.findMany({
-        where: { deleted: false },
+        where: { is_deleted: false },
       });
     } catch (error) {
       this.logger.error('Error while retrieving users:', error);

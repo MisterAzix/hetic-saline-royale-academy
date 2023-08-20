@@ -27,7 +27,7 @@ export class AuthService {
     emailInput: string,
     pass: string
   ): Promise<{ access_token: string }> {
-    const { password, firstName, lastName, id, email, role } =
+    const { password, first_name, last_name, id, email, role } =
       (await this.usersService.findOne({ email: emailInput })) ?? {};
 
     if (!email || !password) {
@@ -44,8 +44,8 @@ export class AuthService {
     }
 
     const payload = {
-      firstName,
-      lastName,
+      first_name,
+      last_name,
       sub: id,
       email,
       role,
@@ -69,8 +69,8 @@ export class AuthService {
     const {
       email_verified,
       email: userEmail,
-      given_name: firstName,
-      family_name: lastName,
+      given_name: first_name,
+      family_name: last_name,
     } = profile._json ?? {};
 
     if (!email_verified) {
@@ -88,8 +88,8 @@ export class AuthService {
 
     const userData: Prisma.UserCreateInput = {
       email: userEmail,
-      firstName,
-      lastName,
+      first_name,
+      last_name,
       password: oAuthUserPwd,
       role: Role.USER,
     };
@@ -97,8 +97,8 @@ export class AuthService {
     const createdUser = await this.usersService.createUser(userData);
 
     const payload = {
-      firstName: createdUser.firstName,
-      lastName: createdUser.lastName,
+      first_name: createdUser.first_name,
+      last_name: createdUser.last_name,
       sub: createdUser.id,
       email: createdUser.email,
       role: createdUser.role,

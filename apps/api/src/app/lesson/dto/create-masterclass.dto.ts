@@ -8,7 +8,7 @@ import {
   Length,
 } from 'class-validator';
 
-export class CreateLessonDto {
+export class CreateMasterclassDto {
   @ApiProperty({ type: String })
   @IsString()
   @Length(2, 100)
@@ -23,27 +23,19 @@ export class CreateLessonDto {
   @IsNumber()
   duration?: number;
 
+  @ApiProperty({ type: String, required: false })
+  @IsString()
+  video_url: string;
+
   @ApiProperty({ type: Boolean, required: false, default: false })
   @IsBoolean()
-  deleted?: boolean;
+  is_deleted?: boolean;
 
   @ApiProperty({ type: String, required: false })
   @IsString()
-  chapterId?: string;
+  chapter_id?: string;
 
   @ApiProperty({ type: Array, required: false })
   @IsArray()
-  images?: Prisma.LessonCreateInput['images'];
-
-  @ApiProperty({ type: Array, required: false })
-  @IsArray()
-  videos?: Prisma.LessonCreateInput['videos'];
-
-  @ApiProperty({ type: Array, required: false })
-  @IsArray()
-  tags?: Prisma.LessonCreateInput['tags'];
-
-  @ApiProperty({ type: Array, required: false })
-  @IsArray()
-  ressources?: Prisma.LessonCreateInput['ressources'];
+  tags?: Prisma.MasterclassCreateInput['tags'];
 }

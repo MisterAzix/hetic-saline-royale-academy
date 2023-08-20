@@ -6,19 +6,19 @@ Table Achievement {
   id String [pk]
   title String [unique, not null]
   description String
-  createdAt DateTime [default: `now()`]
-  lastUpdatedAt DateTime
-  lastUpdatedBy String
-  createdBy String
   criteria String
-  unlockDate DateTime
-  visible Boolean [default: false]
-  deleted Boolean [default: false]
-  gamificationId String [unique]
+  unlock_date DateTime
+  is_visible Boolean [default: false]
   category Category
   rewards Reward [not null]
   badges Badge [not null]
   gamification Gamification
+  gamification_id String [unique]
+  is_deleted Boolean [default: false]
+  updated_by String
+  created_by String
+  created_at DateTime [default: `now()`]
+  updated_at DateTime
 }
 
 Table Badge {
@@ -28,160 +28,121 @@ Table Badge {
   criteria String
   level String
   unlock_date DateTime
-  createdAt DateTime [default: `now()`]
-  lastUpdatedAt DateTime
-  createdBy String
-  lastUpdatedBy String
-  visible Boolean [default: false]
-  hiddenDescription String
-  deleted Boolean [default: false]
-  achievementId String
+  is_visible Boolean [default: false]
+  hidden_description String
   category Category
-  ressource Ressource
-  Achievement Achievement
+  achievement Achievement
+  achievement_id String
+  is_deleted Boolean [default: false]
+  created_by String
+  updated_by String
+  created_at DateTime [default: `now()`]
+  updated_at DateTime
 }
 
 Table Category {
   id String [pk]
   name String [unique, not null]
   description String
-  createdAt DateTime [default: `now()`]
-  lastUpdatedAt DateTime
-  createdBy String
-  lastUpdatedBy String
-  deleted Boolean [default: false]
-  achievementId String [unique]
-  badgeId String [unique]
-  courseId String [unique]
   achivement Achievement
+  achievement_id String [unique]
   badge Badge
+  badge_id String [unique]
   course Course
+  course_id String [unique]
+  is_deleted Boolean [default: false]
+  created_by String
+  updated_by String
+  created_at DateTime [default: `now()`]
+  updated_at DateTime
 }
 
 Table Chapter {
   id String [pk]
   title String [unique, not null]
   description String
-  createdAt DateTime [default: `now()`]
-  lastUpdatedAt DateTime
-  deleted Boolean [default: false]
-  courseId String
-  lessons Lesson [not null]
+  masterclasses Masterclass [not null]
   course Course
+  course_id String
+  is_deleted Boolean [default: false]
+  created_at DateTime [default: `now()`]
+  updated_at DateTime
 }
 
 Table Course {
   id String [pk]
   title String [unique, not null]
   description String
-  createdAt DateTime [default: `now()`]
-  lastUpdatedAt DateTime
-  createdBy String
-  lastUpdatedBy String
-  deleted Boolean [default: false]
-  userId String
-  progressTrackingId String [unique]
   category Category
   chapters Chapter [not null]
   tags Tag [not null]
-  ressources Ressource [not null]
-  progressTracking ProgressTracker
+  progress_tracker ProgressTracker
+  progress_tracking_id String [unique]
   user User
+  user_id String [unique]
+  is_deleted Boolean [default: false]
+  created_by String
+  updated_by String
+  created_at DateTime [default: `now()`]
+  updated_at DateTime
 }
 
 Table Gamification {
   id String [pk]
   description String [not null]
-  experiencePoint Int
+  experience_point Int
   level String
-  createdAt DateTime [default: `now()`]
-  lastUpdatedAt DateTime
-  deleted Boolean [default: false]
-  ressourceId String
-  progressTrackingId String [unique]
-  userId String [unique]
   achievement Achievement
-  ressource Ressource
-  useer User
-  progressTrackers ProgressTracker
-}
-
-Table Image {
-  id String [pk]
-  description String [not null]
-  url String [not null]
-  height Int
-  width Int
-  createdAt DateTime [default: `now()`]
-  lastUpdatedAt DateTime
-  deleted Boolean [default: false]
-  lessonId String [unique]
-  userId String [unique]
-  lesson Lesson
   user User
+  user_id String [unique]
+  progress_trackers ProgressTracker
+  progress_tracking_id String [unique]
+  is_deleted Boolean [default: false]
+  created_at DateTime [default: `now()`]
+  updated_at DateTime
 }
 
-Table Lesson {
+Table Masterclass {
   id String [pk]
   title String [not null]
   description String
   duration Int
-  createdAt DateTime [default: `now()`]
-  lastUpdatedAt DateTime
-  deleted Boolean [default: false]
-  chapterId String [unique]
-  images Image [not null]
-  videos Video [not null]
+  cover_url String
+  video_url String [not null]
+  status Status [not null, default: 'DRAFT']
   tags Tag [not null]
-  ressources Ressource [not null]
-  Chapter Chapter
+  chapter Chapter
+  chapter_id String [unique]
+  is_deleted Boolean [default: false]
+  created_at DateTime [default: `now()`]
+  updated_at DateTime
 }
 
 Table Notification {
   id String [pk]
   message String [not null]
   published Boolean
-  createdAt DateTime [default: `now()`]
-  lastUpdatedAt DateTime
-  deleted Boolean [default: false]
-  userId String [unique]
+  user_id String [unique]
   user User
+  is_deleted Boolean [default: false]
+  created_at DateTime [default: `now()`]
+  updated_at DateTime
 }
 
 Table ProgressTracker {
   id String [pk]
   progress Int
-  completedLessons Int [default: 0]
-  totalLessons Int [default: 0]
-  completedChapters Int [default: 0]
-  totalChapters Int [default: 0]
-  createdAt DateTime [default: `now()`]
-  lastUpdatedAt DateTime
-  deleted Boolean [default: false]
-  userId String [unique]
+  completed_masterclasses Int [default: 0]
+  total_masterclasses Int [default: 0]
+  completed_chapters Int [default: 0]
+  total_chapters Int [default: 0]
   course Course
   gamifications Gamification
   user User
-}
-
-Table Ressource {
-  id String [pk]
-  title String [not null]
-  path String
-  type String
-  accessLevel String
-  duration Int
-  createdAt DateTime [default: `now()`]
-  lastUpdatedAt DateTime
-  deleted Boolean [default: false]
-  courseId String [unique]
-  gamificationId String [unique]
-  bagdeId String [unique]
-  lessonId String [unique]
-  course Course
-  gamification Gamification
-  badge Badge
-  lesson Lesson
+  user_id String [unique]
+  is_deleted Boolean [default: false]
+  created_at DateTime [default: `now()`]
+  updated_at DateTime
 }
 
 Table Reward {
@@ -191,74 +152,67 @@ Table Reward {
   type String
   value Float
   availability Boolean [default: false]
-  unlockCriteria Boolean [default: false]
+  unlock_criteria Boolean [default: false]
   redeemable Boolean [default: false]
-  expirationDate DateTime
-  createdAt DateTime [default: `now()`]
-  lastUpdatedAt DateTime
-  createdBy String
-  lastUpdatedBy String
-  deleted Boolean [default: false]
-  accessLevel Int
-  achievementId String
-  Achievement Achievement
+  expiration_date DateTime
+  access_level Int
+  achievement Achievement
+  achievement_id String
+  is_deleted Boolean [default: false]
+  created_by String
+  updated_by String
+  created_at DateTime [default: `now()`]
+  updated_at DateTime
 }
 
 Table Subscription {
   id String [pk]
   plan String [not null]
   payed Boolean [default: false]
-  createdAt DateTime [default: `now()`]
-  lastUpdatedAt DateTime
-  deleted Boolean [default: false]
-  userId String [unique]
   user User
+  user_id String [unique]
+  is_deleted Boolean [default: false]
+  created_at DateTime [default: `now()`]
+  updated_at DateTime
 }
 
 Table Tag {
   id String [pk]
   name String [not null]
-  createdAt DateTime [default: `now()`]
-  lastUpdatedAt DateTime
-  deleted Boolean [default: false]
-  courseId String [unique]
-  lessonId String [unique]
   course Course
-  lesson Lesson
+  course_id String [unique]
+  masterclass Masterclass
+  masterclass_id String [unique]
+  is_deleted Boolean [default: false]
+  created_at DateTime [default: `now()`]
+  updated_at DateTime
 }
 
 Table User {
   id String [pk]
-  displayName String
-  firstName String [not null]
-  lastName String [not null]
+  display_name String
+  first_name String [not null]
+  last_name String [not null]
   email String [unique, not null]
-  createdAt DateTime [default: `now()`]
-  lastUpdatedAt DateTime
-  deleted Boolean [default: false]
   role Role [not null, default: 'USER']
   password String [not null]
   preferences String
   ecole String
-  image Image
+  picture_url String
   courses Course [not null]
   gamefication Gamification
   notification Notification
   subscription Subscription
-  progressTracker ProgressTracker
+  progress_tracker ProgressTracker
+  is_deleted Boolean [default: false]
+  created_at DateTime [default: `now()`]
+  updated_at DateTime
 }
 
-Table Video {
-  id String [pk]
-  description String
-  url String [not null]
-  height Int
-  width Int
-  createdAt DateTime [default: `now()`]
-  lastUpdatedAt DateTime
-  deleted Boolean [default: false]
-  lessonId String [unique]
-  lesson Lesson
+Enum Status {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
 }
 
 Enum Role {
@@ -266,50 +220,36 @@ Enum Role {
   ADMIN
 }
 
-Ref: Achievement.gamificationId - Gamification.id
+Ref: Achievement.gamification_id - Gamification.id
 
-Ref: Badge.achievementId > Achievement.id
+Ref: Badge.achievement_id > Achievement.id
 
-Ref: Category.achievementId - Achievement.id
+Ref: Category.achievement_id - Achievement.id
 
-Ref: Category.badgeId - Badge.id
+Ref: Category.badge_id - Badge.id
 
-Ref: Category.courseId - Course.id
+Ref: Category.course_id - Course.id
 
-Ref: Chapter.courseId > Course.id
+Ref: Chapter.course_id > Course.id
 
-Ref: Course.progressTrackingId - ProgressTracker.id
+Ref: Course.progress_tracking_id - ProgressTracker.id
 
-Ref: Course.userId > User.id
+Ref: Course.user_id > User.id
 
-Ref: Gamification.userId - User.id
+Ref: Gamification.user_id - User.id
 
-Ref: Gamification.progressTrackingId - ProgressTracker.id
+Ref: Gamification.progress_tracking_id - ProgressTracker.id
 
-Ref: Image.lessonId > Lesson.id
+Ref: Masterclass.chapter_id > Chapter.id
 
-Ref: Image.userId - User.id
+Ref: Notification.user_id - User.id
 
-Ref: Lesson.chapterId > Chapter.id
+Ref: ProgressTracker.user_id - User.id
 
-Ref: Notification.userId - User.id
+Ref: Reward.achievement_id > Achievement.id
 
-Ref: ProgressTracker.userId - User.id
+Ref: Subscription.user_id - User.id
 
-Ref: Ressource.courseId > Course.id
+Ref: Tag.course_id > Course.id
 
-Ref: Ressource.gamificationId - Gamification.id
-
-Ref: Ressource.bagdeId - Badge.id
-
-Ref: Ressource.lessonId > Lesson.id
-
-Ref: Reward.achievementId > Achievement.id
-
-Ref: Subscription.userId - User.id
-
-Ref: Tag.courseId > Course.id
-
-Ref: Tag.lessonId > Lesson.id
-
-Ref: Video.lessonId > Lesson.id
+Ref: Tag.masterclass_id > Masterclass.id

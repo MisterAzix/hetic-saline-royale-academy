@@ -52,7 +52,7 @@ export class ChapterService {
   async findAll(): Promise<Chapter[]> {
     try {
       return await this.prisma.chapter.findMany({
-        where: { deleted: false },
+        where: { is_deleted: false },
       });
     } catch (error) {
       this.logger.error('Error while retrieving chapters:', error);

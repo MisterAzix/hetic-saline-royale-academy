@@ -26,7 +26,7 @@ export class CreateRewardDto {
 
   @ApiProperty({ type: Boolean, required: false, default: false })
   @IsBoolean()
-  unlockCriteria?: boolean;
+  unlock_criteria?: boolean;
 
   @ApiProperty({ type: Boolean, required: false, default: false })
   @IsBoolean()
@@ -34,17 +34,17 @@ export class CreateRewardDto {
 
   @ApiProperty({ type: Date, required: false, default: false })
   @IsDate()
-  expirationDate?: Date;
+  expiration_date?: Date;
 
   @ApiProperty({ type: Boolean, required: false, default: false })
   @IsBoolean()
-  deleted?: boolean;
+  is_deleted?: boolean;
 
   @ApiProperty({ type: Number, required: false })
   @IsNumber()
-  accessLevel?: number;
+  access_level?: number;
 
   @ApiProperty({ type: String, required: false })
   @IsString()
-  achievementId?: string;
+  achievement_id?: string;
 }

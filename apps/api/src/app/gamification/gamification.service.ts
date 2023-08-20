@@ -52,7 +52,7 @@ export class GamificationService {
   async findAll(): Promise<Gamification[]> {
     try {
       return await this.prisma.gamification.findMany({
-        where: { deleted: false },
+        where: { is_deleted: false },
       });
     } catch (error) {
       this.logger.error('Error while retrieving gamifications:', error);

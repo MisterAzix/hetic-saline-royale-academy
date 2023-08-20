@@ -12,23 +12,23 @@ export class CourseEntity implements Course {
   description: string;
 
   @ApiProperty()
-  createdAt: Date;
+  created_at: Date;
 
   @ApiProperty()
-  lastUpdatedAt: Date;
+  updated_at: Date;
 
   @ApiProperty()
-  createdBy: string;
+  created_by: string;
 
   @ApiProperty()
-  lastUpdatedBy: string;
+  updated_by: string;
 
   @ApiProperty()
-  deleted: boolean;
+  is_deleted: boolean;
 
   @ApiProperty()
-  userId: string;
+  user_id: string;
 
   @ApiProperty()
-  progressTrackingId: string;
+  progress_tracking_id: string;
 }

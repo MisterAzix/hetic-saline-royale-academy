@@ -6,35 +6,37 @@ export class UsersEntity implements User {
   id: string;
 
   @ApiProperty()
-  displayName: string;
+  display_name: string;
 
   @ApiProperty()
-  firstName: string;
+  first_name: string;
 
   @ApiProperty()
-  lastName: string;
+  last_name: string;
 
   @ApiProperty()
   email: string;
 
-  @ApiProperty()
-  createdAt: Date;
+  password: string;
 
   @ApiProperty()
-  lastUpdatedAt: Date;
-
-  @ApiProperty()
-  deleted: boolean;
+  is_deleted: boolean;
 
   @ApiProperty()
   role: Role;
-
-  @ApiProperty()
-  password: string;
 
   @ApiProperty()
   preferences: string;
 
   @ApiProperty()
   ecole: string;
+
+  @ApiProperty()
+  picture_url: string;
+
+  @ApiProperty()
+  created_at: Date;
+
+  @ApiProperty()
+  updated_at: Date;
 }

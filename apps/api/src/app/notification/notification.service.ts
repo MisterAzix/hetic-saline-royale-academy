@@ -51,7 +51,7 @@ export class NotificationService {
   async findAll(): Promise<Notification[]> {
     try {
       return await this.prisma.notification.findMany({
-        where: { deleted: false },
+        where: { is_deleted: false },
       });
     } catch (error) {
       this.logger.error('Error while retrieving notifications:', error);

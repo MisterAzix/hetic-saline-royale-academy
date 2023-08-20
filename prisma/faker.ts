@@ -4,15 +4,12 @@ import { CreateBadgeDto } from '../apps/api/src/app/badge/dto/create-badge.dto';
 import { CreateCategoryDto } from '../apps/api/src/app/category/dto/create-category.dto';
 import { CreateChapterDto } from '../apps/api/src/app/chapter/dto/create-chapter.dto';
 import { CreateGamificationDto } from '../apps/api/src/app/gamification/dto/create-gamification.dto';
-import { CreateImageDto } from '../apps/api/src/app/image/dto/create-image.dto';
-import { CreateLessonDto } from '../apps/api/src/app/lesson/dto/create-lesson.dto';
+import { CreateMasterclassDto } from '../apps/api/src/app/lesson/dto/create-masterclass.dto';
 import { CreateNotificationDto } from '../apps/api/src/app/notification/dto/create-notification.dto';
 import { CreateProgressTrackerDto } from '../apps/api/src/app/progress_tracker/dto/create-progress_tracker.dto';
-import { CreateRessourceDto } from '../apps/api/src/app/ressource/dto/create-ressource.dto';
 import { CreateRewardDto } from '../apps/api/src/app/rewards/dto/create-reward.dto';
 import { CreateSubscriptionDto } from '../apps/api/src/app/subscription/dto/create-subscription.dto';
 import { CreateTagDto } from '../apps/api/src/app/tag/dto/create-tag.dto';
-import { CreateVideoDto } from '../apps/api/src/app/video/dto/create-video.dto';
 import { CreateAchievementDto } from '../apps/api/src/app/achievement/dto/create-achievement.dto';
 import { UserCreateDto } from '../apps/api/src/app/users/dto/create-user.dto';
 
@@ -28,14 +25,14 @@ const prisma = new PrismaClient();
 const generateRandomUsers = async (count: number): Promise<UserCreateDto[]> => {
   const users: UserCreateDto[] = Array.from({ length: count }, () => {
     const email = faker.internet.email();
-    const firstName = faker.person.firstName();
-    const lastName = faker.person.lastName();
+    const first_name = faker.person.firstName();
+    const last_name = faker.person.lastName();
 
     return {
       email,
-      firstName,
-      lastName,
-      displayName: firstName + lastName,
+      first_name,
+      last_name,
+      display_name: first_name + last_name,
       password: 'password',
     };
   });
@@ -69,9 +66,9 @@ const generateRandomAchievements = async (
       title: faker.string.alpha(10),
       description: faker.lorem.sentence(),
       criteria: faker.string.alpha(10),
-      unlockDate: faker.date.past(),
-      visible: faker.datatype.boolean(),
-      deleted: faker.datatype.boolean(),
+      unlock_date: faker.date.past(),
+      is_visible: faker.datatype.boolean(),
+      is_deleted: faker.datatype.boolean(),
     })
   );
   return achievements;
@@ -104,9 +101,9 @@ const generateRandomBadges = async (
     criteria: faker.string.alpha(10),
     level: faker.string.alpha(10),
     unlock_date: faker.date.recent(),
-    visible: faker.datatype.boolean(),
-    hiddenDescription: faker.lorem.sentence(),
-    deleted: faker.datatype.boolean(),
+    is_visible: faker.datatype.boolean(),
+    hidden_description: faker.lorem.sentence(),
+    is_deleted: faker.datatype.boolean(),
   }));
   return badges;
 };
@@ -135,7 +132,7 @@ const generateRandomCategories = async (
   const categories: CreateCategoryDto[] = Array.from({ length: count }, () => ({
     name: faker.string.alpha(10),
     description: faker.lorem.sentence(),
-    deleted: faker.datatype.boolean(),
+    is_deleted: faker.datatype.boolean(),
   }));
   return categories;
 };
@@ -164,7 +161,7 @@ const generateRandomChapters = async (
   const chapters: CreateChapterDto[] = Array.from({ length: count }, () => ({
     title: faker.string.alpha(10),
     description: faker.lorem.sentence(),
-    deleted: faker.datatype.boolean(),
+    is_deleted: faker.datatype.boolean(),
   }));
   return chapters;
 };
@@ -193,7 +190,7 @@ const generateRandomCourses = async (
   const courses: CreateChapterDto[] = Array.from({ length: count }, () => ({
     title: faker.string.alpha(10),
     description: faker.lorem.sentence(),
-    deleted: faker.datatype.boolean(),
+    is_deleted: faker.datatype.boolean(),
   }));
   return courses;
 };
@@ -223,9 +220,9 @@ const generateRandomGamification = async (
     { length: count },
     () => ({
       description: faker.lorem.sentence(),
-      experiencePoint: faker.number.int({ max: 100 }),
+      experience_point: faker.number.int({ max: 100 }),
       level: faker.string.alpha(10),
-      deleted: faker.datatype.boolean(),
+      is_deleted: faker.datatype.boolean(),
     })
   );
   return gamifications;
@@ -245,66 +242,55 @@ export const randomGamification = async (count: number) => {
 };
 
 /**
- * Generates random images.
- * @param {number} count - The number of images to generate.
- * @returns {Promise<CreateImageDto[]>} - A promise that resolves to an array of generated images.
+ * Generates a random video URL.
+ * @returns {string} - The generated video URL.
  */
-const generateRandomImages = async (
+const generateRandomVideoUrl = (): string => {
+  const videoUrls = [
+    'https://www.youtube.com/watch?v=htjRBaAhGRw&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix',
+    'https://www.youtube.com/watch?v=woO7Tf0ONao&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=2',
+    'https://www.youtube.com/watch?v=gGd5u5DwvuE&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=3',
+    'https://www.youtube.com/watch?v=ujLr_6t5Mlg&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=4',
+    'https://www.youtube.com/watch?v=wrgJKCgXGEA&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=5',
+    'https://www.youtube.com/watch?v=BzT-xTW2qP0&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=6',
+    'https://www.youtube.com/watch?v=145QLgpAivU&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=7',
+    'https://www.youtube.com/watch?v=vFhdn91jACY&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=8',
+    'https://www.youtube.com/watch?v=-wEh2BJnsTg&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=9',
+  ];
+  const randomIndex = faker.number.int({ min: 0, max: videoUrls.length - 1 });
+  return videoUrls[randomIndex];
+};
+
+/**
+ * Generates random masterclasses.
+ * @param {number} count - The number of masterclasses to generate.
+ * @returns {Promise<CreateMasterclassDto[]>} - A promise that resolves to an array of generated masterclasses.
+ */
+const generateRandomMasterclasses = async (
   count: number
-): Promise<CreateImageDto[]> => {
-  const images: CreateImageDto[] = Array.from({ length: count }, () => ({
-    description: faker.lorem.sentence(),
-    height: faker.number.int({ max: 128 }),
-    width: faker.number.int({ max: 128 }),
-    url: faker.image.urlLoremFlickr({
-      height: 128,
-      width: 128,
-      category: 'music',
-    }),
-    deleted: faker.datatype.boolean(),
-  }));
-  return images;
+): Promise<CreateMasterclassDto[]> => {
+  const masterclasses: CreateMasterclassDto[] = Array.from(
+    { length: count },
+    () => ({
+      title: faker.string.alpha(10),
+      description: faker.lorem.sentence(),
+      duration: faker.number.int({ max: 60 }),
+      video_url: generateRandomVideoUrl(),
+      is_deleted: faker.datatype.boolean(),
+    })
+  );
+  return masterclasses;
 };
 
 /**
- * Generates and saves random images.
- * @param {number} count - The number of images to generate and save.
+ * Generates and saves random masterclasses.
+ * @param {number} count - The number of masterclasses to generate and save.
  */
-export const randomImages = async (count: number) => {
-  const images = await generateRandomImages(count);
+export const randomMasterclasses = async (count: number) => {
+  const masterclasses = await generateRandomMasterclasses(count);
 
-  await prisma.image.createMany({
-    data: images,
-    skipDuplicates: true,
-  });
-};
-
-/**
- * Generates random lessons.
- * @param {number} count - The number of lessons to generate.
- * @returns {Promise<CreateLessonDto[]>} - A promise that resolves to an array of generated lessons.
- */
-const generateRandomLessons = async (
-  count: number
-): Promise<CreateLessonDto[]> => {
-  const lessons: CreateLessonDto[] = Array.from({ length: count }, () => ({
-    title: faker.string.alpha(10),
-    description: faker.lorem.sentence(),
-    duration: faker.number.int({ max: 60 }),
-    deleted: faker.datatype.boolean(),
-  }));
-  return lessons;
-};
-
-/**
- * Generates and saves random lessons.
- * @param {number} count - The number of lessons to generate and save.
- */
-export const randomLessons = async (count: number) => {
-  const lessons = await generateRandomLessons(count);
-
-  await prisma.lesson.createMany({
-    data: lessons,
+  await prisma.masterclass.createMany({
+    data: masterclasses,
     skipDuplicates: true,
   });
 };
@@ -322,7 +308,7 @@ const generateRandomNotifications = async (
     () => ({
       message: faker.string.alpha(10),
       published: faker.datatype.boolean(),
-      deleted: faker.datatype.boolean(),
+      is_deleted: faker.datatype.boolean(),
     })
   );
   return notifications;
@@ -353,8 +339,8 @@ const generateRandomPTrackers = async (
     { length: count },
     () => ({
       progress: faker.number.int({ max: 100 }),
-      userId: faker.string.alpha(10),
-      courseId: faker.string.alpha(10),
+      user_id: faker.string.alpha(10),
+      course_id: faker.string.alpha(10),
     })
   );
   return progressTrackers;
@@ -374,45 +360,6 @@ export const randomProgressTrackers = async (count: number) => {
 };
 
 /**
- * Generates random ressources.
- * @param {number} count - The number of ressources to generate.
- * @returns {Promise<CreateRessourceDto[]>} - A promise that resolves to an array of generated ressources.
- */
-const generateRandomRessource = async (
-  count: number
-): Promise<CreateRessourceDto[]> => {
-  const ressources: CreateRessourceDto[] = Array.from(
-    { length: count },
-    () => ({
-      title: faker.string.alpha(10),
-      path: faker.image.urlLoremFlickr({
-        height: 128,
-        width: 128,
-        category: 'music',
-      }),
-      type: faker.string.alpha(10),
-      accessLevel: faker.string.alpha(10),
-      duration: faker.number.int({ max: 60 }),
-      deleted: faker.datatype.boolean(),
-    })
-  );
-  return ressources;
-};
-
-/**
- * Generates and saves random ressources.
- * @param {number} count - The number of ressources to generate and save.
- */
-export const randomRessources = async (count: number) => {
-  const ressources = await generateRandomRessource(count);
-
-  await prisma.ressource.createMany({
-    data: ressources,
-    skipDuplicates: true,
-  });
-};
-
-/**
  * Generates random rewards.
  * @param {number} count - The number of rewards to generate.
  * @returns {Promise<CreateRewardDto[]>} - A promise that resolves to an array of generated rewards.
@@ -426,11 +373,11 @@ const generateRandomRewards = async (
     type: faker.string.alpha(10),
     value: faker.number.int({ max: 200 }),
     availability: faker.datatype.boolean(),
-    unlockCriteria: faker.datatype.boolean(),
+    unlock_criteria: faker.datatype.boolean(),
     redeemable: faker.datatype.boolean(),
-    expirationDate: faker.date.past(),
-    accessLevel: faker.number.int({ max: 100 }),
-    deleted: faker.datatype.boolean(),
+    expiration_date: faker.date.past(),
+    access_level: faker.number.int({ max: 100 }),
+    is_deleted: faker.datatype.boolean(),
   }));
   return rewards;
 };
@@ -461,7 +408,7 @@ const generateRandomSubscription = async (
     () => ({
       plan: faker.string.alpha(10),
       payed: faker.datatype.boolean(),
-      deleted: faker.datatype.boolean(),
+      is_deleted: faker.datatype.boolean(),
     })
   );
   return subscriptions;
@@ -488,7 +435,7 @@ export const randomSubscriptions = async (count: number) => {
 const generateRandomTags = async (count: number): Promise<CreateTagDto[]> => {
   const tags: CreateTagDto[] = Array.from({ length: count }, () => ({
     name: faker.string.alpha(10),
-    deleted: faker.datatype.boolean(),
+    is_deleted: faker.datatype.boolean(),
   }));
   return tags;
 };
@@ -502,57 +449,6 @@ export const randomTags = async (count: number) => {
 
   await prisma.tag.createMany({
     data: tags,
-    skipDuplicates: true,
-  });
-};
-
-/**
- * Generates a random video URL.
- * @returns {string} - The generated video URL.
- */
-const generateRandomVideoUrl = (): string => {
-  const videoUrls = [
-    'https://www.youtube.com/watch?v=htjRBaAhGRw&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix',
-    'https://www.youtube.com/watch?v=woO7Tf0ONao&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=2',
-    'https://www.youtube.com/watch?v=gGd5u5DwvuE&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=3',
-    'https://www.youtube.com/watch?v=ujLr_6t5Mlg&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=4',
-    'https://www.youtube.com/watch?v=wrgJKCgXGEA&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=5',
-    'https://www.youtube.com/watch?v=BzT-xTW2qP0&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=6',
-    'https://www.youtube.com/watch?v=145QLgpAivU&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=7',
-    'https://www.youtube.com/watch?v=vFhdn91jACY&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=8',
-    'https://www.youtube.com/watch?v=-wEh2BJnsTg&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=9',
-  ];
-  const randomIndex = faker.number.int({ min: 0, max: videoUrls.length - 1 });
-  return videoUrls[randomIndex];
-};
-
-/**
- * Generates random videos.
- * @param {number} count - The number of videos to generate.
- * @returns {Promise<CreateVideoDto[]>} - A promise that resolves to an array of generated videos.
- */
-const generateRandomVideos = async (
-  count: number
-): Promise<CreateVideoDto[]> => {
-  const videos: CreateVideoDto[] = Array.from({ length: count }, () => ({
-    description: faker.lorem.sentence(),
-    height: faker.number.int({ max: 200 }),
-    width: faker.number.int({ max: 200 }),
-    url: generateRandomVideoUrl(),
-    deleted: faker.datatype.boolean(),
-  }));
-  return videos;
-};
-
-/**
- * Generates and saves random videos.
- * @param {number} count - The number of videos to generate and save.
- */
-export const randomVideos = async (count: number) => {
-  const videos = await generateRandomVideos(count);
-
-  await prisma.video.createMany({
-    data: videos,
     skipDuplicates: true,
   });
 };

@@ -16,7 +16,7 @@ export class CreateGamificationDto {
 
   @ApiProperty({ type: Number, required: false })
   @IsNumber()
-  experiencePoint?: number;
+  experience_point?: number;
 
   @ApiProperty({ type: String, required: false })
   @IsString()
@@ -24,21 +24,17 @@ export class CreateGamificationDto {
 
   @ApiProperty({ type: Boolean, required: false, default: false })
   @IsBoolean()
-  deleted?: boolean;
+  is_deleted?: boolean;
 
   @ApiProperty({ type: String, required: false })
   @IsString()
-  userId?: string;
+  user_id?: string;
 
   @ApiProperty({ type: String, required: false })
   @IsString()
-  progressTrackingId?: string;
+  progress_tracking_id?: string;
 
   @ApiProperty({ type: Object, required: false })
   @IsObject()
   achievement?: Prisma.GamificationCreateInput['achievement'];
-
-  @ApiProperty({ type: Object, required: false })
-  @IsObject()
-  ressource?: Prisma.GamificationCreateInput['ressource'];
 }

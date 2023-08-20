@@ -21,32 +21,32 @@ export class RewardEntity implements Reward {
   availability: boolean;
 
   @ApiProperty()
-  unlockCriteria: boolean;
+  unlock_criteria: boolean;
 
   @ApiProperty()
   redeemable: boolean;
 
   @ApiProperty()
-  expirationDate: Date;
+  expiration_date: Date;
 
   @ApiProperty()
-  createdAt: Date;
+  created_at: Date;
 
   @ApiProperty()
-  lastUpdatedAt: Date;
+  updated_at: Date;
 
   @ApiProperty()
-  createdBy: string;
+  created_by: string;
 
   @ApiProperty()
-  lastUpdatedBy: string;
+  updated_by: string;
 
   @ApiProperty()
-  deleted: boolean;
+  is_deleted: boolean;
 
   @ApiProperty()
-  accessLevel: number;
+  access_level: number;
 
   @ApiProperty()
-  achievementId: string;
+  achievement_id: string;
 }
