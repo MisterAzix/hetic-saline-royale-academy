@@ -10,7 +10,7 @@ import {
 import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { Reward } from '@prisma/client';
 import { CreatedBy } from '../decorators/created-by.decorator';
-import { UpdatedBy } from '../decorators/last-updated-by.decorator';
+import { UpdatedBy } from '../decorators/updated-by.decorator';
 import { CreateRewardDto } from './dto/create-reward.dto';
 import { UpdateRewardDto } from './dto/update-reward.dto';
 import { RewardEntity } from './entities/reward.entity';

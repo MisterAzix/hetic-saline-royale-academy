@@ -12,7 +12,7 @@ import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { Category } from '@prisma/client';
 import { AdminGuard } from '../admin.guard';
 import { CreatedBy } from '../decorators/created-by.decorator';
-import { UpdatedBy } from '../decorators/last-updated-by.decorator';
+import { UpdatedBy } from '../decorators/updated-by.decorator';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';

@@ -10,7 +10,7 @@ import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { Course } from '@prisma/client';
 import { AdminGuard } from '../admin.guard';
 import { CreatedBy } from '../decorators/created-by.decorator';
-import { UpdatedBy } from '../decorators/last-updated-by.decorator';
+import { UpdatedBy } from '../decorators/updated-by.decorator';
 import { CourseService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
