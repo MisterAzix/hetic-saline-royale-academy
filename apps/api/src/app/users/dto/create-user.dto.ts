@@ -11,12 +11,12 @@ export class UserCreateDto implements Prisma.UserCreateInput {
   @ApiProperty({ type: String })
   @IsString()
   @IsNotEmpty()
-  firstName: string;
+  first_name: string;
 
   @ApiProperty({ type: String })
   @IsString()
   @IsNotEmpty()
-  lastName: string;
+  last_name: string;
 
   @ApiProperty({ type: String, required: false })
   @IsString()

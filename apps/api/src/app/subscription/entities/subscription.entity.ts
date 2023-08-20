@@ -12,14 +12,14 @@ export class SubscriptionEntity implements Subscription {
   payed: boolean;
 
   @ApiProperty()
-  createdAt: Date;
+  created_at: Date;
 
   @ApiProperty()
-  lastUpdatedAt: Date;
+  updated_at: Date;
 
   @ApiProperty()
-  deleted: boolean;
+  is_deleted: boolean;
 
   @ApiProperty()
-  userId: string;
+  user_id: string;
 }

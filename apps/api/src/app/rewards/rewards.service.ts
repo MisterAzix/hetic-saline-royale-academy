@@ -49,7 +49,7 @@ export class RewardsService {
   async findAll(): Promise<Reward[]> {
     try {
       return await this.prisma.reward.findMany({
-        where: { deleted: false },
+        where: { is_deleted: false },
       });
     } catch (error) {
       this.logger.error('Error while retrieving rewards:', error);

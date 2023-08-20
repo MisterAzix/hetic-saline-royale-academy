@@ -14,9 +14,9 @@ export class CreateSubscriptionDto {
   @ApiProperty({ type: Boolean, required: false, default: false })
   @IsBoolean()
   @ApiProperty({ required: false, default: false })
-  deleted?: boolean;
+  is_deleted?: boolean;
 
   @ApiProperty({ type: String, required: false })
   @IsString()
-  userId?: string;
+  user_id?: string;
 }

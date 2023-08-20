@@ -6,13 +6,13 @@ export class CategoryEntity implements Category {
   description: string;
 
   @ApiProperty()
-  achievementId: string;
+  achievement_id: string;
 
   @ApiProperty()
-  badgeId: string;
+  badge_id: string;
 
   @ApiProperty()
-  courseId: string;
+  course_id: string;
 
   @ApiProperty()
   id: string;
@@ -21,17 +21,17 @@ export class CategoryEntity implements Category {
   name: string;
 
   @ApiProperty()
-  createdAt: Date;
+  created_at: Date;
 
   @ApiProperty()
-  lastUpdatedAt: Date;
+  updated_at: Date;
 
   @ApiProperty()
-  deleted: boolean;
+  is_deleted: boolean;
 
   @ApiProperty()
-  createdBy: string;
+  created_by: string;
 
   @ApiProperty()
-  lastUpdatedBy: string;
+  updated_by: string;
 }

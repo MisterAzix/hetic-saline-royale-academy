@@ -27,25 +27,21 @@ export class CreateBadgeDto {
 
   @ApiProperty({ type: Boolean, required: false })
   @IsBoolean()
-  visible?: boolean;
+  is_visible?: boolean;
 
   @ApiProperty({ type: String, required: false })
   @IsString()
-  hiddenDescription?: string;
+  hidden_description?: string;
 
   @ApiProperty({ type: Boolean, required: false, default: false })
   @IsBoolean()
-  deleted?: boolean;
+  is_deleted?: boolean;
 
   @ApiProperty({ type: String, required: false })
   @IsString()
-  achievementId?: string;
+  achievement_id?: string;
 
   @ApiProperty({ type: Object, required: false })
   @IsObject()
   category?: Prisma.BadgeCreateInput['category'];
-
-  @ApiProperty({ type: Object, required: false })
-  @IsObject()
-  ressource?: Prisma.BadgeCreateInput['ressource'];
 }

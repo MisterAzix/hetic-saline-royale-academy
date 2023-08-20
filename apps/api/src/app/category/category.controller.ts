@@ -12,7 +12,7 @@ import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { Category } from '@prisma/client';
 import { AdminGuard } from '../admin.guard';
 import { CreatedBy } from '../decorators/created-by.decorator';
-import { LastUpdatedBy } from '../decorators/last-updated-by.decorator';
+import { UpdatedBy } from '../decorators/updated-by.decorator';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -34,13 +34,13 @@ export class CategoryController {
   @ApiCreatedResponse({ type: CategoryEntity })
   create(
     @Body() createCategoryDto: CreateCategoryDto,
-    @CreatedBy() createdBy: string,
-    @LastUpdatedBy() lastUpdatedBy: string
+    @CreatedBy() created_by: string,
+    @UpdatedBy() updated_by: string
   ): Promise<Category> {
     return this.categoryService.create({
       ...createCategoryDto,
-      createdBy,
-      lastUpdatedBy,
+      created_by,
+      updated_by,
     });
   }
 
@@ -82,11 +82,11 @@ export class CategoryController {
   update(
     @Param('id') id: string,
     @Body() updateCategoryDto: UpdateCategoryDto,
-    @LastUpdatedBy() lastUpdatedBy: string
+    @UpdatedBy() updated_by: string
   ): Promise<Category> {
     return this.categoryService.update(id, {
       ...updateCategoryDto,
-      lastUpdatedBy,
+      updated_by,
     });
   }
 

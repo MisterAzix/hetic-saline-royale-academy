@@ -7,15 +7,12 @@ import {
   randomChapters,
   randomCourses,
   randomGamification,
-  randomImages,
-  randomLessons,
+  randomMasterclasses,
   randomNotifications,
-  randomRessources,
   randomRewards,
   randomSubscriptions,
   randomTags,
   randomUsers,
-  randomVideos,
 } from './faker';
 
 const prisma = new PrismaClient();
@@ -72,17 +69,10 @@ async function seed() {
   }
 
   try {
-    await randomImages(2);
-    logger.log('Creating randomImages success');
+    await randomMasterclasses(2);
+    logger.log('Creating randomMasterclasses success');
   } catch (error) {
-    logger.error('Creating randomImages failled :', error);
-  }
-
-  try {
-    await randomLessons(2);
-    logger.log('Creating randomLessons success');
-  } catch (error) {
-    logger.error('Creating randomLessons failled :', error);
+    logger.error('Creating randomMasterclasses failled :', error);
   }
 
   try {
@@ -98,13 +88,6 @@ async function seed() {
   // } catch (error) {
   //   logger.error('Creating randomProgressTrackers failled :', error);
   // }
-
-  try {
-    await randomRessources(2);
-    logger.log('Creating randomRessources success');
-  } catch (error) {
-    logger.error('Creating randomRessources failled :', error);
-  }
 
   try {
     await randomRewards(2);
@@ -125,13 +108,6 @@ async function seed() {
     logger.log('Creating randomTags success');
   } catch (error) {
     logger.error('Creating randomTags failled :', error);
-  }
-
-  try {
-    await randomVideos(2);
-    logger.log('Creating randomVideos success');
-  } catch (error) {
-    logger.error('Creating randomVideos failled :', error);
   }
 
   logger.log('Seed data completed!');

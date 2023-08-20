@@ -27,19 +27,19 @@ export class CreateAchievementDto {
 
   @ApiProperty({ type: Date, required: false })
   @IsDate()
-  unlockDate?: Date;
+  unlock_date?: Date;
 
   @ApiProperty({ type: Boolean, required: false, default: false })
   @IsBoolean()
-  visible?: boolean;
+  is_visible?: boolean;
 
   @ApiProperty({ type: Boolean, required: false, default: false })
   @IsBoolean()
-  deleted?: boolean;
+  is_deleted?: boolean;
 
   @ApiProperty({ type: String, required: false })
   @IsString()
-  gamificationId?: string;
+  gamification_id?: string;
 
   @ApiProperty({ type: Object, required: false })
   @IsObject()

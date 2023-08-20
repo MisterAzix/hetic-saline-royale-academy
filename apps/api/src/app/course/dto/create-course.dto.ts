@@ -21,15 +21,15 @@ export class CreateCourseDto {
 
   @ApiProperty({ type: Boolean, required: false, default: false })
   @IsBoolean()
-  deleted?: boolean;
+  is_deleted?: boolean;
 
   @ApiProperty({ type: String, required: false })
   @IsString()
-  userId?: string;
+  user_id?: string;
 
   @ApiProperty({ type: String, required: false })
   @IsString()
-  progressTrackingId?: string;
+  progress_tracking_id?: string;
 
   @ApiProperty({ type: Object, required: false })
   @IsObject()
@@ -42,8 +42,4 @@ export class CreateCourseDto {
   @ApiProperty({ type: Array, required: false })
   @IsArray()
   tags?: Prisma.CourseCreateInput['tags'];
-
-  @ApiProperty({ type: Array, required: false })
-  @IsArray()
-  ressources?: Prisma.CourseCreateInput['ressources'];
 }

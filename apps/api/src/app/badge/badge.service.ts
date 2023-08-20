@@ -49,7 +49,7 @@ export class BadgeService {
   async findAll(): Promise<Badge[]> {
     try {
       return await this.prisma.badge.findMany({
-        where: { deleted: false },
+        where: { is_deleted: false },
       });
     } catch (error) {
       this.logger.error(`Error while retrieving badges: ${error.message}`);

@@ -9,17 +9,17 @@ export class TagEntity implements Tag {
   name: string;
 
   @ApiProperty()
-  createdAt: Date;
+  created_at: Date;
 
   @ApiProperty()
-  lastUpdatedAt: Date;
+  updated_at: Date;
 
   @ApiProperty()
-  deleted: boolean;
+  is_deleted: boolean;
 
   @ApiProperty()
-  courseId: string;
+  course_id: string;
 
   @ApiProperty()
-  lessonId: string;
+  masterclass_id: string;
 }

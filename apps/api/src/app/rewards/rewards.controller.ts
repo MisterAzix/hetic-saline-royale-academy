@@ -10,7 +10,7 @@ import {
 import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { Reward } from '@prisma/client';
 import { CreatedBy } from '../decorators/created-by.decorator';
-import { LastUpdatedBy } from '../decorators/last-updated-by.decorator';
+import { UpdatedBy } from '../decorators/updated-by.decorator';
 import { CreateRewardDto } from './dto/create-reward.dto';
 import { UpdateRewardDto } from './dto/update-reward.dto';
 import { RewardEntity } from './entities/reward.entity';
@@ -30,13 +30,13 @@ export class RewardsController {
   @ApiCreatedResponse({ type: RewardEntity })
   create(
     @Body() createRewardDto: CreateRewardDto,
-    @CreatedBy() createdBy: string,
-    @LastUpdatedBy() lastUpdatedBy: string
+    @CreatedBy() created_by: string,
+    @UpdatedBy() updated_by: string
   ): Promise<Reward> {
     return this.rewardsService.create({
       ...createRewardDto,
-      createdBy,
-      lastUpdatedBy,
+      created_by,
+      updated_by,
     });
   }
 
@@ -75,11 +75,11 @@ export class RewardsController {
   update(
     @Param('id') id: string,
     @Body() updateRewardDto: UpdateRewardDto,
-    @LastUpdatedBy() lastUpdatedBy: string
+    @UpdatedBy() updated_by: string
   ): Promise<Reward> {
     return this.rewardsService.update(id, {
       ...updateRewardDto,
-      lastUpdatedBy,
+      updated_by,
     });
   }
 

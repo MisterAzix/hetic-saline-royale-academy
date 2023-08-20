@@ -9,26 +9,23 @@ export class GamificationEntity implements Gamification {
   description: string;
 
   @ApiProperty()
-  experiencePoint: number;
+  experience_point: number;
 
   @ApiProperty()
   level: string;
 
   @ApiProperty()
-  createdAt: Date;
+  created_at: Date;
 
   @ApiProperty()
-  lastUpdatedAt: Date;
+  updated_at: Date;
 
   @ApiProperty()
-  deleted: boolean;
+  is_deleted: boolean;
 
   @ApiProperty()
-  ressourceId: string;
+  progress_tracking_id: string;
 
   @ApiProperty()
-  progressTrackingId: string;
-
-  @ApiProperty()
-  userId: string;
+  user_id: string;
 }

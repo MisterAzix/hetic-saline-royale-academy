@@ -9,41 +9,43 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
-import { Lesson } from '@prisma/client';
+import { Masterclass } from '@prisma/client';
 import { AdminGuard } from '../admin.guard';
-import { CreateLessonDto } from './dto/create-lesson.dto';
-import { UpdateLessonDto } from './dto/update-lesson.dto';
-import { LessonEntity } from './entities/lesson.entity';
-import { LessonService } from './lesson.service';
+import { CreateMasterclassDto } from './dto/create-masterclass.dto';
+import { UpdateMasterclassDto } from './dto/update-lesson.dto';
+import { MasterclassEntity } from './entities/lesson.entity';
+import { MasterclassService } from './lesson.service';
 
 @Controller('lesson')
 @ApiTags('lesson')
-export class LessonController {
-  constructor(private readonly lessonService: LessonService) {}
+export class MasterclassController {
+  constructor(private readonly lessonService: MasterclassService) {}
   /**
    * Create a new lesson.
    *
-   * @param {CreateLessonDto} createLessonDto - The data for creating the lesson.
-   * @returns {Promise<Lesson>} - The created lesson.
+   * @param {CreateMasterclassDto} createMasterclassDto - The data for creating the lesson.
+   * @returns {Promise<Masterclass>} - The created lesson.
    */
   @UseGuards(AdminGuard)
   @Post()
-  @ApiCreatedResponse({ type: LessonEntity })
-  create(@Body() createLessonDto: CreateLessonDto): Promise<Lesson> {
+  @ApiCreatedResponse({ type: MasterclassEntity })
+  create(
+    @Body() createMasterclassDto: CreateMasterclassDto
+  ): Promise<Masterclass> {
     return this.lessonService.create({
-      ...createLessonDto,
+      ...createMasterclassDto,
     });
   }
 
   /**
-   * Retrieve all lessons.
+   * Retrieve all masterclasses.
    *
-   * @returns {Promise<Lesson[]>} - An array of lessons.
+   * @returns {Promise<Masterclass[]>} - An array of masterclasses.
    */
   @UseGuards(AdminGuard)
   @Get()
-  @ApiCreatedResponse({ type: LessonEntity, isArray: true })
-  findAll(): Promise<Lesson[]> {
+  @ApiCreatedResponse({ type: MasterclassEntity, isArray: true })
+  findAll(): Promise<Masterclass[]> {
     return this.lessonService.findAll();
   }
 
@@ -51,12 +53,12 @@ export class LessonController {
    * Retrieve a specific lesson by ID.
    *
    * @param {string} id - The ID of the lesson to retrieve.
-   * @returns {Promise<Lesson>} - The lesson with the specified ID.
+   * @returns {Promise<Masterclass>} - The lesson with the specified ID.
    */
   @UseGuards(AdminGuard)
   @Get(':id')
-  @ApiCreatedResponse({ type: LessonEntity })
-  findOne(@Param('id') id: string): Promise<Lesson> {
+  @ApiCreatedResponse({ type: MasterclassEntity })
+  findOne(@Param('id') id: string): Promise<Masterclass> {
     return this.lessonService.findOne(id);
   }
 
@@ -64,18 +66,18 @@ export class LessonController {
    * Update a lesson with new data.
    *
    * @param {string} id - The ID of the lesson to update.
-   * @param {UpdateLessonDto} updateLessonDto - The data for updating the lesson.
-   * @returns {Promise<Lesson>} - The updated lesson.
+   * @param {UpdateMasterclassDto} updateMasterclassDto - The data for updating the lesson.
+   * @returns {Promise<Masterclass>} - The updated lesson.
    */
   @UseGuards(AdminGuard)
   @Patch(':id')
-  @ApiCreatedResponse({ type: LessonEntity })
+  @ApiCreatedResponse({ type: MasterclassEntity })
   update(
     @Param('id') id: string,
-    @Body() updateLessonDto: UpdateLessonDto
-  ): Promise<Lesson> {
+    @Body() updateMasterclassDto: UpdateMasterclassDto
+  ): Promise<Masterclass> {
     return this.lessonService.update(id, {
-      ...updateLessonDto,
+      ...updateMasterclassDto,
     });
   }
 
@@ -83,12 +85,12 @@ export class LessonController {
    * Remove a lesson by ID.
    *
    * @param {string} id - The ID of the lesson to remove.
-   * @returns {Promise<Lesson>} - The removed lesson.
+   * @returns {Promise<Masterclass>} - The removed lesson.
    */
   @UseGuards(AdminGuard)
-  @ApiCreatedResponse({ type: LessonEntity })
+  @ApiCreatedResponse({ type: MasterclassEntity })
   @Delete(':id')
-  remove(@Param('id') id: string): Promise<Lesson> {
+  remove(@Param('id') id: string): Promise<Masterclass> {
     return this.lessonService.remove(id);
   }
 }

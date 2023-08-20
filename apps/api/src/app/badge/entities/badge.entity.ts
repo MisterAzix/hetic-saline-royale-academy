@@ -22,26 +22,26 @@ export class BadgeEntity implements Badge {
   unlock_date: Date;
 
   @ApiProperty()
-  createdAt: Date;
+  created_at: Date;
 
   @ApiProperty()
-  lastUpdatedAt: Date;
+  updated_at: Date;
 
   @ApiProperty()
-  createdBy: string;
+  created_by: string;
 
   @ApiProperty()
-  lastUpdatedBy: string;
+  updated_by: string;
 
   @ApiProperty()
-  visible: boolean;
+  is_visible: boolean;
 
   @ApiProperty()
-  hiddenDescription: string;
+  hidden_description: string;
 
   @ApiProperty()
-  deleted: boolean;
+  is_deleted: boolean;
 
   @ApiProperty()
-  achievementId: string;
+  achievement_id: string;
 }

@@ -12,29 +12,29 @@ export class AchievementEntity implements Achievement {
   description: string;
 
   @ApiProperty()
-  createdAt: Date;
+  created_at: Date;
 
   @ApiProperty()
-  lastUpdatedAt: Date;
+  updated_at: Date;
 
   @ApiProperty()
-  lastUpdatedBy: string;
+  updated_by: string;
 
   @ApiProperty()
-  createdBy: string;
+  created_by: string;
 
   @ApiProperty()
   criteria: string;
 
   @ApiProperty()
-  unlockDate: Date;
+  unlock_date: Date;
 
   @ApiProperty()
-  visible: boolean;
+  is_visible: boolean;
 
   @ApiProperty()
-  deleted: boolean;
+  is_deleted: boolean;
 
   @ApiProperty()
-  gamificationId: string;
+  gamification_id: string;
 }

@@ -10,7 +10,7 @@ import {
 import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { Badge } from '@prisma/client';
 import { CreatedBy } from '../decorators/created-by.decorator';
-import { LastUpdatedBy } from '../decorators/last-updated-by.decorator';
+import { UpdatedBy } from '../decorators/updated-by.decorator';
 import { BadgeService } from './badge.service';
 import { CreateBadgeDto } from './dto/create-badge.dto';
 import { UpdateBadgeDto } from './dto/update-badge.dto';
@@ -30,13 +30,13 @@ export class BadgeController {
   @ApiCreatedResponse({ type: BadgeEntity })
   create(
     @Body() createBadgeDto: CreateBadgeDto,
-    @CreatedBy() createdBy: string,
-    @LastUpdatedBy() lastUpdatedBy: string
+    @CreatedBy() created_by: string,
+    @UpdatedBy() updated_by: string
   ): Promise<Badge> {
     return this.badgeService.create({
       ...createBadgeDto,
-      createdBy,
-      lastUpdatedBy,
+      created_by,
+      updated_by,
     });
   }
 
@@ -75,11 +75,11 @@ export class BadgeController {
   update(
     @Param('id') id: string,
     @Body() updateBadgeDto: UpdateBadgeDto,
-    @LastUpdatedBy() lastUpdatedBy: string
+    @UpdatedBy() updated_by: string
   ): Promise<Badge> {
     return this.badgeService.update(id, {
       ...updateBadgeDto,
-      lastUpdatedBy,
+      updated_by,
     });
   }
 

@@ -49,7 +49,7 @@ export class TagService {
   async findAll(): Promise<Tag[]> {
     try {
       return await this.prisma.tag.findMany({
-        where: { deleted: false },
+        where: { is_deleted: false },
       });
     } catch (error) {
       this.logger.error('Error while retrieving tags:', error);

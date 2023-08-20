@@ -10,7 +10,7 @@ import {
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Achievement } from '@prisma/client';
 import { CreatedBy } from '../decorators/created-by.decorator';
-import { LastUpdatedBy } from '../decorators/last-updated-by.decorator';
+import { UpdatedBy } from '../decorators/updated-by.decorator';
 import { AchievementService } from './achievement.service';
 import { CreateAchievementDto } from './dto/create-achievement.dto';
 import { UpdateAchievementDto } from './dto/update-achievement.dto';
@@ -30,13 +30,13 @@ export class AchievementController {
   @ApiCreatedResponse({ type: AchievementEntity })
   create(
     @Body() createAchievementDto: CreateAchievementDto,
-    @CreatedBy() createdBy: string,
-    @LastUpdatedBy() lastUpdatedBy: string
+    @CreatedBy() created_by: string,
+    @UpdatedBy() updated_by: string
   ): Promise<Achievement> {
     return this.achievementService.create({
       ...createAchievementDto,
-      createdBy,
-      lastUpdatedBy,
+      created_by,
+      updated_by,
     });
   }
 
@@ -75,11 +75,11 @@ export class AchievementController {
   update(
     @Param('id') id: string,
     @Body() updateAchievementDto: UpdateAchievementDto,
-    @LastUpdatedBy() lastUpdatedBy: string
+    @UpdatedBy() updated_by: string
   ): Promise<Achievement> {
     return this.achievementService.update(id, {
       ...updateAchievementDto,
-      lastUpdatedBy,
+      updated_by,
     });
   }
 

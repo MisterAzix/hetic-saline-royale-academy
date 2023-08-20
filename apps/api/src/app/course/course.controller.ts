@@ -10,7 +10,7 @@ import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { Course } from '@prisma/client';
 import { AdminGuard } from '../admin.guard';
 import { CreatedBy } from '../decorators/created-by.decorator';
-import { LastUpdatedBy } from '../decorators/last-updated-by.decorator';
+import { UpdatedBy } from '../decorators/updated-by.decorator';
 import { CourseService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
@@ -32,13 +32,13 @@ export class CourseController {
   @ApiCreatedResponse({ type: CourseEntity })
   async create(
     createCourseDto: CreateCourseDto,
-    @CreatedBy() createdBy: string,
-    @LastUpdatedBy() lastUpdatedBy: string
+    @CreatedBy() created_by: string,
+    @UpdatedBy() updated_by: string
   ): Promise<Course> {
     return this.courseService.create({
       ...createCourseDto,
-      createdBy,
-      lastUpdatedBy,
+      created_by,
+      updated_by,
     });
   }
 
@@ -80,11 +80,11 @@ export class CourseController {
   async update(
     id: string,
     updateCourseDto: UpdateCourseDto,
-    @LastUpdatedBy() lastUpdatedBy: string
+    @UpdatedBy() updated_by: string
   ): Promise<Course> {
     return this.courseService.update(id, {
       ...updateCourseDto,
-      lastUpdatedBy,
+      updated_by,
     });
   }
 

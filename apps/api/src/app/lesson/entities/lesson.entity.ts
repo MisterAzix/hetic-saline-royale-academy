@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Lesson } from '@prisma/client';
+import { Masterclass, Status } from '@prisma/client';
 
-export class LessonEntity implements Lesson {
+export class MasterclassEntity implements Masterclass {
   @ApiProperty()
   id: string;
 
@@ -15,14 +15,23 @@ export class LessonEntity implements Lesson {
   duration: number;
 
   @ApiProperty()
-  createdAt: Date;
+  chapter_id: string;
 
   @ApiProperty()
-  lastUpdatedAt: Date;
+  cover_url: string;
 
   @ApiProperty()
-  deleted: boolean;
+  video_url: string;
 
   @ApiProperty()
-  chapterId: string;
+  status: Status;
+
+  @ApiProperty()
+  is_deleted: boolean;
+
+  @ApiProperty()
+  created_at: Date;
+
+  @ApiProperty()
+  updated_at: Date;
 }
