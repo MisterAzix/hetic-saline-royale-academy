@@ -18,12 +18,12 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]';
 
 const ProfileContainer = styled(Stack)`
-  padding: 40px 0;
+  padding: 32px 0;
   align-items: center;
 `;
 
 const ProfileSection = styled(Stack)`
-  width: 500px;
+  width: min(500px, 100%);
 `;
 
 const SectionTitle = styled(Typography)`

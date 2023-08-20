@@ -8,6 +8,8 @@ type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type ButtonColor = 'primary' | 'secondary' | 'destructive';
 
 const _Button = styled(Button)<{ size?: ButtonSize; color?: ButtonColor }>`
+  position: relative;
+
   ${({ size }) => {
     switch (size) {
       case 'xs':
