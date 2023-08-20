@@ -14,7 +14,7 @@ import { CategoryModule } from './category/category.module';
 import { ChapterModule } from './chapter/chapter.module';
 import { CourseModule } from './course/course.module';
 import { GamificationModule } from './gamification/gamification.module';
-import { MasterclassModule } from './lesson/lesson.module';
+import { MasterclassModule } from './masterclass/masterclass.module';
 import { NotificationModule } from './notification/notification.module';
 import { PrismaModule } from './prisma.module';
 import { ProgressTrackerModule } from './progress_tracker/progress_tracker.module';

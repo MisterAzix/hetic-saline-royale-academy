@@ -1,15 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MasterclassController } from './lesson.controller';
-import { MasterclassService } from './lesson.service';
-import { PrismaService } from '../../prisma.service';
+import { MasterclassController } from './masterclass.controller';
+import { MasterclassService } from './masterclass.service';
+import { CloudinaryModule } from '../cloudinary/cloudinary.module';
+import { PrismaModule } from '../prisma.module';
 
 describe('MasterclassController', () => {
   let controller: MasterclassController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [PrismaModule, CloudinaryModule],
       controllers: [MasterclassController],
-      providers: [MasterclassService, PrismaService],
+      providers: [MasterclassService],
     }).compile();
 
     controller = module.get<MasterclassController>(MasterclassController);
