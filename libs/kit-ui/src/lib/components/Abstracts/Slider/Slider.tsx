@@ -1,14 +1,16 @@
 import {
-  CSSProperties,
+  CSSProperties, Dispatch,
   // Dispatch,
   forwardRef,
   PropsWithChildren,
   ReactNode,
-  RefObject,
+  RefObject, SetStateAction
   // SetStateAction,
-} from 'react';
+} from 'react'
 import { Axis } from './@types';
 import { UseDragParams } from '../../../../../hooks/useDrag/@types';
+import { UseSpringParams } from '../../../../../hooks/useSpring';
+import {SliderState} from './hooks/useSliderState'
 
 export type SliderProps = Partial<
   {
@@ -48,12 +50,12 @@ export type SliderProps = Partial<
     dragProps: UseDragParams;
     axis: Exclude<Axis, 'free'>;
     shouldSnap: boolean;
-    // springConfig: UseSpringParams['config'];
-    // touchSpringConfig: UseSpringParams['config'];
+    springConfig: UseSpringParams['config'];
+    touchSpringConfig: UseSpringParams['config'];
     customSliderRef: RefObject<unknown>;
     excludeMarginFromDefaultBounds: boolean;
     initialSlideIndex: number;
-    // setSliderState: Dispatch<SetStateAction<SliderState>>;
+    setSliderState: Dispatch<SetStateAction<SliderState>>;
     onSlideIndexChange: (slideIndex: number) => void;
     style: CSSProperties;
   } & PropsWithChildren<Element[] | ReactNode[]>

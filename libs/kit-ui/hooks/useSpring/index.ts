@@ -5,7 +5,7 @@ import { Inrtia } from './inrtia';
 import { useTicker } from '../useTicker';
 import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect';
 
-type UseSpringParams = {
+export type UseSpringParams = {
   config?: Partial<{
     friction: number;
     rigidity: number;
