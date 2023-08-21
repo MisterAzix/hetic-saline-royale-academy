@@ -5,8 +5,8 @@ import { User } from 'next-auth';
 
 declare module 'next-auth' {
   interface User {
-    firstName: string;
-    lastName: string;
+    first_name: string;
+    last_name: string;
     sub: string;
     email: string;
     role: string;

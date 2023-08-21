@@ -42,7 +42,7 @@ function Profile() {
           <Stack width={'100%'}>
             <InputGroup
               label="Prénom"
-              name="firstName"
+              name="first_name"
               helperText="Prénom"
               placeholder="John"
             />
@@ -50,7 +50,7 @@ function Profile() {
           <Stack width={'100%'}>
             <InputGroup
               label="Nom"
-              name="lastName"
+              name="last_name"
               helperText="Nom"
               placeholder="Doe"
             />
