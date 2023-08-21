@@ -3,4 +3,6 @@ export type StorybookTitle<T extends string> =
   | `Molecules/${T}`
   | `Organism/${T}`
   | `Templates/${T}`
-  | `Pages/${T}`
+  | `Pages/${T}`;
+
+export type Nullable<T> = T | null;
