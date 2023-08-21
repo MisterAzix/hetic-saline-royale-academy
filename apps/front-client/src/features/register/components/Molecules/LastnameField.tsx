@@ -13,12 +13,12 @@ const LastnameField = ({ control }: EmailFieldProps) => {
 
   return (
     <Controller
-      name="lastName"
+      name="last_name"
       control={control}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <InputGroup
           id={id}
-          name={'lastName'}
+          name={'last_name'}
           label={'Nom'}
           placeholder="Doe"
           helperText={'Le nom est requis'}

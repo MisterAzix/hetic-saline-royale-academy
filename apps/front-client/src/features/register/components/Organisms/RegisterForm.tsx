@@ -32,8 +32,8 @@ const SubTitle = styled(Typography)`
 `;
 
 const initialValues: IRegisterForm = {
-  firstName: '',
-  lastName: '',
+  first_name: '',
+  last_name: '',
   email: '',
   password: '',
 };

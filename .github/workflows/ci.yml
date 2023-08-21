@@ -3,7 +3,7 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
@@ -80,7 +80,7 @@ jobs:
         uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_API_URL: http://${{ vars.API_URL }}
-          directory: "apps/front-admin/"
+          directory: 'apps/front-admin/'
           file_name: .env
           fail_on_empty: false
 
@@ -88,7 +88,7 @@ jobs:
         uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_API_URL: http://${{ vars.API_URL }}
-          directory: "apps/front-client/"
+          directory: 'apps/front-client/'
           file_name: .env
           fail_on_empty: false
 
@@ -160,7 +160,7 @@ jobs:
           envkey_API_URL: http://${{ vars.API_URL }}
           envkey_CLIENT_URL: http://${{ vars.CLIENT_URL }}
           envkey_DASHBOARD_URL: http://${{ vars.DASHBOARD_URL }}
-          directory: "dist/apps/api/"
+          directory: 'dist/apps/api/'
           file_name: .env
           fail_on_empty: false
 
@@ -171,8 +171,8 @@ jobs:
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          SOURCE: "dist/apps/api/"
-          TARGET: "/var/www/${{ vars.API_URL }}"
+          SOURCE: 'dist/apps/api/'
+          TARGET: '/var/www/${{ vars.API_URL }}'
 
       - name: Deploy Dashboard
         uses: easingthemes/ssh-deploy@main
@@ -181,8 +181,8 @@ jobs:
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          SOURCE: "dist/apps/front-admin/"
-          TARGET: "/var/www/${{ vars.DASHBOARD_URL }}"
+          SOURCE: 'dist/apps/front-admin/'
+          TARGET: '/var/www/${{ vars.DASHBOARD_URL }}'
 
       - name: Deploy Client
         uses: easingthemes/ssh-deploy@main
@@ -191,8 +191,8 @@ jobs:
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          SOURCE: "dist/apps/front-client/"
-          TARGET: "/var/www/${{ vars.CLIENT_URL }}"
+          SOURCE: 'dist/apps/front-client/'
+          TARGET: '/var/www/${{ vars.CLIENT_URL }}'
 
       - name: Restart Apps
         uses: easingthemes/ssh-deploy@main
@@ -208,5 +208,3 @@ jobs:
             [[ $((pm2 info ${{ vars.DASHBOARD_URL }} || echo 'status|stopped') | grep status) =~ 'stopped' ]] && pm2 start npm --name ${{ vars.DASHBOARD_URL }} -- start -- -p 3002 || pm2 restart ${{ vars.DASHBOARD_URL }}
             cd /var/www/${{ vars.CLIENT_URL }} && npm install
             [[ $((pm2 info ${{ vars.CLIENT_URL }} || echo 'status|stopped') | grep status) =~ 'stopped' ]] && pm2 start npm --name ${{ vars.CLIENT_URL }} -- start -- -p 3001 || pm2 restart ${{ vars.CLIENT_URL }}
-
-
