@@ -4,7 +4,7 @@ import { CreateBadgeDto } from '../apps/api/src/app/badge/dto/create-badge.dto';
 import { CreateCategoryDto } from '../apps/api/src/app/category/dto/create-category.dto';
 import { CreateChapterDto } from '../apps/api/src/app/chapter/dto/create-chapter.dto';
 import { CreateGamificationDto } from '../apps/api/src/app/gamification/dto/create-gamification.dto';
-import { CreateMasterclassDto } from '../apps/api/src/app/lesson/dto/create-masterclass.dto';
+import { CreateMasterclassDto } from '../apps/api/src/app/masterclass/dto/create-masterclass.dto';
 import { CreateNotificationDto } from '../apps/api/src/app/notification/dto/create-notification.dto';
 import { CreateProgressTrackerDto } from '../apps/api/src/app/progress_tracker/dto/create-progress_tracker.dto';
 import { CreateRewardDto } from '../apps/api/src/app/rewards/dto/create-reward.dto';

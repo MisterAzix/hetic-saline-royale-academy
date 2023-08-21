@@ -6,40 +6,41 @@ import {
 } from '@nestjs/common';
 import { Masterclass, Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
+import { CloudinaryService } from '../cloudinary/cloudinary.service';
 
 @Injectable()
 export class MasterclassService {
   private logger = new Logger(MasterclassService.name);
 
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly cloudinaryService: CloudinaryService
+  ) {}
 
   /**
-   * Create a new lesson.
+   * Create a new masterclass.
    *
-   * @param {Prisma.MasterclassCreateInput} data - The data for creating the lesson.
-   * @returns {Promise<Masterclass>} - The created lesson.
+   * @param {Express.Multer.File} file - The file for creating the masterclass.
+   * @returns {Promise<Masterclass>} - The created masterclass.
    */
-  async create(data: Prisma.MasterclassCreateInput): Promise<Masterclass> {
+  async create(file: Express.Multer.File): Promise<Masterclass> {
+    const { secure_url } = await this.cloudinaryService.uploadAsset(file);
+
     try {
-      const lesson = await this.prisma.masterclass.create({ data });
-      return lesson;
+      return this.prisma.masterclass.create({
+        data: {
+          title: file.originalname,
+          video_url: secure_url,
+        },
+      });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
-        // Handle validation errors
         this.logger.error('Masterclass DTO validation error:', error.message);
         throw new BadRequestException(
           `Masterclass DTO validation error: ${error}`
         );
-      } else {
-        // Handle other errors
-        this.logger.error(
-          'An error occurred while creating the lesson:',
-          error.message
-        );
-        throw new InternalServerErrorException(
-          `An error occurred while creating the lesson: ${error}`
-        );
       }
+      throw error;
     }
   }
 
@@ -62,10 +63,10 @@ export class MasterclassService {
   }
 
   /**
-   * Retrieve a specific lesson by ID.
+   * Retrieve a specific masterclass by ID.
    *
-   * @param {string} id - The ID of the lesson to retrieve.
-   * @returns {Promise<Masterclass>} - The lesson with the specified ID.
+   * @param {string} id - The ID of the masterclass to retrieve.
+   * @returns {Promise<Masterclass>} - The masterclass with the specified ID.
    */
   async findOne(id: string): Promise<Masterclass> {
     try {
@@ -80,22 +81,22 @@ export class MasterclassService {
       } else {
         // Handle other errors
         this.logger.error(
-          'An error occurred while retrieving lesson:',
+          'An error occurred while retrieving masterclass:',
           error.message
         );
         throw new InternalServerErrorException(
-          `An error occurred while retrieving lesson: ${error}`
+          `An error occurred while retrieving masterclass: ${error}`
         );
       }
     }
   }
 
   /**
-   * Update a lesson with new data.
+   * Update a masterclass with new data.
    *
-   * @param {string} id - The ID of the lesson to update.
-   * @param {Prisma.MasterclassUpdateInput} data - The data for updating the lesson.
-   * @returns {Promise<Masterclass>} - The updated lesson.
+   * @param {string} id - The ID of the masterclass to update.
+   * @param {Prisma.MasterclassUpdateInput} data - The data for updating the masterclass.
+   * @returns {Promise<Masterclass>} - The updated masterclass.
    */
   async update(
     id: string,
@@ -116,21 +117,21 @@ export class MasterclassService {
       } else {
         // Handle other errors
         this.logger.error(
-          'An error occurred while updating the lesson:',
+          'An error occurred while updating the masterclass:',
           error.message
         );
         throw new InternalServerErrorException(
-          `An error occurred while updating the lesson: ${error}`
+          `An error occurred while updating the masterclass: ${error}`
         );
       }
     }
   }
 
   /**
-   * Remove a lesson by ID.
+   * Remove a masterclass by ID.
    *
-   * @param {string} id - The ID of the lesson to remove.
-   * @returns {Promise<Masterclass>} - The removed lesson.
+   * @param {string} id - The ID of the masterclass to remove.
+   * @returns {Promise<Masterclass>} - The removed masterclass.
    */
   async remove(id: string): Promise<Masterclass> {
     try {
@@ -145,11 +146,11 @@ export class MasterclassService {
       } else {
         // Handle other errors
         this.logger.error(
-          'An error occurred while deleting lesson:',
+          'An error occurred while deleting masterclass:',
           error.message
         );
         throw new InternalServerErrorException(
-          `An error occurred while deleting lesson: ${error}`
+          `An error occurred while deleting masterclass: ${error}`
         );
       }
     }
