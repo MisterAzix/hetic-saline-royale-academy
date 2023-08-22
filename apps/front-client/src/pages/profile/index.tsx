@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import DashboardLayout from '../../layout/DashboardLayout';
 import { routes } from '../../routes';
 import { Stack, Typography } from '@mui/material';
@@ -16,6 +16,8 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import { GetServerSidePropsContext } from 'next';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]';
+import { useSession } from 'next-auth/react';
+import { useUpdateUser } from '../../features/sidebar/hooks/useUpdateUser';
 
 const ProfileContainer = styled(Stack)`
   padding: 40px 0;
@@ -31,7 +33,54 @@ const SectionTitle = styled(Typography)`
   ${typography.sm.semiBold};
 `;
 
+const AlertMessage = styled(Typography)`
+  color: ${palette.error[500]};
+  ${typography.xs.medium};
+`;
+
 function Profile() {
+  const initialUserData = {
+    first_name: '',
+    last_name: '',
+    email: '',
+  };
+
+  const [userData, setUserData] = useState(initialUserData);
+  const [message, setMessage] = useState('');
+
+  const updateUserMutation = useUpdateUser();
+
+  const session = useSession();
+  const user = session?.data?.user;
+
+  useEffect(() => {
+    if (user) {
+      setUserData({
+        first_name: user.first_name || '',
+        last_name: user.last_name || '',
+        email: user.email || '',
+      });
+    }
+  }, [user]);
+
+  const handleSave = () => {
+    if (!user?.sub) {
+      setMessage("L'ID utilisateur est manquant.");
+      return;
+    }
+
+    const payload = {
+      id: user.sub,
+      data: userData,
+    };
+
+    updateUserMutation.mutate(payload);
+  };
+
+  if (!user) {
+    return <p>User not found or not logged in</p>;
+  }
+
   return (
     <ProfileContainer spacing={5}>
       <ProfileSection spacing={1}>
@@ -45,6 +94,13 @@ function Profile() {
               name="first_name"
               helperText="Prénom"
               placeholder="John"
+              defaultValue={user.first_name}
+              onChange={(e) =>
+                setUserData((prevState) => ({
+                  ...prevState,
+                  first_name: e.target.value,
+                }))
+              }
             />
           </Stack>
           <Stack width={'100%'}>
@@ -53,6 +109,13 @@ function Profile() {
               name="last_name"
               helperText="Nom"
               placeholder="Doe"
+              defaultValue={user.last_name}
+              onChange={(e) =>
+                setUserData((prevState) => ({
+                  ...prevState,
+                  last_name: e.target.value,
+                }))
+              }
             />
           </Stack>
         </Stack>
@@ -62,11 +125,21 @@ function Profile() {
           helperText="Email"
           placeholder="john.doe@example.com"
           icon={<MailOutlineIcon />}
+          defaultValue={user.email}
+          onChange={(e) =>
+            setUserData((prevState) => ({
+              ...prevState,
+              email: e.target.value,
+            }))
+          }
         />
       </ProfileSection>
       <ProfileSection spacing={1}>
         <Stack>
           <SectionTitle>Modes de Paiement</SectionTitle>
+          <AlertMessage>
+            Ces données sont uniquement accessibles et visibles par vous.
+          </AlertMessage>
         </Stack>
         <InputGroup
           label="Carte Bancaire"
@@ -74,6 +147,7 @@ function Profile() {
           helperText="Carte Bancaire"
           icon={<CreditCardIcon />}
           placeholder="0000 0000 0000 0000"
+          defaultValue="6732 2213 2135 8765"
         />
         <Stack direction={'row'} spacing={2}>
           <Stack width={'100%'}>
@@ -83,6 +157,7 @@ function Profile() {
               helperText="Date d'expiration"
               placeholder="MM/YY"
               icon={<CalendarMonthIcon />}
+              defaultValue="09/25"
             />
           </Stack>
           <Stack width={'100%'}>
@@ -92,6 +167,7 @@ function Profile() {
               helperText="CVV"
               placeholder="000"
               icon={<SellOutlinedIcon />}
+              defaultValue="765"
             />
           </Stack>
         </Stack>
@@ -101,10 +177,11 @@ function Profile() {
           <Button size="xs" color="destructive">
             Se déconnecter
           </Button>
-          <Button size="xs" color="primary">
+          <Button onClick={handleSave} size="xs" color="primary">
             Enregistrer
           </Button>
         </Stack>
+        {message && <p>{message}</p>}
       </ProfileSection>
     </ProfileContainer>
   );
