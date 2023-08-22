@@ -1,10 +1,5 @@
-import { Stack, Typography } from '@mui/material';
-import {
-  Button,
-  InputGroup,
-  palette,
-  typography,
-} from '@hetic-saline-royale-academy/kit-ui';
+import { Stack } from '@mui/material';
+import { Button, InputGroup } from '@hetic-saline-royale-academy/kit-ui';
 import styled from '@emotion/styled';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import SellOutlinedIcon from '@mui/icons-material/SellOutlined';
@@ -18,8 +13,10 @@ import { IUpdateUserForm } from '../../types';
 import FirstnameField from '../Molecules/FirstnameField';
 import LastnameField from '../Molecules/LastnameField';
 import EmailField from '../Molecules/EmailField';
+import AlertMessage from '../Atoms/AlertMessage';
+import SectionTitle from '../Atoms/SectionTitle';
 
-const ProfileContainer = styled.form`
+const ProfileForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -30,16 +27,6 @@ const ProfileContainer = styled.form`
 
 const ProfileSection = styled(Stack)`
   width: 500px;
-`;
-
-const SectionTitle = styled(Typography)`
-  color: ${palette.gray[700]};
-  ${typography.md.semiBold};
-`;
-
-const AlertMessage = styled(Typography)`
-  color: ${palette.error[500]};
-  ${typography.xs.medium};
 `;
 
 const UpdateUserForm = () => {
@@ -65,7 +52,7 @@ const UpdateUserForm = () => {
   }
 
   return (
-    <ProfileContainer>
+    <ProfileForm>
       <ProfileSection spacing={1}>
         <Stack>
           <SectionTitle>Informations de base</SectionTitle>
@@ -145,7 +132,7 @@ const UpdateUserForm = () => {
           </AlertMessage>
         )}
       </ProfileSection>
-    </ProfileContainer>
+    </ProfileForm>
   );
 };
 
