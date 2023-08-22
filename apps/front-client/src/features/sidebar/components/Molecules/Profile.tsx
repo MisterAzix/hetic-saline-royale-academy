@@ -31,16 +31,11 @@ const Profile = () => {
   const user = session?.data?.user;
 
   if (!user) {
-    return <p>User not found or not logged in</p>;
+    return null;
   }
 
-  const getFullName = () => {
-    return `${user.first_name || ''} ${user.last_name || ''}`.trim();
-  };
-
-  const getEmail = () => {
-    return user.email || 'Email not provided';
-  };
+  const fullName = `${user.first_name || ''} ${user.last_name || ''}`;
+  const email = user.email || '';
 
   return (
     <Link href={routes.profile}>
@@ -61,8 +56,8 @@ const Profile = () => {
           </SvgIcon>
         </Box>
         <ProfileDescription>
-          <TitleText>{getFullName()}</TitleText>
-          <DescriptionText>{getEmail()}</DescriptionText>
+          <TitleText>{fullName}</TitleText>
+          <DescriptionText>{email}</DescriptionText>
         </ProfileDescription>
       </ProfileContainer>
     </Link>

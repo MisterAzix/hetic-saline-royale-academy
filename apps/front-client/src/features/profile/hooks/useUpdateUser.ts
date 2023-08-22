@@ -1,16 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
 import { User } from 'next-auth';
 import { useSession } from 'next-auth/react';
-
-export interface UpdateUserDto {
-  first_name: string;
-  last_name: string;
-  email: string;
-}
+import { IUpdateUserForm } from '../types';
 
 const updateUser = async (
   id: string,
-  updateUserDto: UpdateUserDto,
+  updateUserForm: IUpdateUserForm,
   access_token?: string
 ): Promise<User> => {
   const response = await fetch(`${process.env.API_URL}/user/${id}`, {
@@ -19,7 +14,7 @@ const updateUser = async (
       Authorization: `Bearer ${access_token}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(updateUserDto),
+    body: JSON.stringify(updateUserForm),
   });
 
   if (!response.ok) {
@@ -34,7 +29,7 @@ export const useUpdateUser = () => {
   const access_token = data?.access_token;
 
   const { mutate, isLoading, isError } = useMutation(
-    ({ id, data }: { id: string; data: UpdateUserDto }) =>
+    ({ id, data }: { id: string; data: IUpdateUserForm }) =>
       updateUser(id, data, access_token)
   );
 

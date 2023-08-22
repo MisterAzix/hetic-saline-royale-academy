@@ -23,9 +23,14 @@ const InputGroup = ({
   icon,
   ...props
 }: InputGroupProps) => (
-  <FormControl error={error} required={required} disabled={disabled}>
+  <FormControl
+    defaultValue={defaultValue}
+    error={error}
+    required={required}
+    disabled={disabled}
+  >
     <Label>{label}</Label>
-    <Input defaultValue={defaultValue} icon={icon} name={name} {...props} />
+    <Input icon={icon} name={name} {...props} />
     <HelperText>{helperText}</HelperText>
   </FormControl>
 );
