@@ -1,10 +1,12 @@
 import styled from '@emotion/styled';
 import { palette } from '@hetic-saline-royale-academy/kit-ui';
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, SvgIcon } from '@mui/material';
 import TitleText from '../Atoms/TitleText';
 import DescriptionText from '../Atoms/DescriptionText';
 import Link from 'next/link';
 import { routes } from '../../../../routes';
+import { useSession } from 'next-auth/react';
+import { Person } from '@mui/icons-material';
 
 const ProfileContainer = styled(Stack)`
   flex-direction: row;
@@ -25,6 +27,16 @@ const ProfileDescription = styled(Box)`
 `;
 
 const Profile = () => {
+  const session = useSession();
+  const user = session?.data?.user;
+
+  if (!user) {
+    return null;
+  }
+
+  const fullName = `${user.first_name || ''} ${user.last_name || ''}`;
+  const email = user.email || '';
+
   return (
     <Link href={routes.profile}>
       <ProfileContainer>
@@ -34,11 +46,18 @@ const Profile = () => {
             backgroundColor: palette.gray[100],
             width: '40px',
             height: '40px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
-        />
+        >
+          <SvgIcon sx={{ color: palette.gray[900] }}>
+            <Person />
+          </SvgIcon>
+        </Box>
         <ProfileDescription>
-          <TitleText>John Doe</TitleText>
-          <DescriptionText>john.doe@example.fr</DescriptionText>
+          <TitleText>{fullName}</TitleText>
+          <DescriptionText>{email}</DescriptionText>
         </ProfileDescription>
       </ProfileContainer>
     </Link>
