@@ -2,7 +2,6 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app/app.module';
-import { AuthorInterceptor } from './interceptors/author.interceptor';
 import { config } from './swagger.config';
 
 const GLOBAL_PREFIX = 'api';
@@ -11,7 +10,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.setGlobalPrefix(GLOBAL_PREFIX);
-  app.useGlobalInterceptors(new AuthorInterceptor());
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors({
     origin: [
