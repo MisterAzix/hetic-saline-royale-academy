@@ -28,4 +28,15 @@ export class CloudinaryService {
         .end(file.buffer);
     });
   }
+
+  async getVideoThumbnail(
+    public_id: string,
+    options: { width?: number; height?: number } = {}
+  ): Promise<string> {
+    const { width = 1920, height = 1080 } = options;
+    return v2.utils.video_thumbnail_url(public_id, {
+      width,
+      height,
+    });
+  }
 }

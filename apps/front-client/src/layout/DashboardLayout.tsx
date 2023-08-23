@@ -22,7 +22,7 @@ const DashboardLayout = ({
     <Box
       display="grid"
       gridTemplateColumns={matches ? '80px 1fr' : '250px 1fr'}
-      gridTemplateRows="60px 1fr"
+      gridTemplateRows="64px 1fr"
       sx={{ height: '100vh' }}
     >
       <Stack sx={{ gridArea: '1 / 2 / 2 / 3' }}>

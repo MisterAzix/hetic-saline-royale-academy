@@ -11,7 +11,7 @@ interface HeaderProps {
 
 const HeaderContainer = styled(Box)`
   background-color: ${palette.gray[100]};
-  min-height: 70px;
+  min-height: 64px;
   display: flex;
   flex-direction: column;
   justify-content: center;
