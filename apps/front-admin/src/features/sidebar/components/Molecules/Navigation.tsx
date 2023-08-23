@@ -49,9 +49,12 @@ const Navigation = ({ activeRoute }: NavigationProps) => {
           <span className="nav-text">Dashboard</span>
         </TextWithIcon>
       </NavLink>
-      <NavLink href={routes.content} active={activeRoute === routes.content}>
+      <NavLink
+        href={routes.masterclass}
+        active={activeRoute === routes.masterclass}
+      >
         <TextWithIcon icon={<School />} color={palette.gray[100]}>
-          <span className="nav-text">Contenu</span>
+          <span className="nav-text">Masterclasses</span>
         </TextWithIcon>
       </NavLink>
     </Stack>

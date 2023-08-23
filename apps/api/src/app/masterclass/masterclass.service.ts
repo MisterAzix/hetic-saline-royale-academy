@@ -24,13 +24,24 @@ export class MasterclassService {
    * @returns {Promise<Masterclass>} - The created masterclass.
    */
   async create(file: Express.Multer.File): Promise<Masterclass> {
-    const { secure_url } = await this.cloudinaryService.uploadAsset(file);
+    const { secure_url, public_id } = await this.cloudinaryService.uploadAsset(
+      file
+    );
+
+    const thumbnail_url = await this.cloudinaryService.getVideoThumbnail(
+      public_id,
+      {
+        width: 640,
+        height: 360,
+      }
+    );
 
     try {
       return this.prisma.masterclass.create({
         data: {
           title: file.originalname,
           video_url: secure_url,
+          cover_url: thumbnail_url,
         },
       });
     } catch (error) {
@@ -53,6 +64,7 @@ export class MasterclassService {
     try {
       return await this.prisma.masterclass.findMany({
         where: { is_deleted: false },
+        orderBy: { created_at: 'desc' },
       });
     } catch (error) {
       this.logger.error('Error while retrieving masterclasses:', error);

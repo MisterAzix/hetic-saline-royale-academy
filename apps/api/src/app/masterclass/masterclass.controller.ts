@@ -30,7 +30,7 @@ export class MasterclassController {
   @UseGuards(AdminGuard)
   @Post('upload')
   @ApiCreatedResponse({ type: MasterclassEntity })
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor('video'))
   create(@UploadedFile() file: Express.Multer.File): Promise<Masterclass> {
     return this.masterclassService.create(file);
   }
