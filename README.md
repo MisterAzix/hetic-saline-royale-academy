@@ -68,7 +68,7 @@ Using NX Console
 ## 👤️ Authors 👤
 
 - Maxence BREUILLES ([@MisterAzix](https://github.com/MisterAzix))<br />
-- Benoît FAVRIE ([@Mowdyy](https://github.com/benoitfvr))<br />
+- Benoît FAVRIE ([@benoitfvr](https://github.com/benoitfvr))<br />
 - Louis FORTRIE ([@louisFortrie](https://github.com/louisFortrie))<br />
 - Justin KATASI ([@justinDev91](https://github.com/justinDev91))<br />
 - Julian LABALLE ([@Triips-TheCoder](https://github.com/Triips-TheCoder))
