@@ -121,8 +121,10 @@ const UpdateUserForm = () => {
             color="primary"
             disabled={isLoading}
           >
-            {isLoading && <CircularProgress size={20} color="inherit" />}
-            Enregistrer
+            <Stack gap={1} flexDirection={'row'} alignItems={'center'}>
+              {isLoading && <CircularProgress size={20} color="inherit" />}
+              Enregistrer
+            </Stack>
           </Button>
         </Stack>
         {isError && (
