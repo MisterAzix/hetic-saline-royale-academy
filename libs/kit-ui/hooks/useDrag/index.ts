@@ -57,7 +57,6 @@ export function useDrag({
   });
 
   const setDragState = useLatestCallback((newDragState: Partial<DragState>) => {
-    console.log(newDragState);
     if (
       axis === 'x' &&
       newDragState?.offset?.[1] &&

@@ -67,17 +67,17 @@ export const useSpring = ({
   const set = useCallback(
     ({ config, ...value }: Omit<UseSpringParams, 'onUpdate'>) => {
       if (config) {
-        // const { ...interpolationParams } = config as UseSpringParams['config'];
+        const { ...interpolationParams } = config as UseSpringParams['config'];
 
         inrtia.current.interpolationParams = {
           ...inrtia.current.interpolationParams,
-          // ...interpolationParams,
+          ...interpolationParams,
         };
 
-        // if (interpolationParams?.precisionStop)
-        //   inrtia.current.precisionStop = interpolationParams.precisionStop;
-        // if (interpolationParams?.perfectStop)
-        //   inrtia.current.perfectStop = interpolationParams.perfectStop;
+        if (interpolationParams?.precisionStop)
+          inrtia.current.precisionStop = interpolationParams.precisionStop;
+        if (interpolationParams?.perfectStop)
+          inrtia.current.perfectStop = interpolationParams.perfectStop;
       }
       inrtia.current.to(value);
     },
