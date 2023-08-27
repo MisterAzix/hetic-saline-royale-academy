@@ -3,15 +3,17 @@ import {
   DragState,
   UseDragParams,
   Vector2,
-} from '../../../../../../hooks/useDrag/@types';
-import { Nullable } from '../../../../../../@types';
+} from '../../../../../../../hooks/useDrag/@types';
+import { Nullable } from '../../../../../../../@types';
 
 export type SliderState = {
   dragState: Nullable<RefObject<DragState>>;
   addOffset: (offset: Vector2) => void;
   setOffset: (offset: Vector2) => void;
   defaultBounds: UseDragParams['bounds'];
-  setSlideIndex: Dispatch<SetStateAction<number>>;
+  setSlideIndex:
+    | Dispatch<SetStateAction<number>>
+    | ((targetedSlideIndex: number) => void);
   nextSlide: () => void;
   prevSlide: () => void;
   slideIndex: number;
