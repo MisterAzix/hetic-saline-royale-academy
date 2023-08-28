@@ -13,7 +13,7 @@ export class CreateProgressTrackerDto {
 
   @ApiProperty({ type: String, required: false })
   @IsString()
-  course_id: string;
+  course_id?: string;
 
   @ApiProperty({ type: Number, required: false })
   @IsNumber()

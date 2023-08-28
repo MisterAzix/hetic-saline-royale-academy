@@ -332,6 +332,7 @@ export const randomNotifications = async (count: number) => {
  * @param {number} count - The number of progressTrackers to generate.
  * @returns {Promise<CreateProgressTrackerDto[]>} - A promise that resolves to an array of generated progressTrackers.
  */
+
 const generateRandomPTrackers = async (
   count: number
 ): Promise<CreateProgressTrackerDto[]> => {
@@ -339,8 +340,9 @@ const generateRandomPTrackers = async (
     { length: count },
     () => ({
       progress: faker.number.int({ max: 100 }),
-      user_id: faker.string.alpha(10),
-      course_id: faker.string.alpha(10),
+      // user_id: faker.string.alpha(10),
+      user_id: '0d03a928-d88c-4806-8f75-038b33dcd7b6',
+      completed_masterclasses: faker.number.int({ max: 50 }),
     })
   );
   return progressTrackers;

@@ -102,6 +102,37 @@ export class ProgressTrackerService {
   }
 
   /**
+   * Retrieve a specific progress tracker by user ID.
+   *
+   * @param {string} user_id - The ID of the user attach to a progress tracker to retrieve.
+   * @returns {Promise<ProgressTracker>} - The progress tracker with the specified user ID.
+   */
+  async findManyByUserId(user_id: string): Promise<ProgressTracker[]> {
+    try {
+      return await this.prisma.progressTracker.findMany({
+        where: { user_id },
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientValidationError) {
+        // Handle validation errors
+        this.logger.error('User ID validation error:', error.message);
+        throw new BadRequestException(
+          `Progress Tracker DTO validation error: ${error}`
+        );
+      } else {
+        // Handle other errors
+        this.logger.error(
+          'An error occurred while retrieving progress tracker.:',
+          error.message
+        );
+        throw new InternalServerErrorException(
+          `An error occurred while retrieving the progress tracker: ${error}`
+        );
+      }
+    }
+  }
+
+  /**
    * Update a progress tracker with new data.
    *
    * @param {string} id - The ID of the progress tracker to update.

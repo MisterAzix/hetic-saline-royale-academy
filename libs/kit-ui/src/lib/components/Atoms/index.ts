@@ -6,6 +6,7 @@ import Label from './Label';
 import Card from './Card';
 import Text from './Text';
 import Chip from './Chip';
+import ProgressCard from './ProgressCard';
 
 // Icons
 import GoogleIcon from './Icons/GoogleIcon';
@@ -20,4 +21,5 @@ export {
   Card,
   Text,
   Chip,
+  ProgressCard,
 };

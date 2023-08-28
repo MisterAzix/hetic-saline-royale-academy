@@ -54,10 +54,24 @@ export class ProgressTrackerController {
    * @param {string} id - The ID of the progress tracker to retrieve.
    * @returns {Promise<ProgressTracker>} - The progress tracker with the specified ID.
    */
-  @Get(':id')
+  @Get('id/:id')
   @ApiCreatedResponse({ type: ProgressTrackerEntity })
   findOne(@Param('id') id: string): Promise<ProgressTracker> {
     return this.progressTrackerService.findOne(id);
+  }
+
+  /**
+   * Retrieve a specific progress tracker by ID.
+   *
+   * @param {string} id - The ID of the progress tracker to retrieve.
+   * @returns {Promise<ProgressTracker>} - The progress tracker with the specified ID.
+   */
+  @Get('user-id/:user_id')
+  @ApiCreatedResponse({ type: ProgressTrackerEntity })
+  findManyByUserId(
+    @Param('user_id') user_id: string
+  ): Promise<ProgressTracker[]> {
+    return this.progressTrackerService.findManyByUserId(user_id);
   }
 
   /**
@@ -67,7 +81,7 @@ export class ProgressTrackerController {
    * @param {UpdateProgressTrackerDto} updateProgressTrackerDto - The data for updating the progress tracker.
    * @returns {Promise<ProgressTracker>} - The updated progress tracker.
    */
-  @Patch(':id')
+  @Patch('id/:id')
   @ApiCreatedResponse({ type: ProgressTrackerEntity })
   update(
     @Param('id') id: string,
@@ -82,7 +96,7 @@ export class ProgressTrackerController {
    * @param {string} id - The ID of the progress tracker to remove.
    * @returns {Promise<ProgressTracker>} - The removed progress tracker.
    */
-  @Delete(':id')
+  @Delete('id/:id')
   @ApiCreatedResponse({ type: ProgressTrackerEntity })
   remove(@Param('id') id: string): Promise<ProgressTracker> {
     return this.progressTrackerService.remove(id);
