@@ -4,7 +4,7 @@ import { StoryObj } from '@storybook/react';
 import { StorybookTitle } from '../../../../../@types';
 import { textPresets } from '../../../styles/typograhy/text-presets';
 import { colorPresets, tagName } from './_data/mock';
-import { generateStorybookControl } from '../../../../../../utils';
+import { generateStorybookControl } from '../../../../../utils';
 
 const meta: Meta<typeof Text> & { title: StorybookTitle<'Text'> } = {
   title: 'Atoms/Text',

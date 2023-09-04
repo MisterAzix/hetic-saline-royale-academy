@@ -5,7 +5,7 @@ type InputType<T extends string> = {
   defaultValue?: T;
 };
 
-type ArgTypes<K> = Partial<Record<keyof K, any>>;
+type ArgTypes<K> = Partial<Record<keyof K, unknown>>;
 
 export const generateStorybookControl = <
   ComponentProps extends ArgTypes<ComponentProps>,
