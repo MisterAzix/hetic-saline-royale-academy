@@ -1,3 +1,4 @@
 export * from './useGetCategories';
 export * from './useGetMasterclass';
-export * from './useUpdateMasterclass';
+export * from './useMasterclassFormSubmit';
+export * from './useMasterclassFormValidation';

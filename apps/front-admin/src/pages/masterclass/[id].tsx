@@ -13,15 +13,20 @@ import { useForm } from 'react-hook-form';
 import { IMasterclassForm } from '../../features/masterclassEdit/types';
 import {
   useGetMasterclass,
-  useUpdateMasterclass,
+  useMasterclassFormSubmit,
+  useMasterclassFormValidation,
 } from '../../features/masterclassEdit/hooks';
 import { Button } from '@hetic-saline-royale-academy/kit-ui';
+import { useDebounce } from '../../hooks';
+import { Status } from '@prisma/client';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 export function Masterclass() {
   const router = useRouter();
   const id = router.query.id as string;
   const { masterclass } = useGetMasterclass(id);
-  const { updateMasterclass } = useUpdateMasterclass();
+  const masterclassFormValidation = useMasterclassFormValidation();
+  const { updateMasterclass, isLoading } = useMasterclassFormSubmit();
 
   const initialValues: IMasterclassForm = {
     id,
@@ -31,29 +36,46 @@ export function Masterclass() {
 
   const { handleSubmit, control, reset, watch } = useForm<IMasterclassForm>({
     defaultValues: initialValues,
+    resolver: zodResolver(masterclassFormValidation),
+    mode: 'onChange',
+    reValidateMode: 'onChange',
   });
 
-  const title = watch('title');
+  const values = watch();
+  const debouncedValues = useDebounce<IMasterclassForm>(values, 1000);
 
   useEffect(() => {
     reset(initialValues);
   }, [masterclass]);
 
+  useEffect(() => {
+    try {
+      masterclassFormValidation.parse(debouncedValues);
+      updateMasterclass(debouncedValues);
+    } catch (error) {
+      return;
+    }
+  }, [debouncedValues]);
+
   return (
     <Stack
-      onSubmit={handleSubmit((data) => updateMasterclass(data))}
+      onSubmit={handleSubmit((data) =>
+        updateMasterclass({ ...data, status: Status.PUBLISHED })
+      )}
       component={'form'}
       direction={'row'}
       spacing={3}
       height={'100%'}
     >
       <Stack flex={1} spacing={2}>
-        <Title>{title}</Title>
+        <Title>{values.title}</Title>
         <InformationsSection control={control} />
       </Stack>
       <Stack flex={1} height={'100%'} justifyContent={'space-between'}>
         <VideoPreview watch={watch} />
-        <Button type={'submit'}>Publier</Button>
+        <Button type={'submit'} disabled={isLoading}>
+          {isLoading ? 'Enregistrement en cours...' : 'Publier'}
+        </Button>
       </Stack>
     </Stack>
   );
