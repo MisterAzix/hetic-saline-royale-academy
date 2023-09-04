@@ -12,7 +12,8 @@ export const authOptions: AuthOptions = {
           email: string;
           password: string;
         };
-        const res = await fetch(`${process.env.API_URL}/auth/login`, {
+        const url = new URL('/api/auth/login', process.env.API_URL);
+        const res = await fetch(url, {
           method: 'POST',
           body: JSON.stringify({
             email,
