@@ -2,11 +2,12 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Course } from '@prisma/client';
 import { AdminGuard } from '../admin.guard';
 import { CreatedBy } from '../decorators/created-by.decorator';
@@ -47,11 +48,21 @@ export class CourseController {
    *
    * @returns {Promise<Course[]>} - An array of courses.
    */
-  @UseGuards(AdminGuard)
   @Get()
   @ApiCreatedResponse({ type: CourseEntity, isArray: true })
   async findAll(): Promise<Course[]> {
     return this.courseService.findAll();
+  }
+
+  /**
+   * Retrieve all courses subscribed by a user.
+   * @param {string} id - The ID of the user whose courses are to be retrieved.
+   * @returns {Promise<Course[]>} - An array of courses.
+   */
+  @Get(':id')
+  @ApiOkResponse({ type: CourseEntity, isArray: true })
+  async findAllSubscribed(@Param('id') id: string): Promise<Course[]> {
+    return this.courseService.findAllSubscribed(id);
   }
 
   /**

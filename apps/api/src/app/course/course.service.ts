@@ -62,6 +62,25 @@ export class CourseService {
   }
 
   /**
+   * Retrieve all courses subscribed by a user.
+   * @param {string} id - The ID of the user whose courses are to be retrieved.
+   * @throws {Error} - If an error occurs while retrieving the courses.
+   * @returns {Promise<Course[]>} - An array of courses.
+   */
+  async findAllSubscribed(user_id: string): Promise<Course[]> {
+    try {
+      return await this.prisma.course.findMany({
+        where: { user_id },
+      });
+    } catch (error) {
+      this.logger.error("Error while retrieving  user's courses:", error);
+      throw new InternalServerErrorException(
+        `Failed to retrieve  user's courses : ${error}`
+      );
+    }
+  }
+
+  /**
    * Retrieve a specific course by ID.
    *
    * @param {string} id - The ID of the course to retrieve.
