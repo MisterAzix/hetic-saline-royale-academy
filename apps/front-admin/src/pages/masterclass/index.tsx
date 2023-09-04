@@ -10,7 +10,7 @@ import { useToggle } from '../../hooks';
 import MasterclassTable from '../../features/masterclass/components/Organisms/MasterclassTable';
 import UploadMasterclassModal from '../../features/masterclass/components/Organisms/UploadMasterclassModal';
 
-export function Masterclass() {
+export function Masterclasses() {
   const { isOpen, onOpen, onClose } = useToggle();
 
   return (
@@ -26,7 +26,7 @@ export function Masterclass() {
   );
 }
 
-Masterclass.getLayout = (page: ReactElement) => {
+Masterclasses.getLayout = (page: ReactElement) => {
   return (
     <DashboardLayout
       title="Masterclasses"
@@ -48,4 +48,4 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return { props: { session } };
 }
 
-export default Masterclass;
+export default Masterclasses;

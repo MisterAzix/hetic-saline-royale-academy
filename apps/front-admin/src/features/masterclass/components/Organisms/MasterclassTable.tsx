@@ -46,7 +46,7 @@ const sortVideo: GridComparatorFn = (
 ) => gridStringOrNumberComparator(v1.title, v2.title, param1, param2);
 const MasterclassTable = () => {
   const router = useRouter();
-  const { masterclasses, isMasterclassesLoading } = useGetMasterclasses();
+  const { masterclasses } = useGetMasterclasses();
 
   const columns: GridColDef[] = [
     {
@@ -78,10 +78,6 @@ const MasterclassTable = () => {
       date: created_at as Date,
     })
   );
-
-  if (isMasterclassesLoading || !masterclasses.length) {
-    return null;
-  }
 
   return (
     <Table
