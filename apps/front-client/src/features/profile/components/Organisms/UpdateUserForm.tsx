@@ -1,20 +1,19 @@
-import { Stack } from '@mui/material';
-import { Button, InputGroup } from '@hetic-saline-royale-academy/kit-ui';
 import styled from '@emotion/styled';
+import { Button, InputGroup } from '@hetic-saline-royale-academy/kit-ui';
+import { zodResolver } from '@hookform/resolvers/zod';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import SellOutlinedIcon from '@mui/icons-material/SellOutlined';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { CircularProgress } from '@mui/material';
-import { useSession } from 'next-auth/react';
-import { useUpdateUser, useUpdateUserFormValidation } from '../../hooks';
+import { CircularProgress, Stack } from '@mui/material';
+import { signOut, useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useUpdateUser, useUpdateUserFormValidation } from '../../hooks';
 import { IUpdateUserForm } from '../../types';
-import FirstnameField from '../Molecules/FirstnameField';
-import LastnameField from '../Molecules/LastnameField';
-import EmailField from '../Molecules/EmailField';
 import AlertMessage from '../Atoms/AlertMessage';
 import SectionTitle from '../Atoms/SectionTitle';
+import EmailField from '../Molecules/EmailField';
+import FirstnameField from '../Molecules/FirstnameField';
+import LastnameField from '../Molecules/LastnameField';
 
 const ProfileForm = styled.form`
   display: flex;
@@ -28,6 +27,10 @@ const ProfileForm = styled.form`
 const ProfileSection = styled(Stack)`
   width: 500px;
 `;
+
+const handleLogout = async () => {
+  await signOut({ callbackUrl: '/' });
+};
 
 const UpdateUserForm = () => {
   const session = useSession();
@@ -107,7 +110,7 @@ const UpdateUserForm = () => {
       </ProfileSection>
       <ProfileSection spacing={1}>
         <Stack direction={'row'} spacing={2} justifyContent={'space-between'}>
-          <Button size="xs" color="destructive">
+          <Button onClick={handleLogout} size="xs" color="destructive">
             Se déconnecter
           </Button>
           <Button
