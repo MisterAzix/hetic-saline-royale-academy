@@ -48,7 +48,9 @@ const RegisterForm = () => {
   });
 
   return (
-    <FormContainer>
+    <FormContainer
+      onSubmit={handleSubmit((data: IRegisterForm) => submitRegisterForm(data))}
+    >
       <Stack spacing={6}>
         <Stack spacing={2}>
           <Title>Étudier avec les meilleurs musiciens du monde !</Title>
@@ -74,13 +76,7 @@ const RegisterForm = () => {
             </Typography>
           )}
 
-          <Button
-            onClick={handleSubmit((data: IRegisterForm) =>
-              submitRegisterForm(data)
-            )}
-            color={'primary'}
-            type={'submit'}
-          >
+          <Button type={'submit'} color={'primary'}>
             Rejoindre la Saline Royale Academy
           </Button>
         </Stack>
