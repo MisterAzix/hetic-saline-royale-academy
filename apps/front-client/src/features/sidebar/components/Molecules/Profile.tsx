@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { palette } from '@hetic-saline-royale-academy/kit-ui';
 import { Person } from '@mui/icons-material';
 import { Box, Stack, SvgIcon } from '@mui/material';
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { routes } from '../../../../routes';
 import DescriptionText from '../Atoms/DescriptionText';
@@ -30,10 +30,6 @@ const Profile = () => {
   const session = useSession();
   const user = session?.data?.user;
 
-  const handleLogout = async () => {
-    await signOut({ callbackUrl: '/' });
-  };
-
   if (!user) {
     return null;
   }
@@ -42,34 +38,29 @@ const Profile = () => {
   const email = user.email || '';
 
   return (
-    <>
-      <Link href={routes.profile}>
-        <ProfileContainer>
-          <Box
-            sx={{
-              borderRadius: '50%',
-              backgroundColor: palette.gray[100],
-              width: '40px',
-              height: '40px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <SvgIcon sx={{ color: palette.gray[900] }}>
-              <Person />
-            </SvgIcon>
-          </Box>
-          <ProfileDescription>
-            <TitleText>{fullName}</TitleText>
-            <DescriptionText>{email}</DescriptionText>
-          </ProfileDescription>
-        </ProfileContainer>
-      </Link>
-      <TitleText>
-        <button onClick={handleLogout}>Logout</button>
-      </TitleText>
-    </>
+    <Link href={routes.profile}>
+      <ProfileContainer>
+        <Box
+          sx={{
+            borderRadius: '50%',
+            backgroundColor: palette.gray[100],
+            width: '40px',
+            height: '40px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <SvgIcon sx={{ color: palette.gray[900] }}>
+            <Person />
+          </SvgIcon>
+        </Box>
+        <ProfileDescription>
+          <TitleText>{fullName}</TitleText>
+          <DescriptionText>{email}</DescriptionText>
+        </ProfileDescription>
+      </ProfileContainer>
+    </Link>
   );
 };
 
