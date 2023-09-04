@@ -32,10 +32,9 @@ const PasswordField = ({ control }: PasswordFieldProps) => {
               {showPassword ? <VisibilityOff /> : <Visibility />}
             </IconButton>
           }
-          name="password"
           label={'Mot de passe'}
           placeholder={'**********'}
-          helperText={'Le mot de passe est obligatoire'}
+          helperText={error?.message || ''}
           error={!!error}
           onChange={onChange}
           value={value}

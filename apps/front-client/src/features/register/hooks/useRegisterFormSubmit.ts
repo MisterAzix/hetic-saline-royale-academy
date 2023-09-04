@@ -5,13 +5,19 @@ import { useRouter } from 'next/router';
 import { routes } from '../../../routes';
 
 const fetchRegisterFormSubmit = async (data: IRegisterForm) => {
-  const response = await fetch(`${process.env.API_URL}/auth/signup`, {
+  const url = new URL('/api/auth/signup', process.env.API_URL);
+  const response = await fetch(url, {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(data),
   });
-  if (response.ok) {
-    return await response.json();
+  if (!response.ok) {
+    throw new Error();
   }
+
+  return await response.json();
 };
 
 export const useRegisterFormSubmit = () => {

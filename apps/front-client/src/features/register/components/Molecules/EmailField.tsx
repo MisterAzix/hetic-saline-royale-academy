@@ -18,7 +18,6 @@ const EmailField = ({ control }: EmailFieldProps) => {
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <InputGroup
           id={id}
-          name={'email'}
           label={'Email'}
           placeholder="john@example.com"
           helperText={"L'email est obligatoire"}
