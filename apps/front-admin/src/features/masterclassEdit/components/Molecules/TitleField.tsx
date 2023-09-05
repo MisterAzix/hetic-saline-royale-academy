@@ -20,7 +20,7 @@ const TitleField = ({ control }: TitleFieldProps) => {
           id={id}
           label={'Title'}
           placeholder="Ajoutez un titre pour décrire votre masterclass"
-          helperText={'Le titre est obligatoire'}
+          helperText={error?.message || ''}
           error={!!error}
           onChange={onChange}
           value={value}

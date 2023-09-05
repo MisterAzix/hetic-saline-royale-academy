@@ -20,7 +20,7 @@ const DescriptionField = ({ control }: DescriptionFieldProps) => {
           id={id}
           label={'Description'}
           placeholder="Présentez la masterclass aux utilisateurs."
-          helperText={'La description est obligatoire'}
+          helperText={error?.message || ''}
           error={!!error}
           onChange={onChange}
           value={value}
