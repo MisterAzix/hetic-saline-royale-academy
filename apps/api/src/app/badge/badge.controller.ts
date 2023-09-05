@@ -7,10 +7,8 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Badge } from '@prisma/client';
-import { CreatedBy } from '../decorators/created-by.decorator';
-import { UpdatedBy } from '../decorators/updated-by.decorator';
 import { BadgeService } from './badge.service';
 import { CreateBadgeDto } from './dto/create-badge.dto';
 import { UpdateBadgeDto } from './dto/update-badge.dto';
@@ -28,15 +26,9 @@ export class BadgeController {
    */
   @Post()
   @ApiCreatedResponse({ type: BadgeEntity })
-  create(
-    @Body() createBadgeDto: CreateBadgeDto,
-    @CreatedBy() created_by: string,
-    @UpdatedBy() updated_by: string
-  ): Promise<Badge> {
+  create(@Body() createBadgeDto: CreateBadgeDto): Promise<Badge> {
     return this.badgeService.create({
       ...createBadgeDto,
-      created_by,
-      updated_by,
     });
   }
 
@@ -46,7 +38,7 @@ export class BadgeController {
    * @returns {Promise<Badge[]>} - An array of badges.
    */
   @Get()
-  @ApiCreatedResponse({ type: BadgeEntity, isArray: true })
+  @ApiOkResponse({ type: BadgeEntity, isArray: true })
   findAll(): Promise<Badge[]> {
     return this.badgeService.findAll();
   }
@@ -58,7 +50,7 @@ export class BadgeController {
    * @returns {Promise<Badge>} - The badge with the specified ID.
    */
   @Get(':id')
-  @ApiCreatedResponse({ type: BadgeEntity })
+  @ApiOkResponse({ type: BadgeEntity })
   findOne(@Param('id') id: string): Promise<Badge> {
     return this.badgeService.findOne(id);
   }
@@ -71,15 +63,13 @@ export class BadgeController {
    * @returns {Promise<Badge>} - The updated badge.
    */
   @Patch(':id')
-  @ApiCreatedResponse({ type: BadgeEntity })
+  @ApiOkResponse({ type: BadgeEntity })
   update(
     @Param('id') id: string,
-    @Body() updateBadgeDto: UpdateBadgeDto,
-    @UpdatedBy() updated_by: string
+    @Body() updateBadgeDto: UpdateBadgeDto
   ): Promise<Badge> {
     return this.badgeService.update(id, {
       ...updateBadgeDto,
-      updated_by,
     });
   }
 
@@ -90,7 +80,7 @@ export class BadgeController {
    * @returns {Promise<Badge>} - The removed badge.
    */
   @Delete(':id')
-  @ApiCreatedResponse({ type: BadgeEntity })
+  @ApiOkResponse({ type: BadgeEntity })
   remove(@Param('id') id: string): Promise<Badge> {
     return this.badgeService.remove(id);
   }

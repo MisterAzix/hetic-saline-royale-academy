@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Tag } from '@prisma/client';
 import { CreateTagDto } from './dto/create-tag.dto';
 import { UpdateTagDto } from './dto/update-tag.dto';
@@ -37,7 +37,7 @@ export class TagController {
    * @returns {Promise<Tag[]>} - An array of tags.
    */
   @Get()
-  @ApiCreatedResponse({ type: TagEntity, isArray: true })
+  @ApiOkResponse({ type: TagEntity, isArray: true })
   findAll(): Promise<Tag[]> {
     return this.tagService.findAll();
   }
@@ -49,7 +49,7 @@ export class TagController {
    * @returns {Promise<Tag>} - The tag with the specified ID.
    */
   @Get(':id')
-  @ApiCreatedResponse({ type: TagEntity })
+  @ApiOkResponse({ type: TagEntity })
   findOne(@Param('id') id: string): Promise<Tag> {
     return this.tagService.findOne(id);
   }
@@ -62,7 +62,7 @@ export class TagController {
    * @returns {Promise<Tag>} - The updated tag.
    */
   @Patch(':id')
-  @ApiCreatedResponse({ type: TagEntity })
+  @ApiOkResponse({ type: TagEntity })
   update(
     @Param('id') id: string,
     @Body() updateTagDto: UpdateTagDto
@@ -77,7 +77,7 @@ export class TagController {
    * @returns {Promise<Tag>} - The removed tag.
    */
   @Delete(':id')
-  @ApiCreatedResponse({ type: TagEntity })
+  @ApiOkResponse({ type: TagEntity })
   remove(@Param('id') id: string): Promise<Tag> {
     return this.tagService.remove(id);
   }

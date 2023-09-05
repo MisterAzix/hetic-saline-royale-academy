@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Gamification } from '@prisma/client';
 import { CreateGamificationDto } from './dto/create-gamification.dto';
 import { UpdateGamificationDto } from './dto/update-gamification.dto';
@@ -39,7 +39,7 @@ export class GamificationController {
    * @returns {Promise<Gamification[]>} - An array of gamifications.
    */
   @Get()
-  @ApiCreatedResponse({ type: GamificationEntity, isArray: true })
+  @ApiOkResponse({ type: GamificationEntity, isArray: true })
   findAll(): Promise<Gamification[]> {
     return this.gamificationService.findAll();
   }
@@ -51,7 +51,7 @@ export class GamificationController {
    * @returns {Promise<Gamification>} - The gamification with the specified ID.
    */
   @Get(':id')
-  @ApiCreatedResponse({ type: GamificationEntity })
+  @ApiOkResponse({ type: GamificationEntity })
   findOne(@Param('id') id: string): Promise<Gamification> {
     return this.gamificationService.findOne(id);
   }
@@ -64,7 +64,7 @@ export class GamificationController {
    * @returns {Promise<Gamification>} - The updated gamification.
    */
   @Patch(':id')
-  @ApiCreatedResponse({ type: GamificationEntity })
+  @ApiOkResponse({ type: GamificationEntity })
   update(
     @Param('id') id: string,
     @Body() updateGamificationDto: UpdateGamificationDto
@@ -79,7 +79,7 @@ export class GamificationController {
    * @returns {Promise<Gamification>} - The removed gamification.
    */
   @Delete(':id')
-  @ApiCreatedResponse({ type: GamificationEntity })
+  @ApiOkResponse({ type: GamificationEntity })
   remove(@Param('id') id: string): Promise<Gamification> {
     return this.gamificationService.remove(id);
   }

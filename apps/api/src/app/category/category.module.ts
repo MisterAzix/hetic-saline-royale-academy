@@ -1,17 +1,11 @@
 import { Module } from '@nestjs/common';
-import { CategoryService } from './category.service';
+import { AuthorInterceptorModule } from '../../interceptors/author.interceptor.module';
 import { CategoryController } from './category.controller';
-import { APP_INTERCEPTOR } from '@nestjs/core';
-import { AuthorInterceptor } from '../../interceptors';
+import { CategoryService } from './category.service';
 
 @Module({
   controllers: [CategoryController],
-  providers: [
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: AuthorInterceptor,
-    },
-    CategoryService,
-  ],
+  providers: [CategoryService],
+  imports: [AuthorInterceptorModule],
 })
 export class CategoryModule {}

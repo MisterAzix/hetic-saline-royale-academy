@@ -7,10 +7,8 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Reward } from '@prisma/client';
-import { CreatedBy } from '../decorators/created-by.decorator';
-import { UpdatedBy } from '../decorators/updated-by.decorator';
 import { CreateRewardDto } from './dto/create-reward.dto';
 import { UpdateRewardDto } from './dto/update-reward.dto';
 import { RewardEntity } from './entities/reward.entity';
@@ -28,15 +26,9 @@ export class RewardsController {
    */
   @Post()
   @ApiCreatedResponse({ type: RewardEntity })
-  create(
-    @Body() createRewardDto: CreateRewardDto,
-    @CreatedBy() created_by: string,
-    @UpdatedBy() updated_by: string
-  ): Promise<Reward> {
+  create(@Body() createRewardDto: CreateRewardDto): Promise<Reward> {
     return this.rewardsService.create({
       ...createRewardDto,
-      created_by,
-      updated_by,
     });
   }
 
@@ -46,7 +38,7 @@ export class RewardsController {
    * @returns {Promise<Reward[]>} - An array of rewards.
    */
   @Get()
-  @ApiCreatedResponse({ type: RewardEntity, isArray: true })
+  @ApiOkResponse({ type: RewardEntity, isArray: true })
   findAll(): Promise<Reward[]> {
     return this.rewardsService.findAll();
   }
@@ -58,7 +50,7 @@ export class RewardsController {
    * @returns {Promise<Reward>} - The reward with the specified ID.
    */
   @Get(':id')
-  @ApiCreatedResponse({ type: RewardEntity })
+  @ApiOkResponse({ type: RewardEntity })
   findOne(@Param('id') id: string): Promise<Reward> {
     return this.rewardsService.findOne(id);
   }
@@ -71,15 +63,13 @@ export class RewardsController {
    * @returns {Promise<Reward>} - The updated reward.
    */
   @Patch(':id')
-  @ApiCreatedResponse({ type: RewardEntity })
+  @ApiOkResponse({ type: RewardEntity })
   update(
     @Param('id') id: string,
-    @Body() updateRewardDto: UpdateRewardDto,
-    @UpdatedBy() updated_by: string
+    @Body() updateRewardDto: UpdateRewardDto
   ): Promise<Reward> {
     return this.rewardsService.update(id, {
       ...updateRewardDto,
-      updated_by,
     });
   }
 
@@ -90,7 +80,7 @@ export class RewardsController {
    * @returns {Promise<Reward>} - The removed reward.
    */
   @Delete(':id')
-  @ApiCreatedResponse({ type: RewardEntity })
+  @ApiOkResponse({ type: RewardEntity })
   remove(@Param('id') id: string): Promise<Reward> {
     return this.rewardsService.remove(id);
   }

@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Subscription } from '@prisma/client';
 import { CreateSubscriptionDto } from './dto/create-subscription.dto';
 import { UpdateSubscriptionDto } from './dto/update-subscription.dto';
@@ -51,7 +51,7 @@ export class SubscriptionController {
    * @returns {Promise<Subscription>} - The subscription with the specified ID.
    */
   @Get(':id')
-  @ApiCreatedResponse({ type: SubscriptionEntity })
+  @ApiOkResponse({ type: SubscriptionEntity })
   findOne(@Param('id') id: string): Promise<Subscription> {
     return this.subscriptionService.findOne(id);
   }
@@ -64,7 +64,7 @@ export class SubscriptionController {
    * @returns {Promise<Subscription>} - The updated subscription.
    */
   @Patch(':id')
-  @ApiCreatedResponse({ type: SubscriptionEntity })
+  @ApiOkResponse({ type: SubscriptionEntity })
   update(
     @Param('id') id: string,
     @Body() updateSubscriptionDto: UpdateSubscriptionDto
@@ -79,7 +79,7 @@ export class SubscriptionController {
    * @returns {Promise<Subscription>} - The removed subscription.
    */
   @Delete(':id')
-  @ApiCreatedResponse({ type: SubscriptionEntity })
+  @ApiOkResponse({ type: SubscriptionEntity })
   remove(@Param('id') id: string): Promise<Subscription> {
     return this.subscriptionService.remove(id);
   }

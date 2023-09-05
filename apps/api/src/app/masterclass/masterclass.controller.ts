@@ -10,13 +10,13 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Masterclass } from '@prisma/client';
 import { AdminGuard } from '../admin.guard';
 import { UpdateMasterclassDto } from './dto/update-masterclass.dto';
 import { MasterclassEntity } from './entities/masterclass.entity';
 import { MasterclassService } from './masterclass.service';
-import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('masterclass')
 @ApiTags('masterclass')
@@ -42,7 +42,7 @@ export class MasterclassController {
    */
   @UseGuards(AdminGuard)
   @Get()
-  @ApiCreatedResponse({ type: MasterclassEntity, isArray: true })
+  @ApiOkResponse({ type: MasterclassEntity, isArray: true })
   findAll(): Promise<Masterclass[]> {
     return this.masterclassService.findAll();
   }
@@ -55,7 +55,7 @@ export class MasterclassController {
    */
   @UseGuards(AdminGuard)
   @Get(':id')
-  @ApiCreatedResponse({ type: MasterclassEntity })
+  @ApiOkResponse({ type: MasterclassEntity })
   findOne(@Param('id') id: string): Promise<Masterclass> {
     return this.masterclassService.findOne(id);
   }
@@ -69,7 +69,7 @@ export class MasterclassController {
    */
   @UseGuards(AdminGuard)
   @Patch(':id')
-  @ApiCreatedResponse({ type: MasterclassEntity })
+  @ApiOkResponse({ type: MasterclassEntity })
   update(
     @Param('id') id: string,
     @Body() updateMasterclassDto: UpdateMasterclassDto
@@ -86,7 +86,7 @@ export class MasterclassController {
    * @returns {Promise<Masterclass>} - The removed masterclass.
    */
   @UseGuards(AdminGuard)
-  @ApiCreatedResponse({ type: MasterclassEntity })
+  @ApiOkResponse({ type: MasterclassEntity })
   @Delete(':id')
   remove(@Param('id') id: string): Promise<Masterclass> {
     return this.masterclassService.remove(id);

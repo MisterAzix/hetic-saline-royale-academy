@@ -1,17 +1,11 @@
 import { Module } from '@nestjs/common';
-import { CourseService } from './course.service';
+import { AuthorInterceptorModule } from '../../interceptors/author.interceptor.module';
 import { CourseController } from './course.controller';
-import { APP_INTERCEPTOR } from '@nestjs/core';
-import { AuthorInterceptor } from '../../interceptors';
+import { CourseService } from './course.service';
 
 @Module({
   controllers: [CourseController],
-  providers: [
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: AuthorInterceptor,
-    },
-    CourseService,
-  ],
+  providers: [CourseService],
+  imports: [AuthorInterceptorModule],
 })
 export class CourseModule {}

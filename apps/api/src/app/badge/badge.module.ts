@@ -1,17 +1,11 @@
 import { Module } from '@nestjs/common';
-import { BadgeService } from './badge.service';
+import { AuthorInterceptorModule } from '../../interceptors/author.interceptor.module';
 import { BadgeController } from './badge.controller';
-import { APP_INTERCEPTOR } from '@nestjs/core';
-import { AuthorInterceptor } from '../../interceptors';
+import { BadgeService } from './badge.service';
 
 @Module({
   controllers: [BadgeController],
-  providers: [
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: AuthorInterceptor,
-    },
-    BadgeService,
-  ],
+  providers: [BadgeService],
+  imports: [AuthorInterceptorModule],
 })
 export class BadgeModule {}

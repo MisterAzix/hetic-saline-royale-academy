@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { PrismaClient } from '@prisma/client';
+import { CreateAchievementDto } from '../apps/api/src/app/achievement/dto/create-achievement.dto';
 import { CreateBadgeDto } from '../apps/api/src/app/badge/dto/create-badge.dto';
 import { CreateCategoryDto } from '../apps/api/src/app/category/dto/create-category.dto';
 import { CreateChapterDto } from '../apps/api/src/app/chapter/dto/create-chapter.dto';
@@ -10,7 +11,6 @@ import { CreateProgressTrackerDto } from '../apps/api/src/app/progress_tracker/d
 import { CreateRewardDto } from '../apps/api/src/app/rewards/dto/create-reward.dto';
 import { CreateSubscriptionDto } from '../apps/api/src/app/subscription/dto/create-subscription.dto';
 import { CreateTagDto } from '../apps/api/src/app/tag/dto/create-tag.dto';
-import { CreateAchievementDto } from '../apps/api/src/app/achievement/dto/create-achievement.dto';
 import { UserCreateDto } from '../apps/api/src/app/users/dto/create-user.dto';
 
 const prisma = new PrismaClient();
@@ -277,6 +277,7 @@ const generateRandomMasterclasses = async (
       duration: faker.number.int({ max: 60 }),
       video_url: generateRandomVideoUrl(),
       is_deleted: faker.datatype.boolean(),
+      chapter_id: 'b14d312a-026f-4c05-a12c-772e4be8d227',
     })
   );
   return masterclasses;

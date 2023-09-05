@@ -13,6 +13,14 @@ export class CourseService {
 
   constructor(private prisma: PrismaService) {}
 
+  private includeCommonRelationships() {
+    return {
+      category: true,
+      chapters: { include: { masterclasses: true } },
+      tags: true,
+    };
+  }
+
   /**
    * Create a new course.
    *
@@ -22,7 +30,10 @@ export class CourseService {
    */
   async create(data: Prisma.CourseCreateInput): Promise<Course> {
     try {
-      const course = await this.prisma.course.create({ data });
+      const course = await this.prisma.course.create({
+        data,
+        include: this.includeCommonRelationships(),
+      });
       return course;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
@@ -52,6 +63,7 @@ export class CourseService {
     try {
       return await this.prisma.course.findMany({
         where: { is_deleted: false },
+        include: this.includeCommonRelationships(),
       });
     } catch (error) {
       this.logger.error('Error while retrieving courses:', error);
@@ -71,6 +83,7 @@ export class CourseService {
     try {
       return await this.prisma.course.findMany({
         where: { user_id },
+        include: this.includeCommonRelationships(),
       });
     } catch (error) {
       this.logger.error("Error while retrieving  user's courses:", error);
@@ -89,7 +102,10 @@ export class CourseService {
    */
   async findOne(id: string): Promise<Course> {
     try {
-      return await this.prisma.course.findUnique({ where: { id } });
+      return await this.prisma.course.findUnique({
+        where: { id },
+        include: this.includeCommonRelationships(),
+      });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
@@ -121,6 +137,7 @@ export class CourseService {
       return await this.prisma.course.update({
         where: { id },
         data,
+        include: this.includeCommonRelationships(),
       });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {

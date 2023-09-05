@@ -8,11 +8,9 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Category } from '@prisma/client';
 import { AdminGuard } from '../admin.guard';
-import { CreatedBy } from '../decorators/created-by.decorator';
-import { UpdatedBy } from '../decorators/updated-by.decorator';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -32,15 +30,9 @@ export class CategoryController {
   @UseGuards(AdminGuard)
   @Post()
   @ApiCreatedResponse({ type: CategoryEntity })
-  create(
-    @Body() createCategoryDto: CreateCategoryDto,
-    @CreatedBy() created_by: string,
-    @UpdatedBy() updated_by: string
-  ): Promise<Category> {
+  create(@Body() createCategoryDto: CreateCategoryDto): Promise<Category> {
     return this.categoryService.create({
       ...createCategoryDto,
-      created_by,
-      updated_by,
     });
   }
 
@@ -51,7 +43,7 @@ export class CategoryController {
    */
   @UseGuards(AdminGuard)
   @Get()
-  @ApiCreatedResponse({ type: CategoryEntity, isArray: true })
+  @ApiOkResponse({ type: CategoryEntity, isArray: true })
   findAll(): Promise<Category[]> {
     return this.categoryService.findAll();
   }
@@ -64,7 +56,7 @@ export class CategoryController {
    */
   @UseGuards(AdminGuard)
   @Get(':id')
-  @ApiCreatedResponse({ type: CategoryEntity })
+  @ApiOkResponse({ type: CategoryEntity })
   findOne(@Param('id') id: string): Promise<Category> {
     return this.categoryService.findOne(id);
   }
@@ -78,15 +70,13 @@ export class CategoryController {
    */
   @UseGuards(AdminGuard)
   @Patch(':id')
-  @ApiCreatedResponse({ type: CategoryEntity })
+  @ApiOkResponse({ type: CategoryEntity })
   update(
     @Param('id') id: string,
-    @Body() updateCategoryDto: UpdateCategoryDto,
-    @UpdatedBy() updated_by: string
+    @Body() updateCategoryDto: UpdateCategoryDto
   ): Promise<Category> {
     return this.categoryService.update(id, {
       ...updateCategoryDto,
-      updated_by,
     });
   }
 
@@ -98,7 +88,7 @@ export class CategoryController {
    */
   @UseGuards(AdminGuard)
   @Delete(':id')
-  @ApiCreatedResponse({ type: CategoryEntity })
+  @ApiOkResponse({ type: CategoryEntity })
   remove(@Param('id') id: string): Promise<Category> {
     return this.categoryService.remove(id);
   }
