@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 import { palette } from '@hetic-saline-royale-academy/kit-ui';
+import { Person } from '@mui/icons-material';
 import { Box, Stack, SvgIcon } from '@mui/material';
-import TitleText from '../Atoms/TitleText';
-import DescriptionText from '../Atoms/DescriptionText';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { routes } from '../../../../routes';
-import { useSession } from 'next-auth/react';
-import { Person } from '@mui/icons-material';
+import DescriptionText from '../Atoms/DescriptionText';
+import TitleText from '../Atoms/TitleText';
 
 const ProfileContainer = styled(Stack)`
   flex-direction: row;

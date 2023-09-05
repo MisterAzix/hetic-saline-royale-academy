@@ -32,7 +32,7 @@ const Table = styled(DataGrid)`
   }
 `;
 
-const dateFormater = new Intl.DateTimeFormat('fr-FR', {
+const dateFormatter = new Intl.DateTimeFormat('fr-FR', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
@@ -62,7 +62,7 @@ const MasterclassTable = () => {
       headerName: 'Date',
       width: 256,
       renderCell: (params: GridRenderCellParams<Date>) =>
-        dateFormater.format(new Date(params.value)),
+        dateFormatter.format(new Date(params.value)),
     },
   ];
 
@@ -79,7 +79,7 @@ const MasterclassTable = () => {
     })
   );
 
-  if (isMasterclassesLoading || !masterclasses.length) {
+  if (isMasterclassesLoading || !masterclasses) {
     return null;
   }
 
