@@ -6,7 +6,7 @@ import { raiseError } from '../../../../utils';
 
 const from = (
   breakpoint: Breakpoint,
-  content: string | SerializedStyles | undefined
+  content: string | SerializedStyles | undefined | TemplateStringsArray
 ) => {
   if (typeof content === 'string')
     return `@media screen and (min-width: ${getTheme(SCREENS, breakpoint)}) {
@@ -15,7 +15,9 @@ const from = (
 
   if (typeof content === 'object') {
     return `@media screen and (min-width: ${getTheme(SCREENS, breakpoint)}) {
-    ${content?.styles}}`;
+    ${
+      'styles' in content ? content?.styles : raiseError('Undefined styles')
+    }')}}`;
   }
 
   raiseError(
