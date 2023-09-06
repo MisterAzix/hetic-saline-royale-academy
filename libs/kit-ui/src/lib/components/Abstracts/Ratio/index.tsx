@@ -1,13 +1,18 @@
-import React, { CSSProperties, ForwardedRef, forwardRef } from 'react'
+import React, {
+  ComponentProps,
+  CSSProperties,
+  ForwardedRef,
+  forwardRef,
+} from 'react';
 
 export type RatioProps = {
-  className?: string
-  preset?: string
-  styleContainer?: CSSProperties
-  style?: CSSProperties
-  ratio?: string
-  children?: JSX.Element | ((style: CSSProperties) => JSX.Element)
-}
+  className?: string;
+  preset?: string;
+  styleContainer?: CSSProperties;
+  style?: CSSProperties;
+  ratio?: string;
+  children?: JSX.Element | ((style: CSSProperties) => JSX.Element);
+} & Omit<ComponentProps<'div'>, 'children'>;
 
 /**
  * Ratio component to keep a proportion
@@ -17,16 +22,23 @@ export type RatioProps = {
  */
 
 function RatioForwarded(
-  { ratio, className, style = {}, styleContainer = {}, children }: RatioProps,
-  ref?: ForwardedRef<HTMLDivElement>,
+  {
+    ratio,
+    className,
+    style = {},
+    styleContainer = {},
+    children,
+    ...props
+  }: RatioProps,
+  ref?: ForwardedRef<HTMLDivElement>
 ) {
   const componentStyle: CSSProperties = {
     position: 'relative',
-  }
+  };
 
   const containerStyle: CSSProperties = {
     width: '100%',
-  }
+  };
 
   const childrenStyle: CSSProperties = {
     position: 'absolute',
@@ -35,18 +47,20 @@ function RatioForwarded(
     width: '100%',
     height: '100%',
     overflow: 'hidden',
-  }
+  };
 
   return (
     <div
       ref={ref}
       className={className}
-      style={{ ...componentStyle, ...style }}>
+      style={{ ...componentStyle, ...style }}
+      {...props}
+    >
       <div className={ratio} style={{ ...containerStyle, ...styleContainer }}>
         {typeof children === 'function' ? children?.(childrenStyle) : children}
       </div>
     </div>
-  )
+  );
 }
 
-export const Ratio = forwardRef<HTMLDivElement, RatioProps>(RatioForwarded)
+export const Ratio = forwardRef<HTMLDivElement, RatioProps>(RatioForwarded);

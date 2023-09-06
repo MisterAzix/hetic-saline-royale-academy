@@ -1,12 +1,12 @@
 import { Typography } from '@mui/material';
-import { TextPresets } from '../../../styles/@types';
+import { Colors, TextPresets } from '../../../styles/@types';
 import { ElementType, PropsWithChildren } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 export type TextProps = {
   preset: TextPresets;
-  color: string;
+  color?: Colors;
   css?: string;
   tag?: ElementType;
 } & PropsWithChildren;
@@ -21,11 +21,12 @@ const TextWrapper = styled.div<{ css: string }>`
 `;
 
 function Text({ css = '', preset, color, children, tag = 'p' }: TextProps) {
+  // TODO : FIX HOVER ERROR THAT DONT WORK
   return (
     <TextWrapper css={css}>
       <Typography
         sx={{
-          color: `${color}.main`,
+          color: `${color ?? 'white'}.main`,
         }}
         variant={preset}
         component={tag}
