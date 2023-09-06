@@ -11,18 +11,22 @@ const ChapterList = styled(Stack)`
 `;
 
 const ChapterItem = styled.div`
-  border: 1px solid #ccc; 
+  border: 1px solid #ccc;
   padding: 10px;
-  background-color: #f9f9f9; 
-  cursor: pointer; 
-  transition: background-color 0.3s ease; 
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #e5e5e5; /
+    background-color: #e5e5e5;
   }
 `;
 
-const Chapiters = (props) => {
+interface ChapitersI {
+  chapiters: Chapter[];
+}
+
+const Chapiters = ({ chapiters }: ChapitersI) => {
   const router: NextRouter = useRouter();
 
   const handleCardClick = async (id: string) => {
@@ -34,9 +38,9 @@ const Chapiters = (props) => {
       <Text preset="text-xl-semibold" color="gray-900">
         Liste de master classe
       </Text>
-      <ChapterList onClick={() => handleCardClick(props.id)}>
-        {props?.chapiters?.map((chapter: Chapter, index: string) => (
-          <ChapterItem key={index}>
+      <ChapterList>
+        {chapiters?.map((chapter: Chapter, index: number) => (
+          <ChapterItem key={index} onClick={() => handleCardClick(chapter.id)}>
             <Text preset="text-lg-semibold" color="gray-900">
               {chapter?.title}
             </Text>
