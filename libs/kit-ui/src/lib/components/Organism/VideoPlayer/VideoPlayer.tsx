@@ -17,7 +17,7 @@ import VideoPlayerControls, {
 import screenfull from 'screenfull';
 
 export type VideoPlayerProps = {
-  style: SerializedStyles;
+  style?: SerializedStyles;
   url: string;
 } & ComponentProps<'div'>;
 

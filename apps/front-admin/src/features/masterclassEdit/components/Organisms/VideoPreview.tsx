@@ -4,6 +4,7 @@ import VideoTitle from '../Atoms/VideoTitle';
 import { useGetMasterclass } from '../../hooks';
 import { UseFormWatch } from 'react-hook-form';
 import { IMasterclassForm } from '../../types';
+import { VideoPlayer } from '@hetic-saline-royale-academy/kit-ui';
 
 interface VideoPreviewProps {
   watch: UseFormWatch<IMasterclassForm>;
@@ -22,7 +23,7 @@ const VideoPreview = ({ watch }: VideoPreviewProps) => {
 
   return (
     <Stack spacing={1}>
-      <video autoPlay src={masterclass.video_url} width={'100%'} />
+      <VideoPlayer url={masterclass.video_url} />
       <VideoTitle>{title}</VideoTitle>
     </Stack>
   );
