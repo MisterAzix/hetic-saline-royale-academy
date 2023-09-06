@@ -74,9 +74,14 @@ export class MasterclassController {
     @Param('id') id: string,
     @Body() updateMasterclassDto: UpdateMasterclassDto
   ): Promise<Masterclass> {
-    return this.masterclassService.update(id, {
-      ...updateMasterclassDto,
-    });
+    return this.masterclassService.update(
+      id,
+      {
+        ...updateMasterclassDto,
+        chapters: undefined,
+      },
+      updateMasterclassDto.chapters
+    );
   }
 
   /**

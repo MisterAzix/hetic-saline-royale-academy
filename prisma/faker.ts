@@ -12,6 +12,7 @@ import { CreateRewardDto } from '../apps/api/src/app/rewards/dto/create-reward.d
 import { CreateSubscriptionDto } from '../apps/api/src/app/subscription/dto/create-subscription.dto';
 import { CreateTagDto } from '../apps/api/src/app/tag/dto/create-tag.dto';
 import { UserCreateDto } from '../apps/api/src/app/users/dto/create-user.dto';
+import { CreateCourseDto } from '../apps/api/src/app/course/dto/create-course.dto';
 
 const prisma = new PrismaClient();
 
@@ -160,7 +161,7 @@ const generateRandomChapters = async (
 ): Promise<CreateChapterDto[]> => {
   const chapters: CreateChapterDto[] = Array.from({ length: count }, () => ({
     title: faker.string.alpha(10),
-    description: faker.lorem.sentence(),
+    timecode: '00:00:00', //TODO: Change to faker
     is_deleted: faker.datatype.boolean(),
   }));
   return chapters;
@@ -186,8 +187,8 @@ export const randomChapters = async (count: number) => {
  */
 const generateRandomCourses = async (
   count: number
-): Promise<CreateChapterDto[]> => {
-  const courses: CreateChapterDto[] = Array.from({ length: count }, () => ({
+): Promise<CreateCourseDto[]> => {
+  const courses: CreateCourseDto[] = Array.from({ length: count }, () => ({
     title: faker.string.alpha(10),
     description: faker.lorem.sentence(),
     is_deleted: faker.datatype.boolean(),
