@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Prisma } from '@prisma/client';
-import { IsArray, IsBoolean, IsString, Length } from 'class-validator';
+import { IsArray, IsBoolean, IsString, Length, Matches } from 'class-validator';
 
 export class CreateChapterDto {
   @ApiProperty({ type: String })
@@ -10,8 +10,8 @@ export class CreateChapterDto {
 
   @ApiProperty({ type: String, required: false })
   @IsString()
-  @Length(10, 700)
-  description?: string;
+  @Matches(/^\d{2}:\d{2}:\d{2}$/)
+  timecode: string;
 
   @ApiProperty({ type: Boolean, required: false, default: false })
   @IsBoolean()
@@ -27,5 +27,5 @@ export class CreateChapterDto {
 
   @ApiProperty({ type: Array, required: false })
   @IsArray()
-  masterclasses?: Prisma.ChapterCreateInput['masterclasses'];
+  masterclass?: Prisma.ChapterCreateInput['masterclass'];
 }

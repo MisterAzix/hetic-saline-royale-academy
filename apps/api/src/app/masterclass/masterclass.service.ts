@@ -4,7 +4,7 @@ import {
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
-import { Masterclass, Prisma } from '@prisma/client';
+import { Chapter, Masterclass, Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma.service';
 import { CloudinaryService } from '../cloudinary/cloudinary.service';
 
@@ -82,7 +82,14 @@ export class MasterclassService {
    */
   async findOne(id: string): Promise<Masterclass> {
     try {
-      return await this.prisma.masterclass.findUnique({ where: { id } });
+      return await this.prisma.masterclass.findUnique({
+        where: { id },
+        include: {
+          chapters: {
+            orderBy: { created_at: 'asc' },
+          },
+        },
+      });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
         // Handle validation errors
@@ -108,16 +115,47 @@ export class MasterclassService {
    *
    * @param {string} id - The ID of the masterclass to update.
    * @param {Prisma.MasterclassUpdateInput} data - The data for updating the masterclass.
+   * @param {Chapter[]} newChapters - The chapters to update.
    * @returns {Promise<Masterclass>} - The updated masterclass.
    */
   async update(
     id: string,
-    data: Prisma.MasterclassUpdateInput
+    data: Prisma.MasterclassUpdateInput,
+    newChapters: Chapter[]
   ): Promise<Masterclass> {
     try {
+      const chapters = await this.prisma.chapter.findMany({
+        where: { masterclass_id: id },
+      });
+
+      const chaptersToCreate = newChapters.filter(
+        (chapter) => !chapters.some((c) => c.id === chapter.id)
+      );
+
+      const chaptersToDelete = chapters.filter(
+        (chapter) => !newChapters.some((c) => c.id === chapter.id)
+      );
+
+      const chaptersToUpdate = newChapters.filter((chapter) =>
+        chapters.some((c) => c.id === chapter.id)
+      );
+
       return await this.prisma.masterclass.update({
         where: { id },
-        data,
+        data: {
+          ...data,
+          chapters: {
+            create: chaptersToCreate,
+            update: chaptersToUpdate.map((chapter) => ({
+              where: { id: chapter.id },
+              data: {
+                title: chapter.title,
+                timecode: chapter.timecode,
+              },
+            })),
+            delete: chaptersToDelete.map((chapter) => ({ id: chapter.id })),
+          },
+        },
       });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {

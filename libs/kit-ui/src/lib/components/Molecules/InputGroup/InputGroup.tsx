@@ -5,7 +5,7 @@ import { Label, Input, HelperText } from '../../Atoms';
 type InputGroupProps = ComponentProps<typeof Input> & {
   label: string;
   defaultValue?: string;
-  helperText: string;
+  helperText?: string;
   error?: boolean;
   required?: boolean;
   disabled?: boolean;
@@ -31,7 +31,7 @@ const InputGroup = ({
   >
     <Label>{label}</Label>
     <Input icon={icon} name={name} {...props} />
-    <HelperText>{helperText}</HelperText>
+    {helperText && <HelperText>{helperText}</HelperText>}
   </FormControl>
 );
 

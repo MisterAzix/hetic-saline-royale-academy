@@ -67,15 +67,16 @@ model Category {
 }
 
 model Chapter {
-  id            String        @id @default(uuid())
-  title         String        @unique @db.VarChar(100)
-  description   String?       @db.VarChar(100)
-  masterclasses Masterclass[]
-  course        Course?       @relation(fields: [course_id], references: [id])
-  course_id     String?
-  is_deleted    Boolean?      @default(false)
-  created_at    DateTime?     @default(now())
-  updated_at    DateTime?     @updatedAt
+  id             String       @id @default(uuid())
+  title          String       @db.VarChar(100)
+  timecode       String
+  masterclass    Masterclass? @relation(fields: [masterclass_id], references: [id])
+  masterclass_id String?
+  course         Course?      @relation(fields: [course_id], references: [id])
+  course_id      String?
+  is_deleted     Boolean?     @default(false)
+  created_at     DateTime?    @default(now())
+  updated_at     DateTime?    @updatedAt
 }
 
 model Course {
@@ -114,14 +115,13 @@ model Gamification {
 model Masterclass {
   id          String    @id @default(uuid())
   title       String    @db.VarChar(100)
-  description String?   @db.VarChar(100)
+  description String?   @db.VarChar(1500)
   duration    Int?
   cover_url   String?
   video_url   String
   status      Status    @default(DRAFT)
   tags        Tag[]
-  chapter     Chapter?  @relation(fields: [chapter_id], references: [id])
-  chapter_id  String?   @unique
+  chapters    Chapter[]
   is_deleted  Boolean?  @default(false)
   created_at  DateTime? @default(now())
   updated_at  DateTime? @updatedAt

@@ -59,9 +59,10 @@ Table Category {
 
 Table Chapter {
   id String [pk]
-  title String [unique, not null]
-  description String
-  masterclasses Masterclass [not null]
+  title String [not null]
+  timecode String [not null]
+  masterclass Masterclass
+  masterclass_id String
   course Course
   course_id String
   is_deleted Boolean [default: false]
@@ -111,8 +112,7 @@ Table Masterclass {
   video_url String [not null]
   status Status [not null, default: 'DRAFT']
   tags Tag [not null]
-  chapter Chapter
-  chapter_id String [unique]
+  chapters Chapter [not null]
   is_deleted Boolean [default: false]
   created_at DateTime [default: `now()`]
   updated_at DateTime
@@ -230,6 +230,8 @@ Ref: Category.badge_id - Badge.id
 
 Ref: Category.course_id - Course.id
 
+Ref: Chapter.masterclass_id > Masterclass.id
+
 Ref: Chapter.course_id > Course.id
 
 Ref: Course.progress_tracking_id - ProgressTracker.id
@@ -239,8 +241,6 @@ Ref: Course.user_id > User.id
 Ref: Gamification.user_id - User.id
 
 Ref: Gamification.progress_tracking_id - ProgressTracker.id
-
-Ref: Masterclass.chapter_id > Chapter.id
 
 Ref: Notification.user_id - User.id
 
