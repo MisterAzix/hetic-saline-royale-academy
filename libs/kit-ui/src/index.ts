@@ -1,2 +1,2 @@
 export * from './lib';
-export * from './lib/styles/mixins';
+export * from './lib/styles/mixins/get-theme';
