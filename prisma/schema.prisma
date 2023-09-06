@@ -89,7 +89,7 @@ model Course {
   progress_tracker     ProgressTracker? @relation(fields: [progress_tracking_id], references: [id])
   progress_tracking_id String?          @unique
   user                 User?            @relation(fields: [user_id], references: [id])
-  user_id              String?          @unique
+  user_id              String?
   is_deleted           Boolean?         @default(false)
   created_by           String?          @db.VarChar(100)
   updated_by           String?          @db.VarChar(100)

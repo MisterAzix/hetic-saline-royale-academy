@@ -43,6 +43,11 @@ export class MasterclassService {
           video_url: secure_url,
           cover_url: thumbnail_url,
         },
+        include: {
+          chapters: {
+            orderBy: { created_at: 'asc' },
+          },
+        },
       });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
@@ -63,8 +68,12 @@ export class MasterclassService {
   async findAll(): Promise<Masterclass[]> {
     try {
       return await this.prisma.masterclass.findMany({
-        where: { is_deleted: false },
         orderBy: { created_at: 'desc' },
+        include: {
+          chapters: {
+            orderBy: { created_at: 'asc' },
+          },
+        },
       });
     } catch (error) {
       this.logger.error('Error while retrieving masterclasses:', error);
@@ -154,6 +163,11 @@ export class MasterclassService {
               },
             })),
             delete: chaptersToDelete.map((chapter) => ({ id: chapter.id })),
+          },
+        },
+        include: {
+          chapters: {
+            orderBy: { created_at: 'asc' },
           },
         },
       });

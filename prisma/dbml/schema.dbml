@@ -80,7 +80,7 @@ Table Course {
   progress_tracker ProgressTracker
   progress_tracking_id String [unique]
   user User
-  user_id String [unique]
+  user_id String
   is_deleted Boolean [default: false]
   created_by String
   updated_by String

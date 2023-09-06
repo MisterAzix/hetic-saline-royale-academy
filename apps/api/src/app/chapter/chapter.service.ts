@@ -24,7 +24,7 @@ export class ChapterService {
     try {
       const chapter = await this.prisma.chapter.create({
         data,
-        include: { masterclasses: true },
+        include: { masterclass: true },
       });
 
       return chapter;
@@ -56,7 +56,7 @@ export class ChapterService {
     try {
       return await this.prisma.chapter.findMany({
         where: { is_deleted: false },
-        include: { masterclasses: true },
+        include: { masterclass: true },
       });
     } catch (error) {
       this.logger.error('Error while retrieving chapters:', error);
@@ -77,7 +77,7 @@ export class ChapterService {
     try {
       return await this.prisma.chapter.findUnique({
         where: { id },
-        include: { masterclasses: true },
+        include: { masterclass: true },
       });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {
@@ -110,7 +110,7 @@ export class ChapterService {
       return await this.prisma.chapter.update({
         where: { id },
         data,
-        include: { masterclasses: true },
+        include: { masterclass: true },
       });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientValidationError) {

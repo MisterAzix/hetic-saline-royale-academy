@@ -29,7 +29,7 @@ interface ChapitersI {
 const Chapiters = ({ chapiters }: ChapitersI) => {
   const router: NextRouter = useRouter();
 
-  const handleCardClick = async (id: string) => {
+  const handleCardClick = async (id: string | null) => {
     await router.push(`/masterclass/${id}`);
   };
 
@@ -40,12 +40,15 @@ const Chapiters = ({ chapiters }: ChapitersI) => {
       </Text>
       <ChapterList>
         {chapiters?.map((chapter: Chapter, index: number) => (
-          <ChapterItem key={index} onClick={() => handleCardClick(chapter.id)}>
+          <ChapterItem
+            key={index}
+            onClick={() => handleCardClick(chapter?.masterclass_id)}
+          >
             <Text preset="text-lg-semibold" color="gray-900">
               {chapter?.title}
             </Text>
             <Text preset="text-sm-regular" color="gray-500">
-              {chapter?.description}
+              {chapter?.timecode}
             </Text>
           </ChapterItem>
         ))}

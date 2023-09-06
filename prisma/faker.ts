@@ -4,6 +4,7 @@ import { CreateAchievementDto } from '../apps/api/src/app/achievement/dto/create
 import { CreateBadgeDto } from '../apps/api/src/app/badge/dto/create-badge.dto';
 import { CreateCategoryDto } from '../apps/api/src/app/category/dto/create-category.dto';
 import { CreateChapterDto } from '../apps/api/src/app/chapter/dto/create-chapter.dto';
+import { CreateCourseDto } from '../apps/api/src/app/course/dto/create-course.dto';
 import { CreateGamificationDto } from '../apps/api/src/app/gamification/dto/create-gamification.dto';
 import { CreateMasterclassDto } from '../apps/api/src/app/masterclass/dto/create-masterclass.dto';
 import { CreateNotificationDto } from '../apps/api/src/app/notification/dto/create-notification.dto';
@@ -12,7 +13,6 @@ import { CreateRewardDto } from '../apps/api/src/app/rewards/dto/create-reward.d
 import { CreateSubscriptionDto } from '../apps/api/src/app/subscription/dto/create-subscription.dto';
 import { CreateTagDto } from '../apps/api/src/app/tag/dto/create-tag.dto';
 import { UserCreateDto } from '../apps/api/src/app/users/dto/create-user.dto';
-import { CreateCourseDto } from '../apps/api/src/app/course/dto/create-course.dto';
 
 const prisma = new PrismaClient();
 
@@ -263,6 +263,23 @@ const generateRandomVideoUrl = (): string => {
 };
 
 /**
+ * Generates a random image URL from a list of free image sources.
+ * @returns {string} - The generated image URL.
+ */
+const generateRandomImageUrl = (): string => {
+  const imageUrls = [
+    'https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3540&q=80',
+    'https://images.unsplash.com/photo-1566913485268-1287f67f87fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3540&q=80',
+    'https://plus.unsplash.com/premium_photo-1661433025857-e79ad6e8bf15?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3540&q=80',
+    'https://plus.unsplash.com/premium_photo-1681494407306-15c18abf3442?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3540&q=80',
+    'https://images.unsplash.com/photo-1566913485233-a9b2afe13757?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3542&q=80',
+  ];
+
+  const randomIndex = Math.floor(Math.random() * imageUrls.length);
+  return imageUrls[randomIndex];
+};
+
+/**
  * Generates random masterclasses.
  * @param {number} count - The number of masterclasses to generate.
  * @returns {Promise<CreateMasterclassDto[]>} - A promise that resolves to an array of generated masterclasses.
@@ -277,8 +294,8 @@ const generateRandomMasterclasses = async (
       description: faker.lorem.sentence(),
       duration: faker.number.int({ max: 60 }),
       video_url: generateRandomVideoUrl(),
+      cover_url: generateRandomImageUrl(),
       is_deleted: faker.datatype.boolean(),
-      chapter_id: 'b14d312a-026f-4c05-a12c-772e4be8d227',
     })
   );
   return masterclasses;

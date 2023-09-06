@@ -16,7 +16,7 @@ export class CourseService {
   private includeCommonRelationships() {
     return {
       category: true,
-      chapters: { include: { masterclasses: true } },
+      chapters: { include: { masterclass: true } },
       tags: true,
     };
   }
