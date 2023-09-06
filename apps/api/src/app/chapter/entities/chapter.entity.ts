@@ -9,7 +9,7 @@ export class ChapterEntity implements Chapter {
   title: string;
 
   @ApiProperty()
-  description: string;
+  timecode: string;
 
   @ApiProperty()
   created_at: Date;
@@ -22,4 +22,7 @@ export class ChapterEntity implements Chapter {
 
   @ApiProperty()
   course_id: string;
+
+  @ApiProperty()
+  masterclass_id: string;
 }

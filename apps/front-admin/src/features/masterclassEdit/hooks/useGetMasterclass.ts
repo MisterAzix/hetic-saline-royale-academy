@@ -7,7 +7,7 @@ export const MASTERCLASS_KEY = 'masterclass';
 export const fetchMasterclass = async (
   id: Masterclass['id'],
   access_token?: string
-): Promise<Masterclass> => {
+): Promise<Masterclass & { chapters: [] }> => {
   const url = new URL(`/api/masterclass/${id}`, process.env.API_URL);
 
   const response = await fetch(url, {
@@ -30,7 +30,7 @@ export const useGetMasterclass = (id: Masterclass['id']) => {
   });
 
   return {
-    masterclass: query.data || ({} as Masterclass),
+    masterclass: query.data || ({} as Masterclass & { chapters: [] }),
     isMasterclassLoading: query.isLoading,
     ...query,
   };

@@ -2,11 +2,10 @@ import { GetServerSidePropsContext } from 'next';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]';
 import { routes } from '../../routes';
-import { ReactElement, useEffect } from 'react';
+import { ReactElement, useEffect, useMemo } from 'react';
 import DashboardLayout from '../../layout/DashboardLayout';
 import { useRouter } from 'next/router';
 import { Stack } from '@mui/material';
-import Title from '../../features/masterclassEdit/components/Atoms/Title';
 import InformationsSection from '../../features/masterclassEdit/components/Organisms/InformationsSection';
 import VideoPreview from '../../features/masterclassEdit/components/Organisms/VideoPreview';
 import { useForm } from 'react-hook-form';
@@ -17,9 +16,9 @@ import {
   useMasterclassFormValidation,
 } from '../../features/masterclassEdit/hooks';
 import { Button } from '@hetic-saline-royale-academy/kit-ui';
-import { useDebounce } from '../../hooks';
 import { Status } from '@prisma/client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import ChaptersSection from '../../features/masterclassEdit/components/Organisms/ChaptersSection';
 
 export function Masterclass() {
   const router = useRouter();
@@ -28,11 +27,15 @@ export function Masterclass() {
   const masterclassFormValidation = useMasterclassFormValidation();
   const { updateMasterclass, isLoading } = useMasterclassFormSubmit();
 
-  const initialValues: IMasterclassForm = {
-    id,
-    title: masterclass.title,
-    description: masterclass.description || '',
-  };
+  const initialValues: IMasterclassForm = useMemo(
+    () => ({
+      id,
+      title: masterclass.title || '',
+      description: masterclass.description || '',
+      chapters: masterclass.chapters || [],
+    }),
+    [masterclass]
+  );
 
   const { handleSubmit, control, reset, watch } = useForm<IMasterclassForm>({
     defaultValues: initialValues,
@@ -41,21 +44,9 @@ export function Masterclass() {
     reValidateMode: 'onChange',
   });
 
-  const values = watch();
-  const debouncedValues = useDebounce<IMasterclassForm>(values, 1000);
-
   useEffect(() => {
     reset(initialValues);
   }, [masterclass]);
-
-  useEffect(() => {
-    try {
-      masterclassFormValidation.parse(debouncedValues);
-      updateMasterclass(debouncedValues);
-    } catch (error) {
-      return;
-    }
-  }, [debouncedValues]);
 
   return (
     <Stack
@@ -67,15 +58,24 @@ export function Masterclass() {
       spacing={3}
       height={'100%'}
     >
-      <Stack flex={1} spacing={2}>
-        <Title>{values.title}</Title>
+      <Stack flex={1} spacing={2} overflow={'scroll'}>
         <InformationsSection control={control} />
+        <ChaptersSection control={control} />
       </Stack>
       <Stack flex={1} height={'100%'} justifyContent={'space-between'}>
         <VideoPreview watch={watch} />
-        <Button type={'submit'} disabled={isLoading}>
-          {isLoading ? 'Enregistrement en cours...' : 'Publier'}
-        </Button>
+        <Stack spacing={1}>
+          <Button type={'submit'} disabled={isLoading}>
+            {isLoading ? 'Enregistrement en cours...' : 'Enregistrer'}
+          </Button>
+          <Button
+            type={'button'}
+            onClick={() => reset(initialValues)}
+            color={'secondary'}
+          >
+            {'Annuler les modifications'}
+          </Button>
+        </Stack>
       </Stack>
     </Stack>
   );
