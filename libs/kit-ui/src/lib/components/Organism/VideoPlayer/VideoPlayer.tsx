@@ -1,3 +1,4 @@
+import { ClassNames, SerializedStyles } from '@emotion/react';
 import {
   ComponentProps,
   ElementRef,
@@ -6,19 +7,19 @@ import {
   useRef,
   useState,
 } from 'react';
-import { ClassNames, SerializedStyles } from '@emotion/react';
 import ReactPlayer from 'react-player';
-import { Ratio } from '../../Abstracts/Ratio';
 import { OnProgressProps } from 'react-player/base';
+import screenfull from 'screenfull';
 import { noop } from '../../../../../utils';
+import { Ratio } from '../../Abstracts/Ratio';
 import VideoPlayerControls, {
   VideoPlayerControlProps,
 } from './VideoPlayerControls/VideoPlayerControls';
-import screenfull from 'screenfull';
 
 export type VideoPlayerProps = {
-  style: SerializedStyles;
+  style?: SerializedStyles;
   url: string;
+  title: string;
 } & ComponentProps<'div'>;
 
 type PlayerState = {
@@ -31,7 +32,7 @@ type PlayerState = {
   shouldShowControl: boolean;
 };
 
-export default function VideoPlayer({ url, style }: VideoPlayerProps) {
+export default function VideoPlayer({ url, style, title }: VideoPlayerProps) {
   const [playerState, setPlayerState] = useState<PlayerState>({
     isPlaying: true,
     isMute: true,
@@ -202,7 +203,6 @@ export default function VideoPlayer({ url, style }: VideoPlayerProps) {
               muted={isMute}
               volume={volume}
               onProgress={handlePlayerProgress}
-              fullscreen={true}
             />
             <div
               style={{
@@ -226,6 +226,7 @@ export default function VideoPlayer({ url, style }: VideoPlayerProps) {
                 playedTime={playedTime}
                 volume={volume}
                 isMute={playerState.isMute}
+                title={title}
               />
             </div>
           </>

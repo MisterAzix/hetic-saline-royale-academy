@@ -248,15 +248,12 @@ export const randomGamification = async (count: number) => {
  */
 const generateRandomVideoUrl = (): string => {
   const videoUrls = [
-    'https://www.youtube.com/watch?v=htjRBaAhGRw&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix',
-    'https://www.youtube.com/watch?v=woO7Tf0ONao&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=2',
-    'https://www.youtube.com/watch?v=gGd5u5DwvuE&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=3',
-    'https://www.youtube.com/watch?v=ujLr_6t5Mlg&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=4',
-    'https://www.youtube.com/watch?v=wrgJKCgXGEA&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=5',
-    'https://www.youtube.com/watch?v=BzT-xTW2qP0&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=6',
-    'https://www.youtube.com/watch?v=145QLgpAivU&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=7',
-    'https://www.youtube.com/watch?v=vFhdn91jACY&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=8',
-    'https://www.youtube.com/watch?v=-wEh2BJnsTg&list=PLcbx6b4jqqo5P-XLgdGThez62RWcAV7Ix&index=9',
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoogleCloud.mp4',
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
   ];
   const randomIndex = faker.number.int({ min: 0, max: videoUrls.length - 1 });
   return videoUrls[randomIndex];
