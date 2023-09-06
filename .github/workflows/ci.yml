@@ -80,6 +80,8 @@ jobs:
         uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_API_URL: http://${{ vars.API_URL }}
+          envkey_NEXTAUTH_URL: http://${{ vars.DASHBOARD_NEXTAUTH_URL }}
+          envkey_NEXTAUTH_SECRET: http://${{ secrets.DASHBOARD_NEXTAUTH_SECRET }}
           directory: 'apps/front-admin/'
           file_name: .env
           fail_on_empty: false
@@ -88,6 +90,8 @@ jobs:
         uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_API_URL: http://${{ vars.API_URL }}
+          envkey_NEXTAUTH_URL: http://${{ vars.CLIENT_NEXTAUTH_URL }}
+          envkey_NEXTAUTH_SECRET: http://${{ secrets.CLIENT_NEXTAUTH_SECRET }}
           directory: 'apps/front-client/'
           file_name: .env
           fail_on_empty: false
@@ -160,6 +164,10 @@ jobs:
           envkey_API_URL: http://${{ vars.API_URL }}
           envkey_CLIENT_URL: http://${{ vars.CLIENT_URL }}
           envkey_DASHBOARD_URL: http://${{ vars.DASHBOARD_URL }}
+          envkey_CLOUDINARY_CLOUD_NAME: http://${{ vars.CLOUDINARY_CLOUD_NAME }}
+          envkey_CLOUDINARY_API_KEY: http://${{ vars.CLOUDINARY_API_KEY }}
+          envkey_CLOUDINARY_API_SECRET: http://${{ secrets.CLOUDINARY_API_SECRET }}
+          envkey_CLOUDINARY_FOLDER: http://${{ vars.CLOUDINARY_FOLDER }}
           directory: 'dist/apps/api/'
           file_name: .env
           fail_on_empty: false
