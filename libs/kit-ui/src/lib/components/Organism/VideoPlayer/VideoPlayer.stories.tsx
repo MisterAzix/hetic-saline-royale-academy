@@ -16,5 +16,7 @@ export default meta;
 type Story = StoryObj<typeof VideoPlayer>;
 
 export const Playground: Story = {
-  args: {},
+  args: {
+    url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+  },
 };

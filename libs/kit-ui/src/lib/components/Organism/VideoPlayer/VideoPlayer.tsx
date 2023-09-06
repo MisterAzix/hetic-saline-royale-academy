@@ -18,6 +18,7 @@ import screenfull from 'screenfull';
 
 export type VideoPlayerProps = {
   style: SerializedStyles;
+  url: string;
 } & ComponentProps<'div'>;
 
 type PlayerState = {
@@ -30,7 +31,7 @@ type PlayerState = {
   shouldShowControl: boolean;
 };
 
-export default function VideoPlayer({ style }: VideoPlayerProps) {
+export default function VideoPlayer({ url, style }: VideoPlayerProps) {
   const [playerState, setPlayerState] = useState<PlayerState>({
     isPlaying: true,
     isMute: true,
@@ -196,7 +197,7 @@ export default function VideoPlayer({ style }: VideoPlayerProps) {
               ref={playerRef}
               width={'100%'}
               height="100%"
-              url="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
+              url={url}
               playing={isPlaying}
               muted={isMute}
               volume={volume}
@@ -244,9 +245,17 @@ function format(seconds: number | string) {
   }
 
   const date = new Date(seconds * 1000);
-  const hh = date.getUTCHours();
-  const mm = date.getUTCMinutes();
-  const ss = date.getUTCSeconds().toString().padStart(2, '0');
+  const formatter = new Intl.DateTimeFormat('fr-FR', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+    timeZone: 'UTC',
+  });
+  const parts = formatter.formatToParts(date);
+  const hh = parts.find((part) => part.type === 'hour')?.value ?? '';
+  const mm = parts.find((part) => part.type === 'minute')?.value ?? '';
+  const ss = parts.find((part) => part.type === 'second')?.value ?? '';
 
   if (hh) {
     return `${hh}:${mm.toString().padStart(2, '0')}:${ss}`;
