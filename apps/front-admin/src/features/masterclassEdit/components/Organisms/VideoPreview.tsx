@@ -1,10 +1,10 @@
+import { VideoPlayer } from '@hetic-saline-royale-academy/kit-ui';
 import { Stack } from '@mui/material';
 import { useRouter } from 'next/router';
-import VideoTitle from '../Atoms/VideoTitle';
-import { useGetMasterclass } from '../../hooks';
 import { UseFormWatch } from 'react-hook-form';
+import { useGetMasterclass } from '../../hooks';
 import { IMasterclassForm } from '../../types';
-import { VideoPlayer } from '@hetic-saline-royale-academy/kit-ui';
+import VideoTitle from '../Atoms/VideoTitle';
 
 interface VideoPreviewProps {
   watch: UseFormWatch<IMasterclassForm>;
@@ -23,7 +23,7 @@ const VideoPreview = ({ watch }: VideoPreviewProps) => {
 
   return (
     <Stack spacing={1}>
-      <VideoPlayer url={masterclass.video_url} />
+      <VideoPlayer url={masterclass.video_url} title={title} />
       <VideoTitle>{title}</VideoTitle>
     </Stack>
   );
