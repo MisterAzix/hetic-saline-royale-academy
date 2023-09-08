@@ -1,22 +1,9 @@
-import { Chapter } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
+import { CouseI } from '../../../../src/@types/course';
 
 const COURSE_KEY = 'course';
 
-interface CouseI {
-  id?: string;
-  title?: string;
-  description?: string;
-  progress_tracking_id?: string;
-  user_id?: string;
-  is_deleted?: boolean;
-  created_by?: string;
-  updated_by?: string;
-  created_at?: Date;
-  updated_at?: Date;
-  chapters: Chapter[];
-}
 export const fetchUserCourse = async (
   id: string,
   access_token?: string

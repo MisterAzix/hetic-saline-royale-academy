@@ -1,13 +1,13 @@
 import { GetServerSidePropsContext } from 'next';
 import { getServerSession } from 'next-auth';
 import { ReactElement } from 'react';
-import CourseListe from '../../features/courses/components/Organisms/CourseListe';
+import CourseList from '../../features/courses/components/Organisms/CourseList';
 import DashboardLayout from '../../layout/DashboardLayout';
 import { routes } from '../../routes';
 import { authOptions } from '../api/auth/[...nextauth]';
 
 const Courses = () => {
-  return <CourseListe />;
+  return <CourseList />;
 };
 
 Courses.getLayout = (page: ReactElement) => {

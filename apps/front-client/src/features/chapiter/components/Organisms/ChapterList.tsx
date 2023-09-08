@@ -3,6 +3,7 @@ import { Text } from '@hetic-saline-royale-academy/kit-ui';
 import { Stack } from '@mui/material';
 import { Chapter } from '@prisma/client';
 import { NextRouter, useRouter } from 'next/router';
+import { ChapitersI } from '../../../../../src/@types/chapter';
 
 const ChapterList = styled(Stack)`
   gap: 1rem;
@@ -21,10 +22,6 @@ const ChapterItem = styled.div`
     background-color: #e5e5e5;
   }
 `;
-
-interface ChapitersI {
-  chapiters: Chapter[];
-}
 
 const Chapiters = ({ chapiters }: ChapitersI) => {
   const router: NextRouter = useRouter();

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Card, Text } from '@hetic-saline-royale-academy/kit-ui';
 import { CardContent, Divider, Stack } from '@mui/material';
-import ChapterList from '../../../chapiter/Organisms/ChapterList';
+import ChapterList from '../../../chapiter/components/Organisms/ChapterList';
 import { useGetUserCourse } from '../../hooks/useGetUserCourse';
 
 const Container = styled.div`
