@@ -13,7 +13,6 @@ import { CreateRewardDto } from '../apps/api/src/app/rewards/dto/create-reward.d
 import { CreateSubscriptionDto } from '../apps/api/src/app/subscription/dto/create-subscription.dto';
 import { CreateTagDto } from '../apps/api/src/app/tag/dto/create-tag.dto';
 import { UserCreateDto } from '../apps/api/src/app/users/dto/create-user.dto';
-import { CreateCourseDto } from '../apps/api/src/app/course/dto/create-course.dto';
 
 const prisma = new PrismaClient();
 
