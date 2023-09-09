@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
-import { CouseI } from '../../../../src/@types/course';
+import { ICourseResponse } from '../types';
 
 const COURSE_KEY = 'course';
 
 export const fetchUserCourse = async (
   id: string,
   access_token?: string
-): Promise<CouseI> => {
+): Promise<ICourseResponse> => {
   const url = new URL(`/api/course/${id}`, process.env.API_URL);
 
   const response = await fetch(url, {

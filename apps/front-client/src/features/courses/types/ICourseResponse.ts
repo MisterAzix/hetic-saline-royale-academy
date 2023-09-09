@@ -1,6 +1,6 @@
 import { Chapter } from '@prisma/client';
 
-export interface CouseI {
+export interface ICourseResponse {
   id?: string;
   title?: string;
   description?: string;

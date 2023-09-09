@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import { Card, Text } from '@hetic-saline-royale-academy/kit-ui';
 import { CardContent, Divider, Stack } from '@mui/material';
-import ChapterList from '../../../chapiter/components/Organisms/ChapterList';
-import { useGetUserCourse } from '../../hooks/useGetUserCourse';
+import ChapterList from '../../../chapter/components/Organisms/ChapterList';
+import { useGetUserCourse } from '../../hooks';
+import { getRelativeTimeString } from '../../utils';
 
 const Container = styled.div`
   display: flex;
@@ -33,6 +34,9 @@ const Course = ({ id }: CourseI) => {
   if (isUserCourseLoading || !course) {
     return null;
   }
+
+  const daysDifference = getRelativeTimeString(course.updated_at || new Date());
+
   return (
     <Container>
       <CardContainer>
@@ -42,19 +46,19 @@ const Course = ({ id }: CourseI) => {
         >
           <CardContent>
             <Text preset="text-lg-semibold" color="gray-900">
-              {course?.title}
+              {course.title}
             </Text>
             <Text preset="text-xs-regular" color="gray-500">
-              Il y a 2 jours
+              {daysDifference}
             </Text>
             <Divider sx={{ my: 1 }} />
             <Text preset="text-sm-regular" color="gray-500">
-              {course?.description}
+              {course.description}
             </Text>
           </CardContent>
         </LargeImageCard>
       </CardContainer>
-      <ChapterList chapiters={course?.chapters} />
+      <ChapterList chapters={course.chapters} />
     </Container>
   );
 };

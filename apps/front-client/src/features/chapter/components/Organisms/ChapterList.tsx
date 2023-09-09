@@ -3,7 +3,6 @@ import { Text } from '@hetic-saline-royale-academy/kit-ui';
 import { Stack } from '@mui/material';
 import { Chapter } from '@prisma/client';
 import { NextRouter, useRouter } from 'next/router';
-import { ChapitersI } from '../../../../../src/@types/chapter';
 
 const ChapterList = styled(Stack)`
   gap: 1rem;
@@ -23,7 +22,7 @@ const ChapterItem = styled.div`
   }
 `;
 
-const Chapiters = ({ chapiters }: ChapitersI) => {
+const Chapters = ({ chapters }: { chapters: Chapter[] }) => {
   const router: NextRouter = useRouter();
 
   const handleCardClick = async (id: string | null) => {
@@ -33,10 +32,10 @@ const Chapiters = ({ chapiters }: ChapitersI) => {
   return (
     <>
       <Text preset="text-xl-semibold" color="gray-900">
-        Liste de master classe
+        Liste de masterclasses
       </Text>
       <ChapterList>
-        {chapiters?.map((chapter: Chapter, index: number) => (
+        {chapters?.map((chapter: Chapter, index: number) => (
           <ChapterItem
             key={index}
             onClick={() => handleCardClick(chapter?.masterclass_id)}
@@ -54,4 +53,4 @@ const Chapiters = ({ chapiters }: ChapitersI) => {
   );
 };
 
-export default Chapiters;
+export default Chapters;
