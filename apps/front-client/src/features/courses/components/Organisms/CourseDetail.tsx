@@ -24,11 +24,7 @@ const LargeImageCard = styled(Card)`
   }
 `;
 
-interface CourseI {
-  id: string;
-}
-
-const Course = ({ id }: CourseI) => {
+const Course = ({ id }: { id: string }) => {
   const { course, isUserCourseLoading } = useGetUserCourse(id);
 
   if (isUserCourseLoading || !course) {
