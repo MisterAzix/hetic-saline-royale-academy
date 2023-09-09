@@ -9,17 +9,12 @@ import {
 
 export class UserCreateDto implements Prisma.UserCreateInput {
   @ApiProperty({ type: String })
-  @IsString()
-  @IsNotEmpty()
   first_name: string;
 
   @ApiProperty({ type: String })
-  @IsString()
-  @IsNotEmpty()
   last_name: string;
 
   @ApiProperty({ type: String, required: false })
-  @IsString()
   @IsEmail()
   email: string;
 

@@ -9,8 +9,6 @@ import {
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Achievement } from '@prisma/client';
-import { CreatedBy } from '../decorators/created-by.decorator';
-import { UpdatedBy } from '../decorators/updated-by.decorator';
 import { AchievementService } from './achievement.service';
 import { CreateAchievementDto } from './dto/create-achievement.dto';
 import { UpdateAchievementDto } from './dto/update-achievement.dto';
@@ -29,14 +27,10 @@ export class AchievementController {
   @Post()
   @ApiCreatedResponse({ type: AchievementEntity })
   create(
-    @Body() createAchievementDto: CreateAchievementDto,
-    @CreatedBy() created_by: string,
-    @UpdatedBy() updated_by: string
+    @Body() createAchievementDto: CreateAchievementDto
   ): Promise<Achievement> {
     return this.achievementService.create({
       ...createAchievementDto,
-      created_by,
-      updated_by,
     });
   }
 
@@ -74,12 +68,10 @@ export class AchievementController {
   @ApiOkResponse({ type: AchievementEntity })
   update(
     @Param('id') id: string,
-    @Body() updateAchievementDto: UpdateAchievementDto,
-    @UpdatedBy() updated_by: string
+    @Body() updateAchievementDto: UpdateAchievementDto
   ): Promise<Achievement> {
     return this.achievementService.update(id, {
       ...updateAchievementDto,
-      updated_by,
     });
   }
 

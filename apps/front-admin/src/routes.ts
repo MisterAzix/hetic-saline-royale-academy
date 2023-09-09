@@ -3,6 +3,7 @@ export const routes = {
   login: '/login',
   dashboard: '/dashboard',
   masterclass: '/masterclass',
+  course: '/course',
 };
 
 export type DashboardRoutes = (typeof routes)[keyof typeof routes];

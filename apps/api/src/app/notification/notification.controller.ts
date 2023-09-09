@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Notification } from '@prisma/client';
 import { CreateNotificationDto } from './dto/create-notification.dto';
 import { UpdateNotificationDto } from './dto/update-notification.dto';
@@ -39,7 +39,7 @@ export class NotificationController {
    * @returns {Promise<Notification[]>} - An array of notifications.
    */
   @Get()
-  @ApiCreatedResponse({ type: NotificationEntity, isArray: true })
+  @ApiOkResponse({ type: NotificationEntity, isArray: true })
   findAll(): Promise<Notification[]> {
     return this.notificationService.findAll();
   }
@@ -51,7 +51,7 @@ export class NotificationController {
    * @returns {Promise<Notification>} - The notification with the specified ID.
    */
   @Get(':id')
-  @ApiCreatedResponse({ type: NotificationEntity })
+  @ApiOkResponse({ type: NotificationEntity })
   findOne(@Param('id') id: string): Promise<Notification> {
     return this.notificationService.findOne(id);
   }
@@ -64,7 +64,7 @@ export class NotificationController {
    * @returns {Promise<Notification>} - The updated notification.
    */
   @Patch(':id')
-  @ApiCreatedResponse({ type: NotificationEntity })
+  @ApiOkResponse({ type: NotificationEntity })
   update(
     @Param('id') id: string,
     @Body() updateNotificationDto: UpdateNotificationDto
@@ -79,7 +79,7 @@ export class NotificationController {
    * @returns {Promise<Notification>} - The removed notification.
    */
   @Delete(':id')
-  @ApiCreatedResponse({ type: NotificationEntity })
+  @ApiOkResponse({ type: NotificationEntity })
   remove(@Param('id') id: string): Promise<Notification> {
     return this.notificationService.remove(id);
   }

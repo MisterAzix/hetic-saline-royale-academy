@@ -1,19 +1,20 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { Grid, IconButton, Slider } from '@mui/material';
-import Text from '../../../Atoms/Text';
 import {
-  FastRewind,
-  PlayArrowRounded,
   FastForwardRounded,
-  VolumeUp,
+  FastRewind,
   Fullscreen,
   PauseRounded,
+  PlayArrowRounded,
   VolumeOff,
+  VolumeUp,
 } from '@mui/icons-material';
-import { from, getTheme } from '../../../../styles/mixins';
-import { css } from '@emotion/react';
+import { Grid, IconButton, Slider } from '@mui/material';
 import { SyntheticEvent } from 'react';
+import { from, getTheme } from '../../../../styles/mixins';
 import { COLORS } from '../../../../styles/theme';
+import Text from '../../../Atoms/Text';
+import { VideoPlayerProps } from '../VideoPlayer';
 
 export type VideoPlayerControlProps = {
   handlePlayPause: () => void;
@@ -37,6 +38,7 @@ export type VideoPlayerControlProps = {
   volume: number;
   playedTime: string;
   playValue: number;
+  title: VideoPlayerProps['title'];
 };
 
 export default function VideoPlayerControls({
@@ -55,6 +57,7 @@ export default function VideoPlayerControls({
   volume,
   playedTime,
   playValue,
+  title,
 }: VideoPlayerControlProps) {
   const ariaLabel = 'rewind';
   return (
@@ -67,7 +70,7 @@ export default function VideoPlayerControls({
         style={{ padding: 16 }}
       >
         <PlayerText item>
-          <Text preset={'text-lg-regular'}>Player</Text>
+          <Text preset={'text-lg-regular'}>{title}</Text>
         </PlayerText>
       </Grid>
 
@@ -102,7 +105,7 @@ export default function VideoPlayerControls({
         style={{ padding: 16 }}
       >
         <Title item>
-          <Text preset={'text-xs-regular'}>Tears Of Steel</Text>
+          <Text preset={'text-xs-regular'}>{title}</Text>
         </Title>
 
         <Grid item xs={12}>

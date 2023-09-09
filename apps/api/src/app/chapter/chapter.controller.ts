@@ -8,7 +8,7 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Chapter } from '@prisma/client';
 import { AdminGuard } from '../admin.guard';
 import { ChapterService } from './chapter.service';
@@ -29,7 +29,7 @@ export class ChapterController {
    */
   @UseGuards(AdminGuard)
   @Post()
-  @ApiCreatedResponse({ type: ChapterEntity })
+  @ApiOkResponse({ type: ChapterEntity })
   create(@Body() createChapterDto: CreateChapterDto): Promise<Chapter> {
     return this.chapterService.create(createChapterDto);
   }
@@ -41,7 +41,7 @@ export class ChapterController {
    */
   @UseGuards(AdminGuard)
   @Get()
-  @ApiCreatedResponse({ type: ChapterEntity, isArray: true })
+  @ApiOkResponse({ type: ChapterEntity, isArray: true })
   findAll(): Promise<Chapter[]> {
     return this.chapterService.findAll();
   }
@@ -54,7 +54,7 @@ export class ChapterController {
    */
   @UseGuards(AdminGuard)
   @Get(':id')
-  @ApiCreatedResponse({ type: ChapterEntity })
+  @ApiOkResponse({ type: ChapterEntity })
   findOne(@Param('id') id: string): Promise<Chapter> {
     return this.chapterService.findOne(id);
   }
@@ -68,7 +68,7 @@ export class ChapterController {
    */
   @UseGuards(AdminGuard)
   @Patch(':id')
-  @ApiCreatedResponse({ type: ChapterEntity })
+  @ApiOkResponse({ type: ChapterEntity })
   update(
     @Param('id') id: string,
     @Body() updateChapterDto: UpdateChapterDto
@@ -84,7 +84,7 @@ export class ChapterController {
    */
   @UseGuards(AdminGuard)
   @Delete(':id')
-  @ApiCreatedResponse({ type: ChapterEntity })
+  @ApiOkResponse({ type: ChapterEntity })
   remove(@Param('id') id: string): Promise<Chapter> {
     return this.chapterService.remove(id);
   }

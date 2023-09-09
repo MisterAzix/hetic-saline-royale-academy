@@ -25,7 +25,6 @@ import { AuthService } from './auth.service';
 @Controller('auth')
 @ApiTags('authentification')
 export class AuthController {
-  //Dependency Injection
   constructor(
     private authService: AuthService,
     private userService: UsersService

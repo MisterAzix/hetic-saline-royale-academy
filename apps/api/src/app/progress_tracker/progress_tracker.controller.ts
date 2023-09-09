@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { ProgressTracker } from '@prisma/client';
 import { CreateProgressTrackerDto } from './dto/create-progress_tracker.dto';
 import { UpdateProgressTrackerDto } from './dto/update-progress_tracker.dto';
@@ -43,7 +43,7 @@ export class ProgressTrackerController {
    * @returns {Promise<ProgressTracker[]>} - An array of progress trackers.
    */
   @Get()
-  @ApiCreatedResponse({ type: ProgressTrackerEntity, isArray: true })
+  @ApiOkResponse({ type: ProgressTrackerEntity, isArray: true })
   findAll(): Promise<ProgressTracker[]> {
     return this.progressTrackerService.findAll();
   }
@@ -55,7 +55,7 @@ export class ProgressTrackerController {
    * @returns {Promise<ProgressTracker>} - The progress tracker with the specified ID.
    */
   @Get(':id')
-  @ApiCreatedResponse({ type: ProgressTrackerEntity })
+  @ApiOkResponse({ type: ProgressTrackerEntity })
   findOne(@Param('id') id: string): Promise<ProgressTracker> {
     return this.progressTrackerService.findOne(id);
   }
@@ -68,7 +68,7 @@ export class ProgressTrackerController {
    * @returns {Promise<ProgressTracker>} - The updated progress tracker.
    */
   @Patch(':id')
-  @ApiCreatedResponse({ type: ProgressTrackerEntity })
+  @ApiOkResponse({ type: ProgressTrackerEntity })
   update(
     @Param('id') id: string,
     @Body() updateProgressTrackerDto: UpdateProgressTrackerDto
@@ -83,7 +83,7 @@ export class ProgressTrackerController {
    * @returns {Promise<ProgressTracker>} - The removed progress tracker.
    */
   @Delete(':id')
-  @ApiCreatedResponse({ type: ProgressTrackerEntity })
+  @ApiOkResponse({ type: ProgressTrackerEntity })
   remove(@Param('id') id: string): Promise<ProgressTracker> {
     return this.progressTrackerService.remove(id);
   }
