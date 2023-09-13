@@ -4,7 +4,6 @@ import { CardContent, Divider, Stack } from '@mui/material';
 import { NextRouter, useRouter } from 'next/router';
 import { routes } from '../../../../routes';
 import { useGetUserCourses } from '../../hooks';
-import { getRelativeTimeString } from '../../utils';
 
 const CardContainer = styled(Stack)`
   gap: 1rem;
@@ -26,9 +25,9 @@ const CourseList = () => {
   return (
     <>
       {courses?.map((course, index) => {
-        const daysDifference = getRelativeTimeString(
-          course.updated_at || new Date()
-        );
+        // const daysDifference = getRelativeTimeString(
+        //   course.updated_at || new Date()
+        // );
 
         return (
           <CardContainer key={index} onClick={() => handleCardClick(course.id)}>
@@ -38,7 +37,7 @@ const CourseList = () => {
                   {course.title}
                 </Text>
                 <Text preset="text-xs-regular" color="gray-500">
-                  {daysDifference}
+                  {/* {daysDifference} */}
                 </Text>
                 <Divider sx={{ my: 1 }} />
                 <Text preset="text-sm-regular" color="gray-500">

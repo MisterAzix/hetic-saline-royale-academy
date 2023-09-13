@@ -3,7 +3,6 @@ import { Card, Text } from '@hetic-saline-royale-academy/kit-ui';
 import { CardContent, Divider, Stack } from '@mui/material';
 import ChapterList from '../../../chapter/components/Organisms/ChapterList';
 import { useGetUserCourse } from '../../hooks';
-import { getRelativeTimeString } from '../../utils';
 
 const Container = styled.div`
   display: flex;
@@ -31,7 +30,7 @@ const Course = ({ id }: { id: string }) => {
     return null;
   }
 
-  const daysDifference = getRelativeTimeString(course.updated_at || new Date());
+  // const daysDifference = getRelativeTimeString(course.updated_at || new Date());
 
   return (
     <Container>
@@ -45,7 +44,7 @@ const Course = ({ id }: { id: string }) => {
               {course.title}
             </Text>
             <Text preset="text-xs-regular" color="gray-500">
-              {daysDifference}
+              {/* {daysDifference} */}
             </Text>
             <Divider sx={{ my: 1 }} />
             <Text preset="text-sm-regular" color="gray-500">

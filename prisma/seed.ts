@@ -55,7 +55,7 @@ async function seed() {
   }
 
   try {
-    await randomCourses(2);
+    await randomCourses(10);
     logger.log('Creating randomCourses success');
   } catch (error) {
     logger.error('Creating randomCourses failled :', error);
