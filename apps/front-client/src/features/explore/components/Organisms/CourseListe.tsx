@@ -16,18 +16,14 @@ const CourseListe = () => {
 
   const { courses, isAllCoursesLoading } = useGetAllCourses();
 
-  const { uploadCourse, isLoading } = useUpdateCourse();
+  const { updateCourse, isLoading } = useUpdateCourse();
 
   const handleCardClick = async (id: string) => {
     await router.push(`${routes.courses}/${id}`);
   };
 
   const handleOnSubscribeClick = async (id: string) => {
-    try {
-      await uploadCourse(id);
-    } catch (error) {
-      console.log('error', error);
-    }
+    await updateCourse(id);
   };
 
   if (isAllCoursesLoading || !courses.length) {
