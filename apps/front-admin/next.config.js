@@ -16,7 +16,14 @@ const nextConfig = {
     API_URL: process.env.API_URL || 'http://localhost:3000',
   },
   images: {
-    domains: ['res.cloudinary.com'],
+    domains: ['res.cloudinary.com', 'images.unsplash.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'plus.unsplash.com',
+        port: '',
+      },
+    ],
   },
 };
 
