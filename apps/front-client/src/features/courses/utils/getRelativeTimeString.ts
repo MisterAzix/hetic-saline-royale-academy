@@ -12,7 +12,6 @@ const UNITS: Intl.RelativeTimeFormatUnit[] = [
 
 const LANGUAGE = 'fr';
 
-//TODO: Fix type error @maxence
 export function getRelativeTimeString(date: Date): string {
   const deltaSeconds = Math.round((date.getTime() - Date.now()) / 1000);
 

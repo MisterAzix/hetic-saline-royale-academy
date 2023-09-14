@@ -1,4 +1,4 @@
-import { Chapter } from '@prisma/client';
+import { IChapter } from '../../chapter/types';
 
 export interface ICourseResponse {
   id?: string;
@@ -11,5 +11,5 @@ export interface ICourseResponse {
   updated_by?: string;
   created_at?: Date;
   updated_at?: Date;
-  chapters: Chapter[];
+  chapters: IChapter[];
 }

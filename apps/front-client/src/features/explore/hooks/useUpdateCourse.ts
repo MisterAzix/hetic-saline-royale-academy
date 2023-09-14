@@ -1,8 +1,7 @@
 import { Course } from '@prisma/client';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
-import { routes } from '../../../../../front-client/src/routes';
+import { COURSE_KEY } from './useGetAllCourses';
 
 export const updateCourse = async (
   id: string | null,
@@ -28,7 +27,7 @@ export const updateCourse = async (
 };
 
 export const useUpdateCourse = () => {
-  const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { data } = useSession();
 
@@ -39,7 +38,9 @@ export const useUpdateCourse = () => {
     (id: string) => updateCourse(id, userId, access_token),
     {
       onSuccess: async () => {
-        await router.push(routes.explore);
+        await queryClient.invalidateQueries({
+          queryKey: [COURSE_KEY],
+        });
       },
     }
   );

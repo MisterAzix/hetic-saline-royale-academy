@@ -22,10 +22,6 @@ const CourseListe = () => {
     await router.push(`${routes.courses}/${id}`);
   };
 
-  const handleOnSubscribeClick = async (id: string) => {
-    await updateCourse(id);
-  };
-
   if (isAllCoursesLoading || !courses.length) {
     return null;
   }
@@ -55,7 +51,7 @@ const CourseListe = () => {
             </ContentWithMargin>
             <CardActions>
               <SubscribeButton
-                onClick={() => handleOnSubscribeClick(course.id)}
+                onClick={() => updateCourse(course.id)}
                 disabled={isLoading || !!course.user_id}
                 hasUserId={!!course.user_id}
               >

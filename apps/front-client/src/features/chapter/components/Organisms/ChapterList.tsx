@@ -1,28 +1,12 @@
-import styled from '@emotion/styled';
 import { Text } from '@hetic-saline-royale-academy/kit-ui';
-import { Stack } from '@mui/material';
-import { Chapter } from '@prisma/client';
 import { NextRouter, useRouter } from 'next/router';
+import { IChapter } from '../../types';
+import ChapterItem from '../Atoms/ChapterItem';
+import ChapterList from '../Atoms/ChapterList';
+import Description from '../Atoms/Description';
+import ImageCard from '../Atoms/ImageCard';
 
-const ChapterList = styled(Stack)`
-  gap: 1rem;
-  padding: 20px;
-  font-size: 1.2rem;
-`;
-
-const ChapterItem = styled.div`
-  border: 1px solid #ccc;
-  padding: 10px;
-  background-color: #f9f9f9;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #e5e5e5;
-  }
-`;
-
-const Chapters = ({ chapters }: { chapters: Chapter[] }) => {
+const Chapters = ({ chapters }: { chapters: IChapter[] }) => {
   const router: NextRouter = useRouter();
 
   const handleCardClick = async (id: string | null) => {
@@ -35,17 +19,28 @@ const Chapters = ({ chapters }: { chapters: Chapter[] }) => {
         Liste de masterclasses
       </Text>
       <ChapterList>
-        {chapters?.map((chapter: Chapter, index: number) => (
+        {chapters?.map((chapter: IChapter, index: number) => (
           <ChapterItem
             key={index}
             onClick={() => handleCardClick(chapter?.masterclass_id)}
           >
-            <Text preset="text-lg-semibold" color="gray-900">
-              {chapter?.title}
-            </Text>
-            <Text preset="text-sm-regular" color="gray-500">
-              {chapter?.timecode}
-            </Text>
+            <ImageCard
+              src={
+                chapter?.masterclass?.cover_url ?? '/images/default_cover.png'
+              }
+              alt={chapter?.masterclass?.title}
+              width={100}
+              height={100}
+            />
+            <div>
+              <Text preset="text-lg-semibold" color="gray-900">
+                {chapter?.title}
+              </Text>
+              <Text preset="text-sm-regular" color="gray-500">
+                {chapter?.timecode}
+              </Text>
+              <Description>{chapter?.masterclass?.description}</Description>
+            </div>
           </ChapterItem>
         ))}
       </ChapterList>

@@ -2,7 +2,7 @@ import { Course } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
 
-const COURSE_KEY = 'courses';
+export const COURSE_KEY = 'courses';
 
 export const fetchAllCourses = async (
   access_token?: string
