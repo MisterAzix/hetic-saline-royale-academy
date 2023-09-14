@@ -13,7 +13,9 @@ const UNITS: Intl.RelativeTimeFormatUnit[] = [
 const LANGUAGE = 'fr';
 
 export function getRelativeTimeString(date: Date): string {
-  const deltaSeconds = Math.round((date.getTime() - Date.now()) / 1000);
+  const deltaSeconds = Math.round(
+    (new Date(date).getTime() - Date.now()) / 1000
+  );
 
   const unitIndex = CUTOFFS.findIndex(
     (cutoff) => cutoff > Math.abs(deltaSeconds)
