@@ -8,7 +8,6 @@ import { CreateCourseDto } from '../apps/api/src/app/course/dto/create-course.dt
 import { CreateGamificationDto } from '../apps/api/src/app/gamification/dto/create-gamification.dto';
 import { CreateMasterclassDto } from '../apps/api/src/app/masterclass/dto/create-masterclass.dto';
 import { CreateNotificationDto } from '../apps/api/src/app/notification/dto/create-notification.dto';
-import { CreateProgressTrackerDto } from '../apps/api/src/app/progress_tracker/dto/create-progress_tracker.dto';
 import { CreateRewardDto } from '../apps/api/src/app/rewards/dto/create-reward.dto';
 import { CreateSubscriptionDto } from '../apps/api/src/app/subscription/dto/create-subscription.dto';
 import { CreateTagDto } from '../apps/api/src/app/tag/dto/create-tag.dto';
@@ -339,38 +338,6 @@ export const randomNotifications = async (count: number) => {
 
   await prisma.notification.createMany({
     data: notifications,
-    skipDuplicates: true,
-  });
-};
-
-/**
- * Generates random progressTrackers.
- * @param {number} count - The number of progressTrackers to generate.
- * @returns {Promise<CreateProgressTrackerDto[]>} - A promise that resolves to an array of generated progressTrackers.
- */
-const generateRandomPTrackers = async (
-  count: number
-): Promise<CreateProgressTrackerDto[]> => {
-  const progressTrackers: CreateProgressTrackerDto[] = Array.from(
-    { length: count },
-    () => ({
-      progress: faker.number.int({ max: 100 }),
-      user_id: faker.string.alpha(10),
-      course_id: faker.string.alpha(10),
-    })
-  );
-  return progressTrackers;
-};
-
-/**
- * Generates and saves random progressTrackers.
- * @param {number} count - The number of progressTrackers to generate and save.
- */
-export const randomProgressTrackers = async (count: number) => {
-  const progressTrackers = await generateRandomPTrackers(count);
-
-  await prisma.progressTracker.createMany({
-    data: progressTrackers,
     skipDuplicates: true,
   });
 };

@@ -14,9 +14,6 @@ export class CreateCourseDto {
   @ApiProperty({ type: String, required: false })
   user_id?: string;
 
-  @ApiProperty({ type: String, required: false })
-  progress_tracking_id?: string;
-
   @ApiProperty({ type: Object, required: false })
   category?: Prisma.CourseCreateInput['category'];
 

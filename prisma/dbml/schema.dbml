@@ -77,8 +77,6 @@ Table Course {
   category Category
   chapters Chapter [not null]
   tags Tag [not null]
-  progress_tracker ProgressTracker
-  progress_tracking_id String [unique]
   user User
   user_id String
   is_deleted Boolean [default: false]
@@ -96,8 +94,6 @@ Table Gamification {
   achievement Achievement
   user User
   user_id String [unique]
-  progress_trackers ProgressTracker
-  progress_tracking_id String [unique]
   is_deleted Boolean [default: false]
   created_at DateTime [default: `now()`]
   updated_at DateTime
@@ -113,6 +109,7 @@ Table Masterclass {
   status Status [not null, default: 'DRAFT']
   tags Tag [not null]
   chapters Chapter [not null]
+  MasterclassTracker MasterclassTracker [not null]
   is_deleted Boolean [default: false]
   created_at DateTime [default: `now()`]
   updated_at DateTime
@@ -129,18 +126,14 @@ Table Notification {
   updated_at DateTime
 }
 
-Table ProgressTracker {
+Table MasterclassTracker {
   id String [pk]
-  progress Int
-  completed_masterclasses Int [default: 0]
-  total_masterclasses Int [default: 0]
-  completed_chapters Int [default: 0]
-  total_chapters Int [default: 0]
-  course Course
-  gamifications Gamification
-  user User
-  user_id String [unique]
+  progression Int [default: 0]
   is_deleted Boolean [default: false]
+  masterclass_id String [unique]
+  masterclass Masterclass
+  user User
+  user_id String
   created_at DateTime [default: `now()`]
   updated_at DateTime
 }
@@ -200,10 +193,10 @@ Table User {
   ecole String
   picture_url String
   courses Course [not null]
+  MasterclassTracker MasterclassTracker [not null]
   gamefication Gamification
   notification Notification
   subscription Subscription
-  progress_tracker ProgressTracker
   is_deleted Boolean [default: false]
   created_at DateTime [default: `now()`]
   updated_at DateTime
@@ -234,17 +227,15 @@ Ref: Chapter.masterclass_id > Masterclass.id
 
 Ref: Chapter.course_id > Course.id
 
-Ref: Course.progress_tracking_id - ProgressTracker.id
-
 Ref: Course.user_id > User.id
 
 Ref: Gamification.user_id - User.id
 
-Ref: Gamification.progress_tracking_id - ProgressTracker.id
-
 Ref: Notification.user_id - User.id
 
-Ref: ProgressTracker.user_id - User.id
+Ref: MasterclassTracker.masterclass_id > Masterclass.id
+
+Ref: MasterclassTracker.user_id > User.id
 
 Ref: Reward.achievement_id > Achievement.id
 

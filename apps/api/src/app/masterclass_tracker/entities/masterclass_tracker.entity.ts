@@ -1,28 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Gamification } from '@prisma/client';
+import { MasterclassTracker } from '@prisma/client';
 
-export class GamificationEntity implements Gamification {
+export class MasterclassTrackerEntity implements MasterclassTracker {
   @ApiProperty()
   id: string;
-
   @ApiProperty()
-  description: string;
-
+  masterclass_id: string;
   @ApiProperty()
-  experience_point: number;
-
-  @ApiProperty()
-  level: string;
-
-  @ApiProperty()
-  created_at: Date;
-
-  @ApiProperty()
-  updated_at: Date;
-
+  progression: number;
   @ApiProperty()
   is_deleted: boolean;
-
+  @ApiProperty()
+  created_at: Date;
+  @ApiProperty()
+  updated_at: Date;
   @ApiProperty()
   user_id: string;
 }

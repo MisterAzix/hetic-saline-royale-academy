@@ -28,7 +28,4 @@ export class CourseEntity implements Course {
 
   @ApiProperty()
   user_id: string;
-
-  @ApiProperty()
-  progress_tracking_id: string;
 }

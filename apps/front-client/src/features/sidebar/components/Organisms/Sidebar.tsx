@@ -13,12 +13,15 @@ interface SidebarProps {
 }
 
 const SidebarContainer = styled(Stack)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
   background-color: ${palette.gray[900]};
   min-height: 100vh;
   padding: 10px;
   justify-content: space-between;
   transition: width 0.2s ease-in-out;
-  width: 100%;
 
   @media (max-width: 899px) {
     width: 80px;
