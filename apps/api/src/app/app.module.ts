@@ -17,11 +17,12 @@ import { GamificationModule } from './gamification/gamification.module';
 import { MasterclassModule } from './masterclass/masterclass.module';
 import { NotificationModule } from './notification/notification.module';
 import { PrismaModule } from './prisma.module';
-import { ProgressTrackerModule } from './progress_tracker/progress_tracker.module';
 import { RewardsModule } from './rewards/rewards.module';
 import { SubscriptionModule } from './subscription/subscription.module';
 import { TagModule } from './tag/tag.module';
 import { UsersModule } from './users/users.module';
+import { MasterclassTrackerService } from './masterclass_tracker/masterclass_tracker.service';
+import { MasterclassTrackerModule } from './masterclass_tracker/masterclass_tracker.module';
 
 @Module({
   imports: [
@@ -50,16 +51,17 @@ import { UsersModule } from './users/users.module';
     GamificationModule,
     MasterclassModule,
     NotificationModule,
-    ProgressTrackerModule,
     RewardsModule,
     SubscriptionModule,
     TagModule,
+    MasterclassTrackerModule,
   ],
   providers: [
     {
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
     },
+    MasterclassTrackerService,
   ],
 })
 export class AppModule {}

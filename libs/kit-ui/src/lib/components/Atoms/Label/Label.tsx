@@ -10,7 +10,7 @@ const StyledP = styled.p`
   margin: 0 0 6px;
 
   &.error {
-    color: ${palette.error[500]}};
+    color: ${palette.error[500]};
   }
 
   &.disabled {

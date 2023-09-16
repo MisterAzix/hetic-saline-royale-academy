@@ -31,7 +31,7 @@ const DashboardLayout = ({
       <Stack sx={{ gridArea: '1 / 1 / 3 / 2' }}>
         <Sidebar activeRoute={activeRoute} />
       </Stack>
-      <Stack sx={{ gridArea: '2 / 2 / 3 / 3', padding: '16px' }}>
+      <Stack sx={{ gridArea: '2 / 2 / 3 / 3', padding: '40px' }}>
         {children}
       </Stack>
     </Box>

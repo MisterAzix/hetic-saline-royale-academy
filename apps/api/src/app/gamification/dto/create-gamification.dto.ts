@@ -19,9 +19,6 @@ export class CreateGamificationDto {
   @ApiProperty({ type: String, required: false })
   user_id?: string;
 
-  @ApiProperty({ type: String, required: false })
-  progress_tracking_id?: string;
-
   @ApiProperty({ type: Object, required: false })
   achievement?: Prisma.GamificationCreateInput['achievement'];
 }

@@ -1,16 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ProgressTrackerService } from './progress_tracker.service';
+import { MasterclassTrackerService } from './masterclass_tracker.service';
 import { PrismaService } from '../../prisma.service';
 
-describe('ProgressTrackerService', () => {
-  let service: ProgressTrackerService;
+describe('MasterclassTrackerService', () => {
+  let service: MasterclassTrackerService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ProgressTrackerService, PrismaService],
+      providers: [MasterclassTrackerService, PrismaService],
     }).compile();
 
-    service = module.get<ProgressTrackerService>(ProgressTrackerService);
+    service = module.get<MasterclassTrackerService>(MasterclassTrackerService);
   });
 
   it('should be defined', () => {

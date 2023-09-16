@@ -4,9 +4,10 @@ import { routes } from '../../routes';
 import { GetServerSidePropsContext } from 'next';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]';
+import ProgressContainer from '../../features/progress/components/Organisms/ProgressContainer';
 
 function Progress() {
-  return <h1>Progress</h1>;
+  return <ProgressContainer />;
 }
 
 Progress.getLayout = (page: ReactElement) => {
@@ -23,7 +24,6 @@ Progress.getLayout = (page: ReactElement) => {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getServerSession(context.req, context.res, authOptions);
-
   if (!session) {
     return { redirect: { destination: routes.login } };
   }
